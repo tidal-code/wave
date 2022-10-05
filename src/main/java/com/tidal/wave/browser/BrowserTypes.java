@@ -6,7 +6,7 @@ public enum BrowserTypes {
     EDGE("edge"),
     OPERA("opera"),
     SAFARI("safari");
-
+    //test comment
     final String browserName;
 
     BrowserTypes(String browserName) {
