@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::double-clickable-button</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function() {
+      $('#double-clickable-button').on('dblclick', function (e) {
+        $('h2').text('Double click worked');
+        $(this).val("do not click me anymore");
+        $(this).attr('disabled', true);
+        e.stopImmediatePropagation();
+      }).removeAttr('disabled');
+    });
+
+
+
+
+    </script>
+</head>
+<body>
+<h1>Page with double-clickable button</h1>
+
+<br/>
+<h2></h2>
+<div style="width: 400px">
+    <form>
+        <input disabled id="double-clickable-button" type="button" value="double click me">
+    </form>
+</div>
+
+</body>
+</html>

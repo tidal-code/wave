@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Watercare Testing For Button</title>
+    <style>
+       .test_button_class {
+       background-color: #00000;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-family:arial, verdana, helvetica;
+  border-radius:8px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+<h2>Watercare Test Button</h2>
+<p>The button will be disabled after clicking</p>
+
+<button class="test_button_class" disabled id="test_button_id" name="test_button" onclick="changeValue()" type="button">
+    Disabled Button
+</button>
+
+<script>
+      function changeValue(){
+        document.getElementById("test_button_id").innerHTML="Button Clicked";
+        }
+
+
+
+</script>
+</body>
+</html>

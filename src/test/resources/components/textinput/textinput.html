@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Watercare Testing For Text Input</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<h2>Watercare Test Text Input</h2>
+<p>The submitted text will be processed and displayed</p>
+<p id="innerHtmlP">First Value</p>
+<form>
+    Name: <input data-id="dataid123XXXXX" id="myText1" type="text" value="Watercare"/><br>
+    Name: <input id="myText2" type="text" value="QA"/><br>
+    Name: <input id="myText3" type="text" value="Team"/><br>
+    <button id="text_submit_button" onclick="displayValue()" type="button">Submit</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+        function displayValue() {
+            var x = document.getElementById("myText1").value + " " + document.getElementById("myText2").value + " " + document.getElementById("myText3").value;
+            document.getElementById("result").innerHTML = x;
+        }
+
+
+
+</script>
+</body>
+</html>

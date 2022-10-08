@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Page with readonly elements</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var commandDuration = 100;
+
+    function scheduleEnableInputs() {
+      setTimeout(enableInputs, 3 * commandDuration);
+      return false;
+    }
+
+    function enableInputs() {
+      $('[readonly]').each(function() {
+        $(this).removeAttr('readonly');
+      });
+    }
+
+    $(function () {
+      $('#enable-inputs').on('click', scheduleEnableInputs)
+    });
+
+
+
+
+    </script>
+</head>
+<body>
+
+<h1>Page with readonly elements</h1>
+
+<div id="radioButtons">
+    <h2>Radio buttons</h2>
+    <input name="me" type="radio" value="master">Мастер</input>
+    <input name="me" readonly type="radio" value="margarita">Маргарита</input>
+    <input name="me" type="radio" value="cat">Кот "Бегемот"</input>
+    <input name="me" type="radio" value="woland">Theodor Woland</input>
+</div>
+
+<br/>
+<br/>
+
+<div style="width: 400px">
+    <form method="post">
+        <fieldset title="Login form">
+            <label> Username:
+                <input name="username" readonly value=""/>
+            </label> <br/>
+            <label>Password:
+                <input disabled maxlength="24" name="password" value=""/>
+            </label> <br/>
+            <input name="rememberMe" readonly type="checkbox">Remember me<br/><br/>
+            <input disabled name="disabledCheckbox" type="checkbox">Disabled<br/><br/>
+
+            <textarea cols="40" id="text-area" readonly rows="5"></textarea>
+            <textarea cols="40" disabled id="text-area-disabled" rows="5"></textarea>
+        </fieldset>
+    </form>
+</div>
+
+
+<a href="#" id="enable-inputs">Enable input fields</a>
+
+</body>
+</html>

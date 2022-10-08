@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::hash</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(function() {
+        $(window).on("hashchange", function() {
+          $("#hash-value").text(window.location.hash);
+        });
+      });
+
+
+
+
+    </script>
+</head>
+<body>
+<h1>Hash-aware page</h1>
+
+<br/>
+<h2>Current hash is: '<span id="hash-value"></span>'</h2>
+</body>
+</html>

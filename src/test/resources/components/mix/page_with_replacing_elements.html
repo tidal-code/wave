@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>long ajax request</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var commandDuration = 100;
+
+      function startRegularReplacement() {
+        setInterval(replaceElement, commandDuration*10);
+      }
+
+      function replaceElement() {
+        $('#dynamic-element').remove();
+        setTimeout(createElement, commandDuration * 1.5); // a little bit longer than average Selenium command like "isDisplayed()".
+      }
+      function createElement() {
+        $('body').append($('<input id="dynamic-element" value="Hello, I am back"/>'));
+        setTimeout(addCssClass, commandDuration * 1.5);
+      }
+      function addCssClass() {
+        $('#dynamic-element').addClass('reloaded');
+      }
+
+
+
+
+    </script>
+</head>
+<body>
+<h1>Page with replacing elements</h1>
+<input id="dynamic-element" type="text" value="I will be replaced soon"/>
+</body>
+</html>

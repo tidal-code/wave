@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::jquery autocomplete</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link href="jquery-ui.min.css" rel="stylesheet">
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="jquery-ui.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      function log(e) {
+        if (typeof console !== "undefined") console.log(e);
+        $('#log').append('<li>' + e.type + ': ' + e.keyCode + ', ' + e.charCode + ', ' + e.which + '</li>');
+      }
+
+      $(function() {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+        $('#tags')
+            .on('change keyup keydown keypress input paste', log)
+            .autocomplete({
+              autoFocus: true,
+              source: availableTags,
+              change: function(event) {
+                $('h4').text("This is " + $(event.currentTarget).val() + "!");
+              }
+            });
+      });
+
+
+
+
+    </script>
+    <style media="screen" type="text/css">
+      body {
+        font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+        font-size: 62.5%;
+      }
+
+
+
+
+    </style>
+</head>
+<body>
+<h1>Page with JQuery autocomplete</h1>
+
+<ul id="log">
+</ul>
+
+<br/>
+<label for="tags">Tags:
+    <input id="tags"/>
+</label>
+
+<h4></h4>
+
+<button id="anyButton" onclick="void(0);">search</button>
+</body>
+</html>

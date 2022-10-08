@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Watercare Testing For Button</title>
+    <style>
+       .test_button_class {
+  background-color: #fc912d;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-family:arial, verdana, helvetica;
+  border-radius:8px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.test_button_class:hover{
+background-color:#f0afe0;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<h2>Watercare Test Button</h2>
+<p>The value of the button will change when it is clicked</p>
+
+<button class="test_button_class" id="test_button_id" name="test_button" onclick="changeValue()" type="button">Click
+    me
+</button>
+
+<p>A paragraph with <b> this text in bold </b>.</p>
+
+<p>The value of the button will change when it is clicked</p>
+
+
+<h3>Double Click Button</h3>
+
+<button class="test_button_class" id="double_click_button" name="test_button" ondblclick="changeOnDoubleClick()"
+        type="button">Double Click me
+</button>
+
+
+<script>
+        function changeValue(){
+            document.getElementById("test_button_id").innerHTML="Button Clicked";
+        }
+
+        function changeOnDoubleClick(){
+            document.getElementById("double_click_button").innerHTML="Button Double Clicked";
+        }
+
+
+
+</script>
+</body>
+</html>

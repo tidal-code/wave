@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>dialogo</title>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+<script>
+function abrete(){
+$("#dialog" ).dialog();
+}
+
+
+
+</script>
+<div id="dialog" style="display:none;" title="Create new user">
+    <p class="validateTips">All form fields are required.</p>
+    <form action='tuscript.php'>
+        <fieldset>
+            <label for="name">Name</label>
+            <input class="text" id="name" name="name" type="text">
+            <label for="email">Email</label>
+            <input class="text" id="email" name="email" type="text" value="">
+            <label for="password">Password</label>
+            <input class="text" id="password" name="password" type="password" value="">
+        </fieldset>
+    </form>
+</div>
+<button onclick='abrete()'>Create new user</button>
+</body>
+</html>
