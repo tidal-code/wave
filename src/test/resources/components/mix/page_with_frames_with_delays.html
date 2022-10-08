@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::frames with delays</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script type="text/javascript">
+      function delayFrames() {
+        setTimeout(showFrames, 1000);
+      }
+
+      function showFrames() {
+        window.location = 'page_with_frames.html';
+      }
+
+
+
+
+    </script>
+</head>
+<body onload="delayFrames();">
+<h1>Frames will appear soon</h1>
+</body>
+</html>

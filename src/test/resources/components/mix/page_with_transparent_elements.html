@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test page :: Transparent and other Elements with non-standard visibility</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <style>
+    #no-size-link:before {
+      content: "I am the no size link!";
+    }
+
+
+
+    </style>
+</head>
+<body>
+<div>
+    Link is transparent:<a href="#" id="inv-link" style="opacity: 0">Invisible but clickable element</a>
+</div>
+<div>
+    Link is almost transparent:<a href="#" id="link" style="opacity: 0.01">Visible and clickable element</a>
+</div>
+<div>
+    <label for="inv-input">Input is transparent:</label>
+    <input id="inv-input" style="opacity: 0" type="text"></input>
+</div>
+<div>
+    <label for="input">Input is almost transparent:</label>
+    <input id="input" style="opacity: 0.01" type="text"></input>
+</div>
+<div>
+    Link with no size - Link:<a href="#" id="no-size-link"></a>
+</div>
+</body>
+</html>

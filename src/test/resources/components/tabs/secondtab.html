@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Watercare Testing For Button</title>
+    <style>
+       .test_button_class {
+  background-color: #fc912d;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-family:arial, verdana, helvetica;
+  border-radius:8px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.test_button_class:hover{
+background-color:#f0afe0;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<h2>Watercare Second Tab</h2>
+<p>The value of the button will change when it is clicked</p>
+
+<p>Check out <a href="components/tabs/secondtab.html" target="_blank">freeCodeCamp</a>.</p>
+
+<button class="test_button_class" id="test_button_id" name="test_button" onclick="changeValue()" type="button">Click
+    me
+</button>
+<script>
+      function changeValue(){
+        document.getElementById("test_button_id").innerHTML="Button Clicked";
+        }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::disabled elements</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1 disabled="disabled">Page with disabled elements</h1>
+
+<br/>
+
+<div style="width: 400px">
+    <form>
+        <fieldset title="Login form">
+            <label> Username:
+                <input id="username" name="username" value=""/>
+            </label> <br/>
+
+            <label>Password:
+                <input class="masked" disabled="disabled" id="password" name="password"/>
+            </label>
+
+            <label>Captcha:
+                <input id="captcha" name="captcha"/>
+            </label>
+        </fieldset>
+        <input disabled id="login-button" type="button" value="don't click me, I'm disabled"/>
+    </form>
+</div>
+</body>
+</html>

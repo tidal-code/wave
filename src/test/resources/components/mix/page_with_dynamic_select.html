@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::dynamic select</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var commandDuration = 100;
+
+    function drawOptions() {
+      var select = $("#language");
+      $("<option/>").val("'eng'").text("l'a " + '"English"').appendTo(select);
+      $("<option/>").val("rus").text("l'a " + '"Русский"').appendTo(select);
+      $("<option/>").val('"est"').text("l'a " + '"Eesti"').appendTo(select);
+    }
+
+    function rebuildBooks() {
+      $('#books').remove();
+      if ($('#language').val() === 'rus') {
+        setTimeout(buildBooks, commandDuration*1.5);
+      }
+    }
+
+    function buildBooks() {
+      $('form').append('<select id="books"></select>');
+      $('form select').append('<option value="1">книжко</option>');
+    }
+
+    $(function () {
+      $('#language').on('change', function() {
+        $('h2').text($('#language').val());
+        setTimeout(rebuildBooks, commandDuration*1.5); // a little bit longer than average Selenium command like "isDisplayed()".
+      });
+
+      setTimeout(drawOptions, commandDuration*3);
+    });
+
+
+
+
+    </script>
+</head>
+<body>
+<h1>Page with dynamic select</h1>
+<h2></h2>
+<br/>
+
+<div style="width: 400px">
+    <form>
+        <label> Language:
+            <select id="language">
+                <option>-- Choose language--</option>
+            </select>
+        </label>
+
+        <br/>
+        <label> Book:
+            <select id="books">
+                <option selected="" title="All" value="0">All</option>
+                <option value="1">книжко</option>
+            </select>
+        </label>
+    </form>
+</div>
+</body>
+</html>

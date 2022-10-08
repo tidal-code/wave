@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::tabs with delays</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script type="text/javascript">
+      function openNewTabWithDelay() {
+        setTimeout(openNewTab, 2000);
+      }
+
+      function openNewTab() {
+        document.getElementById('open-new-tab').click();
+      }
+
+
+
+
+    </script>
+</head>
+<body>
+<h1>New tab will appear soon</h1>
+
+<a href="javascript:openNewTabWithDelay();" id="open-new-tab-with-delay">open new tab after 2 seconds</a>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<a href="page_with_alerts.html" id="open-new-tab" target="_blank">open new tab</a>
+</body>
+</html>

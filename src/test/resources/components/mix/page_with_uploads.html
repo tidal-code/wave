@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test::uploads</title>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1>File uploads</h1>
+
+<a href="/files/hello_world.txt">Download me</a>
+<a href="/files/hello_world.txt?pause=2000">Download me slowly (2000 ms)</a>
+<a href="/files/файл-с-русским-названием.txt">Download file with cyrillic name</a>
+<a href="/files/файл-с-запрещёнными-символами.txt">Download file with "forbidden" characters in name</a>
+<a href="/files/unexisting_file.png">Download missing file</a>
+</body>
+</html>
