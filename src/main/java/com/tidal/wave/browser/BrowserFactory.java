@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -23,8 +22,6 @@ public class BrowserFactory {
                 return new Firefox().getDriver((FirefoxOptions) options);
             case "EDGE":
                 return new Edge().getDriver((EdgeOptions) options);
-            case "OPERA":
-                return new Opera().getDriver((OperaOptions) options);
             case "SAFARI":
                 return new SafariDriver((SafariOptions) options);
             default:

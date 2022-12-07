@@ -10,15 +10,13 @@ import static io.github.bonigarcia.wdm.WebDriverManager.getInstance;
 
 
 class Chrome {
-
     private static final Logger logger = LogManager.getLogger(Chrome.class);
 
     public WebDriver getDriver(ChromeOptions options) {
-        getInstance(ChromeDriver.class).setup();
+        logger.info("Test Starting with Chrome Browser");
         if(options == null){
             return new ChromeDriver();
         }
-        logger.info("Test Starting with ChromeDriver");
         return new ChromeDriver(options);
     }
 }
