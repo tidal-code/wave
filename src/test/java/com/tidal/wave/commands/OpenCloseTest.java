@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -43,15 +42,6 @@ public class OpenCloseTest {
         Browser.type("edge").withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
         assertThat(browserName, is(equalTo("msedge")));
-        Browser.close();
-    }
-
-    @Test
-    public void operaOpenTest(){
-        OperaOptions options = new OperaOptions();
-        Browser.type("opera").withOptions(options).open("https://google.co.nz");
-        String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
-        assertThat(browserName, is(equalTo("opera")));
         Browser.close();
     }
 }

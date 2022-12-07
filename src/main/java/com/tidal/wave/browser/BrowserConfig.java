@@ -20,8 +20,6 @@ public final class BrowserConfig {
     private final HashMap<Activity, Boolean> activityMap = new HashMap<>();
     private final Driver driver = new Driver();
 
-
-
     public BrowserConfig type(String browserType) {
         this.browserType = browserType;
         return this;
@@ -76,8 +74,6 @@ public final class BrowserConfig {
             activityMap.forEach((k, v) -> addData(k.getActivityType(), String.valueOf(v)));
         }
     }
-
-
 }
 
 

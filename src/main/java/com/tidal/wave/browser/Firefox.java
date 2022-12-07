@@ -1,5 +1,7 @@
 package com.tidal.wave.browser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -7,8 +9,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import static io.github.bonigarcia.wdm.WebDriverManager.getInstance;
 
 class Firefox {
+    private static final Logger logger = LogManager.getLogger(Firefox.class);
     public WebDriver getDriver(FirefoxOptions options) {
-        getInstance(FirefoxDriver.class).setup();
+        logger.info("Test Starting with Firefox Browser");
         if(options == null){
             return new FirefoxDriver();
         }

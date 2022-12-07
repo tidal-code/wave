@@ -13,6 +13,12 @@ public class PropertiesFinderTest {
     }
 
     @Test
+    public void getPasswortempd() {
+        String password = PropertiesFinder.getProperty("eam_secret");
+        System.out.println(password);
+    }
+
+    @Test
     public void getIPSPassword() {
         String password = PropertiesFinder.getProperty("login.password.test");
         assertEquals("Billing2026!", password);

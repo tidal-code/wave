@@ -1,5 +1,7 @@
 package com.tidal.wave.browser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -8,8 +10,10 @@ import static io.github.bonigarcia.wdm.WebDriverManager.getInstance;
 
 class Edge{
 
+    private static final Logger logger = LogManager.getLogger(Edge.class);
+
     public WebDriver getDriver(EdgeOptions options) {
-        getInstance(EdgeDriver.class).arch64().setup();
+        logger.info("Test Starting with Edge Browser");
         if(options == null){
            return new EdgeDriver();
         }
