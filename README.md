@@ -10,7 +10,7 @@ You can download the dependency from maven
 <dependency>
    <groupId>io.github.tidal-code</groupId>
    <artifactId>wave</artifactId>
-   <version>1.0.0</version>
+   <version>1.1.0</version>
 </dependency>
 ```
 
