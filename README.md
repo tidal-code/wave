@@ -14,7 +14,7 @@ You can download the dependency from maven
 </dependency>
 ```
 
-## Usage
+## Usage Example:
 
 ``` java
 Browser.open("https:\\google.co.nz");
