@@ -5,7 +5,6 @@ import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.commands.GetAllAttributes;
 import com.tidal.wave.commands.GetAllCssAttributes;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
@@ -20,8 +19,6 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 public class StateChangeExpectation extends Expectation {
 
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
-    private boolean result;
-
 
     @Override
     public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
@@ -62,8 +59,6 @@ public class StateChangeExpectation extends Expectation {
 
     @Override
     public void orElseFail() {
-        if (!result) {
-            throw new ExpectationFailure("Expected a change of state but did not happen");
-        }
+        super.orElseFail("Expected a change of state but did not happen");
     }
 }

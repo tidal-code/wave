@@ -3,7 +3,6 @@ package com.tidal.wave.verification.expectations;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
@@ -17,7 +16,6 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class ElementPresentExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
-    private boolean result;
     private By byLocator;
 
     @Override
@@ -45,8 +43,6 @@ public class ElementPresentExpectation extends Expectation {
 
     @Override
     public void orElseFail() {
-        if (!result) {
-            throw new ExpectationFailure(String.format("Expected condition failed : Element %s expected to present but was not", byLocator));
-        }
+        super.orElseFail(String.format("Expected condition failed : Element %s expected to present but was not", byLocator));
     }
 }
