@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import static io.github.bonigarcia.wdm.WebDriverManager.getInstance;
 
 class Firefox {
     private static final Logger logger = LogManager.getLogger(Firefox.class);

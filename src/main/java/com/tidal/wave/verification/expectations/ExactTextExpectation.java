@@ -3,7 +3,6 @@ package com.tidal.wave.verification.expectations;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
@@ -20,7 +19,6 @@ public class ExactTextExpectation extends Expectation {
     private static final String FIND_TEXT_DATA = "findTextData";
     private final String value;
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
-    private boolean result;
     private boolean isMultiple;
     private boolean isVisible;
     private List<By> locatorSet;
@@ -46,7 +44,8 @@ public class ExactTextExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected value '%s' is not equal to actual value %s", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, FIND_TEXT_DATA)))
+                .withMessage(String.format("Expected value '%s' is not equal to actual value %s", value, executor.isVisible(isVisible)
+                        .withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, FIND_TEXT_DATA)))
                 .until(e -> e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
@@ -56,8 +55,8 @@ public class ExactTextExpectation extends Expectation {
 
     @Override
     public void orElseFail() {
-        if (!result) {
-            throw new ExpectationFailure(String.format("Expected value '%s' is not equal to actual value %s", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, FIND_TEXT_DATA)));
-        }
+        super.orElseFail(String.format("Expected value '%s' is not equal to actual value %s", value,
+                executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class,
+                        FIND_TEXT_DATA)));
     }
 }

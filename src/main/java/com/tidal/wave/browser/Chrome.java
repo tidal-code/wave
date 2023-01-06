@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static io.github.bonigarcia.wdm.WebDriverManager.getInstance;
-
 
 class Chrome {
     private static final Logger logger = LogManager.getLogger(Chrome.class);

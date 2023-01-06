@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.IsEnabled;
 import com.tidal.wave.commands.IsVisible;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
@@ -59,8 +58,7 @@ public class InteractableExpectation extends Expectation {
 
     @Override
     public void orElseFail() {
-        if (!isVisibleResult || !isEnabledResult) {
-            throw new ExpectationFailure(String.format("Expected condition failed : Element %s expected to be interactable but was not", byLocator));
-        }
+        result = isVisibleResult && isEnabledResult;
+        super.orElseFail(String.format("Expected condition failed : Element %s expected to be interactable but was not", byLocator));
     }
 }

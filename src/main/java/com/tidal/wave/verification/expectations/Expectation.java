@@ -1,11 +1,14 @@
 package com.tidal.wave.verification.expectations;
 
+import com.tidal.wave.exceptions.ExpectationFailure;
 import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class Expectation {
+
+    protected boolean result;
 
     /**
      * Expecting an element TO BE STALE or no longer attached to the current DOM.<br>
@@ -232,4 +235,10 @@ public abstract class Expectation {
     public abstract void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet);
 
     public abstract void orElseFail();
+
+    public void orElseFail(String message) {
+        if (!result) {
+            throw new ExpectationFailure(message);
+        }
+    }
 }
