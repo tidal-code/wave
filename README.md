@@ -17,8 +17,7 @@ You can download the dependency from maven
 ## Usage
 
 ``` java
-Browser 
-browser.open("https:\\google.co.nz");
+Browser.open("https:\\google.co.nz");
 find("name:q").sendKeys("hello");
 find("name:q").shouldHave(exactText("hello"));
 Browser.close();
