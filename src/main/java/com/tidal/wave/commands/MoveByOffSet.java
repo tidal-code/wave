@@ -14,19 +14,19 @@ import java.util.List;
 public final class MoveByOffSet implements Command {
 
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
-    private List<By> locatorSet;
+    private List<By> locators;
     private boolean isMultiple;
     private int[] xyCords;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
         this.xyCords = context.getXYCords();
     }
 
     public void moveByOffSet() {
-        WebElement element = webElement.getElement(locatorSet, false, isMultiple);
+        WebElement element = webElement.getElement(locators, false, isMultiple);
         new Actions(((RemoteWebElement) element).getWrappedDriver()).moveToElement(element, xyCords[0], xyCords[1]);
     }
 }

@@ -23,8 +23,8 @@ public class InteractableExpectation extends Expectation {
     private By byLocator;
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
-        byLocator = locatorSet.get(0);
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
+        byLocator = locators.get(0);
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -39,11 +39,11 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", locatorSet.get(0)))
+                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", locators.get(0)))
                 .until(e -> e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(IsVisible.class, "isVisible"));
 
         isEnabledResult = newFluentWait
@@ -51,7 +51,7 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", locatorSet.get(0)))
+                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", locators.get(0)))
                 .until(e -> e.withMultipleElements(false)
                         .invokeCommand(IsEnabled.class, "isEnabled"));
     }

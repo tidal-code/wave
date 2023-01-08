@@ -30,7 +30,7 @@ public final class DragAndDropByOffset extends CommandAction implements Command 
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
         this.xyCords = context.getXYCords();
     }
@@ -42,7 +42,7 @@ public final class DragAndDropByOffset extends CommandAction implements Command 
 
     public void dragAndDropByOffsetAction() {
         List<By> linkedListOne = new LinkedList<>();
-        linkedListOne.add(locatorSet.get(0));
+        linkedListOne.add(locators.get(0));
         WebElement sourceElement = webElement.getElement(linkedListOne, false, isMultiple);
 
         new Actions(((RemoteWebElement) sourceElement).getWrappedDriver()).dragAndDropBy(sourceElement, xyCords[0], xyCords[1]).perform();

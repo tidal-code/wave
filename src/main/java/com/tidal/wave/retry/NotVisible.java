@@ -21,7 +21,7 @@ public class NotVisible extends RetryCondition {
     }
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         boolean result = executor
                 .withMultipleElements(isMultiple)

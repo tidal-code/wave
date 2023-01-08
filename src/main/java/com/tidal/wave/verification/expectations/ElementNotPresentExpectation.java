@@ -19,9 +19,9 @@ public class ElementNotPresentExpectation extends Expectation {
     private By byLocator;
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
 
-        byLocator = locatorSet.get(0);
+        byLocator = locators.get(0);
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
 
@@ -32,11 +32,11 @@ public class ElementNotPresentExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to be not present but one or more was present in the DOM", locatorSet.get(0)))
+                .withMessage(String.format("Expected condition failed : Element %s expected to be not present but one or more was present in the DOM", locators.get(0)))
                 .until(e -> (int) e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(GetSize.class, "getSize") == 0);
     }
 

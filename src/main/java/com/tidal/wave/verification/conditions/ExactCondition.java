@@ -22,7 +22,7 @@ public class ExactCondition extends Condition {
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -35,11 +35,11 @@ public class ExactCondition extends Condition {
                 .forDuration(waitDuration)
                 .ignoring(StaleElementReferenceException.class)
                 .throwing(AssertionError.class)
-                .withMessage(String.format("Expected value '%s' is not equal to actual value '%s'", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, "findTextData")))
+                .withMessage(String.format("Expected value '%s' is not equal to actual value '%s'", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData")))
                 .until(e -> e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(FindTextData.class, "findTextData").equals(value));
     }
 

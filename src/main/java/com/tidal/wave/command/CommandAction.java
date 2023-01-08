@@ -18,12 +18,12 @@ import java.util.function.Supplier;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public abstract class CommandAction {
-    protected List<By> locatorSet;
+    protected List<By> locators;
 
     protected abstract Map<Class<? extends Throwable>, Supplier<String>> ignoredEx();
 
     private By getLocator() {
-        return locatorSet.get(locatorSet.size() - 1);
+        return locators.get(locators.size() - 1);
     }
 
     @SuppressWarnings("unchecked")

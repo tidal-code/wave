@@ -20,7 +20,7 @@ public class NewTextValueExpectation extends Expectation {
     String existingValue;
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -28,7 +28,7 @@ public class NewTextValueExpectation extends Expectation {
 
         Duration waitDuration = Duration.ofSeconds(Integer.parseInt(duration));
 
-        existingValue = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, "findTextData");
+        existingValue = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData");
 
         result = new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
@@ -39,7 +39,7 @@ public class NewTextValueExpectation extends Expectation {
                 .until(e -> !e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(FindTextData.class, "findTextData").toString().equals(existingValue));
     }
 

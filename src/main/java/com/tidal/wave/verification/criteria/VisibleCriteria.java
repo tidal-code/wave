@@ -17,7 +17,7 @@ public class VisibleCriteria extends Criteria {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -27,11 +27,11 @@ public class VisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' should have to be visible but was not", locatorSet.get(0)))
+                .withMessage(String.format("Element ' %s ' should have to be visible but was not", locators.get(0)))
                 .until(e -> e
                         .withMultipleElements(false)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(IsVisible.class, "isVisible"));
     }
 }

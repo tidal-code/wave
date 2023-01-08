@@ -27,7 +27,7 @@ public final class SendKeys extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.charSequences = context.getSequence();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
         this.visibility = context.getVisibility();
     }
@@ -38,7 +38,7 @@ public final class SendKeys extends CommandAction implements Command {
     }
 
     public void sendKeysAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         element.sendKeys(charSequences);
     }
 

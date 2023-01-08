@@ -18,7 +18,7 @@ public interface Expectations {
         return new SizeLessThan(size);
     }
 
-    void assertion(boolean isMultiple, List<By> locatorSet);
+    void assertion(boolean isMultiple, List<By> locators);
 
     void orElseFail();
 }

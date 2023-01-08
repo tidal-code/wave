@@ -31,7 +31,7 @@ public final class SetInnerHtml extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.inputText = context.getTextInput();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.isMultiple = context.isMultiple();
     }
@@ -44,7 +44,7 @@ public final class SetInnerHtml extends CommandAction implements Command {
     public void setInnerHtmlAction() {
         Function<WebElement, String> expectedValue = e -> e.getAttribute("innerHTML");
 
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("arguments[0].innerHTML='%s';", inputText), element);
 
         if (!expectedValue.apply(element).equals(inputText)) {

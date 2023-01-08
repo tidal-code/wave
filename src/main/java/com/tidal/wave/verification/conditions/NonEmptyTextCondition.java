@@ -18,7 +18,7 @@ public class NonEmptyTextCondition extends Condition {
 
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -32,9 +32,9 @@ public class NonEmptyTextCondition extends Condition {
                 .withMessage("Some text value is expected but got null")
                 .until(e -> !e
                         .withMultipleElements(isMultiple)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(FindTextData.class, "findTextData").toString().equals(""));
     }
 }

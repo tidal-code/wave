@@ -30,7 +30,7 @@ public final class Zoom extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.zoomLevel = context.getZoomLevel();
     }
@@ -41,7 +41,7 @@ public final class Zoom extends CommandAction implements Command {
     }
 
     public void zoomAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("document.body.style.zoom='" + zoomLevel + "%';");
     }
 

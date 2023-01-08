@@ -21,7 +21,7 @@ public class StateChangeExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -29,9 +29,9 @@ public class StateChangeExpectation extends Expectation {
 
         Duration waitDuration = Duration.ofSeconds(Integer.parseInt(duration));
 
-        String text = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(FindTextData.class, "findTextData").toString();
-        String cssProperties = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
-        String attributes = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetAllAttributes.class, "getAllAttributes").toString();
+        String text = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData").toString();
+        String cssProperties = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
+        String attributes = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetAllAttributes.class, "getAllAttributes").toString();
 
         result = new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
@@ -43,17 +43,17 @@ public class StateChangeExpectation extends Expectation {
                         (!e
                                 .withMultipleElements(isMultiple)
                                 .isVisible(isVisible)
-                                .usingLocator(locatorSet)
+                                .usingLocator(locators)
                                 .invokeCommand(FindTextData.class, "findTextData").toString().equals(text))
                                 || !e
                                 .withMultipleElements(isMultiple)
                                 .isVisible(isVisible)
-                                .usingLocator(locatorSet)
+                                .usingLocator(locators)
                                 .invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString().equals(cssProperties)
                                 || !e
                                 .withMultipleElements(isMultiple)
                                 .isVisible(isVisible)
-                                .usingLocator(locatorSet)
+                                .usingLocator(locators)
                                 .invokeCommand(GetAllAttributes.class, "getAllAttributes").toString().equals(attributes));
     }
 

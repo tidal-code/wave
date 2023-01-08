@@ -49,5 +49,5 @@ public abstract class RetryCondition {
         return new StillVisible();
     }
 
-    public abstract boolean retry(boolean isVisible, boolean isMultiple, List<By> locatorSet);
+    public abstract boolean retry(boolean isVisible, boolean isMultiple, List<By> locators);
 }

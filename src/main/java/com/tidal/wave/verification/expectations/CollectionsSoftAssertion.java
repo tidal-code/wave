@@ -10,8 +10,8 @@ public class CollectionsSoftAssertion {
     private CollectionsSoftAssertion() {
     }
 
-    public static Expectations softAssert(boolean isMultiple, List<By> locatorSet, Expectations expectations) {
-        expectations.assertion(isMultiple, locatorSet);
+    public static Expectations softAssert(boolean isMultiple, List<By> locators, Expectations expectations) {
+        expectations.assertion(isMultiple, locators);
         return expectations;
     }
 }

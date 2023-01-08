@@ -31,7 +31,7 @@ public final class SetText extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.inputText = context.getTextInput();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.isMultiple = context.isMultiple();
     }
@@ -48,7 +48,7 @@ public final class SetText extends CommandAction implements Command {
 
         Function<WebElement, String> currentInputValue = e -> e.getAttribute("value");
 
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         if (!currentInputValue.apply(element).equals(inputText)) {
             element.sendKeys(inputText);
         }

@@ -28,7 +28,7 @@ public final class Check extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
     }
 
@@ -38,7 +38,7 @@ public final class Check extends CommandAction implements Command {
     }
 
     public void checkAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         if (!element.isSelected()) {
             ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
         }

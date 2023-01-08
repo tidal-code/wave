@@ -26,7 +26,7 @@ public final class ClickAndHold extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
     }
 
@@ -36,7 +36,7 @@ public final class ClickAndHold extends CommandAction implements Command {
     }
 
     public void clickAndHoldAction() {
-        WebElement element = webElement.getElement(locatorSet, false, isMultiple);
+        WebElement element = webElement.getElement(locators, false, isMultiple);
         new Actions(((RemoteWebElement) element).getWrappedDriver()).clickAndHold(element).release().perform();
     }
 

@@ -106,8 +106,8 @@ public class Executor implements ExecutorCommands {
     }
 
     @Override
-    public Executor usingLocator(List<By> locatorSet) {
-        context.setLocatorSet(locatorSet);
+    public Executor usingLocator(List<By> locators) {
+        context.setLocatorSet(locators);
         return this;
     }
 

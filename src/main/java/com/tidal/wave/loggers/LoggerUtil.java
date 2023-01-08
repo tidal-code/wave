@@ -1,7 +1,7 @@
 package com.tidal.wave.loggers;
 
-import io.qameta.allure.Step;
 import com.tidal.wave.propertieshandler.PropertiesFinder;
+import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

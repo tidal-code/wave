@@ -31,7 +31,7 @@ public final class Hover extends CommandAction implements Command {
         this.isMultiple = context.isMultiple();
         this.secondsToHover = context.getSecondsToWait();
         this.visibility = context.getVisibility();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
     }
 
     @Override
@@ -40,7 +40,7 @@ public final class Hover extends CommandAction implements Command {
     }
 
     public void hoverAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         new Actions(((RemoteWebElement) element).getWrappedDriver()).moveToElement(element).pause(secondsToHover).perform();
     }
 

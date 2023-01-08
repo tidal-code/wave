@@ -28,7 +28,7 @@ public final class SelectByIndex extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.selectIndex = context.getSelectIndex();
     }
@@ -39,7 +39,7 @@ public final class SelectByIndex extends CommandAction implements Command {
     }
 
     public String selectByIndexAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         Select select = new Select(element);
         select.selectByIndex(selectIndex);
         return select.getFirstSelectedOption().getText();

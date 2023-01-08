@@ -33,7 +33,7 @@ public final class PressEnter extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
     }
 
@@ -43,7 +43,7 @@ public final class PressEnter extends CommandAction implements Command {
     }
 
     public void pressEnterAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         new Actions(((RemoteWebElement) element).getWrappedDriver()).sendKeys(element, Keys.ENTER).perform();
         activityWaiter.waitUntilDocReady(Driver.getDriver(), Wait.getBackgroundMaxWait());
     }

@@ -232,7 +232,7 @@ public abstract class Expectation {
         return new MatchingTextExpectation(text);
     }
 
-    public abstract void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet);
+    public abstract void assertion(boolean isVisible, boolean isMultiple, List<By> locators);
 
     public abstract void orElseFail();
 

@@ -23,7 +23,7 @@ public final class IsPresentAndVisible extends CommandAction implements Command 
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class IsPresentAndVisible extends CommandAction implements Command 
     }
 
     public boolean isPresentAndVisibleAction() {
-        List<WebElement> elements = webElement.getElements(locatorSet, false);
+        List<WebElement> elements = webElement.getElements(locators, false);
         return !elements.isEmpty() && elements.stream().anyMatch(WebElement::isDisplayed);
     }
 
