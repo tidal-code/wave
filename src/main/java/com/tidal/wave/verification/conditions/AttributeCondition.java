@@ -25,7 +25,7 @@ public class AttributeCondition extends Condition{
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -44,7 +44,7 @@ public class AttributeCondition extends Condition{
                         .withMultipleElements(isMultiple)
                         .withAttribute(attributeType)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(GetAttribute.class).equals(value));
     }
 }

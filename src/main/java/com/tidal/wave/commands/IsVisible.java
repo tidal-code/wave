@@ -25,7 +25,7 @@ public final class IsVisible extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class IsVisible extends CommandAction implements Command {
     }
 
     public boolean isVisibleAction() {
-        WebElement element = webElement.getElement(locatorSet, false, isMultiple);
+        WebElement element = webElement.getElement(locators, false, isMultiple);
         return element.isDisplayed();
     }
 

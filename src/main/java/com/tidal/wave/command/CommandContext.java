@@ -17,7 +17,7 @@ public class CommandContext {
     private int secondsToWait;
     private double zoomLevel;
     private CharSequence[] sequence;
-    private List<By> locatorSet = new LinkedList<>();
+    private List<By> locators = new LinkedList<>();
 
     public String getAttributeName() {
         return attributeName;
@@ -83,12 +83,12 @@ public class CommandContext {
         this.isVisible = isVisible;
     }
 
-    public List<By> getLocatorSet() {
-        return locatorSet;
+    public List<By> getLocators() {
+        return locators;
     }
 
-    public void setLocatorSet(List<By> locatorSet) {
-        this.locatorSet = locatorSet;
+    public void setLocatorSet(List<By> locators) {
+        this.locators = locators;
     }
 
     public void setXYCords(int xCords, int yCords) {

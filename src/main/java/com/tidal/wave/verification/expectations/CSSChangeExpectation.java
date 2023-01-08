@@ -18,7 +18,7 @@ public class CSSChangeExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -26,7 +26,7 @@ public class CSSChangeExpectation extends Expectation {
 
         Duration waitDuration = Duration.ofSeconds(Integer.parseInt(duration));
 
-        String cssProperties = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
+        String cssProperties = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
 
         result = new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
@@ -37,7 +37,7 @@ public class CSSChangeExpectation extends Expectation {
                 .until(e -> !e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString().equals(cssProperties));
     }
 

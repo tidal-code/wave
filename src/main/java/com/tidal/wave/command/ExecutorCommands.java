@@ -29,7 +29,7 @@ public interface ExecutorCommands {
 
     Executor isVisible(boolean visible);
 
-    Executor usingLocator(List<By> locatorSet);
+    Executor usingLocator(List<By> locators);
 
     Executor withXYCords(int xCords, int yCords);
 

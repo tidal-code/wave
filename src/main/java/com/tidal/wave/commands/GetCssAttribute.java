@@ -28,7 +28,7 @@ public final class GetCssAttribute extends CommandAction implements Command {
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
         this.visibility = context.getVisibility();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.attributeName = context.getAttributeName();
     }
 
@@ -38,7 +38,7 @@ public final class GetCssAttribute extends CommandAction implements Command {
     }
 
     public String getCssAttributeAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         return element.getCssValue(attributeName);
     }
 

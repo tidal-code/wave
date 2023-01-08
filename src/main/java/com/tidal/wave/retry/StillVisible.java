@@ -13,13 +13,13 @@ public class StillVisible extends RetryCondition {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locators) {
 
 
         boolean result = (executor
                 .withMultipleElements(isMultiple)
                 .isVisible(isVisible)
-                .usingLocator(locatorSet)
+                .usingLocator(locators)
                 .invokeCommand(IsVisible.class, "isVisible"));
 
         if (result) {
@@ -32,7 +32,7 @@ public class StillVisible extends RetryCondition {
         result = !(boolean) (executor
                 .withMultipleElements(isMultiple)
                 .isVisible(isVisible)
-                .usingLocator(locatorSet)
+                .usingLocator(locators)
                 .invokeCommand(IsVisible.class, "isVisible"));
 
         return result;

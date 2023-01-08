@@ -27,7 +27,7 @@ public final class ClickByJS extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.visibility = context.getVisibility();
-        locatorSet = context.getLocatorSet();
+        locators = context.getLocators();
         isMultiple = context.isMultiple();
     }
 
@@ -37,7 +37,7 @@ public final class ClickByJS extends CommandAction implements Command {
     }
 
     public void clickByJSAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
     }
 

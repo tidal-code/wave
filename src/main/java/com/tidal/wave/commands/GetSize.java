@@ -21,7 +21,7 @@ public final class GetSize extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class GetSize extends CommandAction implements Command {
     }
 
     public int getSizeAction() {
-        return webElement.getElements(locatorSet).size();
+        return webElement.getElements(locators).size();
     }
 
     public int getSize() {

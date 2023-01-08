@@ -28,7 +28,7 @@ public final class GetDimension extends CommandAction implements Command {
     public void contextSetter(CommandContext context) {
         this.isMultiple = context.isMultiple();
         this.visibility = context.getVisibility();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
     }
 
     @Override
@@ -37,7 +37,7 @@ public final class GetDimension extends CommandAction implements Command {
     }
 
     public Dimension getDimensionAction() {
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         return element.getSize();
     }
 

@@ -29,7 +29,7 @@ public final class ClearAndType extends CommandAction implements Command {
     @Override
     public void contextSetter(CommandContext context) {
         this.charSequences = context.getSequence();
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.isMultiple = context.isMultiple();
     }
@@ -43,7 +43,7 @@ public final class ClearAndType extends CommandAction implements Command {
     public void clearAndTypeAction() {
         Function<WebElement, String> expectedValue = e -> e.getAttribute("value");
 
-        WebElement element = webElement.getElement(locatorSet, visibility, isMultiple);
+        WebElement element = webElement.getElement(locators, visibility, isMultiple);
         int existingCharsLength = expectedValue.apply(element).length();
 
         for (int i = 0; i < existingCharsLength; i++) {

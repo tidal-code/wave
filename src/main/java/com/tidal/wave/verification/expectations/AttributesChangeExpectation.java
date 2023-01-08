@@ -19,7 +19,7 @@ public class AttributesChangeExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         String duration = WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -27,7 +27,7 @@ public class AttributesChangeExpectation extends Expectation {
 
         Duration waitDuration = Duration.ofSeconds(Integer.parseInt(duration));
 
-        String attributes = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetAllAttributes.class, "getAllAttributes").toString();
+        String attributes = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetAllAttributes.class, "getAllAttributes").toString();
 
         result = new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
@@ -38,7 +38,7 @@ public class AttributesChangeExpectation extends Expectation {
                 .until(e -> !e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(GetAllAttributes.class, "getAllAttributes").toString().equals(attributes));
     }
 

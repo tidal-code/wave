@@ -10,9 +10,9 @@ public class TestVerification {
     private TestVerification() {
     }
 
-    public static void verification(boolean isVisible, boolean isMultiple, List<By> locatorSet, Verification... verifications) {
+    public static void verification(boolean isVisible, boolean isMultiple, List<By> locators, Verification... verifications) {
         for (Verification verification : verifications) {
-            verification.verify(isVisible, isMultiple, locatorSet);
+            verification.verify(isVisible, isMultiple, locators);
         }
     }
 }

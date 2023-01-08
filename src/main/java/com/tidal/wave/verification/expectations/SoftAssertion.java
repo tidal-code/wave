@@ -9,8 +9,8 @@ public class SoftAssertion {
     private SoftAssertion() {
     }
 
-    public static Expectation softAssert(boolean isVisible, boolean isMultiple, List<By> locatorSet, Expectation expectation) {
-        expectation.assertion(isVisible, isMultiple, locatorSet);
+    public static Expectation softAssert(boolean isVisible, boolean isMultiple, List<By> locators, Expectation expectation) {
+        expectation.assertion(isVisible, isMultiple, locators);
         return expectation;
     }
 }

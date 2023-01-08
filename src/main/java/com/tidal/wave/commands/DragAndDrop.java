@@ -30,7 +30,7 @@ public final class DragAndDrop extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
     }
 
@@ -41,7 +41,7 @@ public final class DragAndDrop extends CommandAction implements Command {
 
     public void dragAndDropAction() {
 
-        if (locatorSet.size() <= 1) {
+        if (locators.size() <= 1) {
             throw new RuntimeTestException(
                     "Expecting two locators but found only one. \n" +
                             "For drag and drop two web elements needed to be found. \n" +
@@ -50,11 +50,11 @@ public final class DragAndDrop extends CommandAction implements Command {
         }
 
         List<By> linkedListOne = new LinkedList<>();
-        linkedListOne.add(locatorSet.get(0));
+        linkedListOne.add(locators.get(0));
         WebElement sourceElement = webElement.getElement(linkedListOne, false, isMultiple);
 
         List<By> linkedListTwo = new LinkedList<>();
-        linkedListTwo.add(locatorSet.get(1));
+        linkedListTwo.add(locators.get(1));
         WebElement targetElement = webElement.getElement(linkedListTwo, false, isMultiple);
 
         new Actions(((RemoteWebElement) sourceElement).getWrappedDriver()).dragAndDrop(sourceElement, targetElement).perform();

@@ -16,7 +16,7 @@ public class ElementEnabled extends Criteria {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -26,11 +26,11 @@ public class ElementEnabled extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is not enabled", locatorSet.get(0)))
+                .withMessage(String.format("Element %s is not enabled", locators.get(0)))
                 .until(e -> e
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(IsEnabled.class, "isEnabled"));
     }
 }

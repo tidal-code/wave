@@ -28,7 +28,7 @@ public final class FindAllTextData extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
     }
 
@@ -38,7 +38,7 @@ public final class FindAllTextData extends CommandAction implements Command {
     }
 
     public List<String> findAllTextDataAction() {
-        List<WebElement> elements = webElement.getElements(locatorSet, visibility);
+        List<WebElement> elements = webElement.getElements(locators, visibility);
 
         List<String> textContent = elements.stream().map(WebElement::getText).collect(Collectors.toList());
 

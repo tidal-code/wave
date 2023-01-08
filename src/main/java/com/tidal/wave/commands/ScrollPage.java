@@ -26,7 +26,7 @@ public final class ScrollPage extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.isMultiple = context.isMultiple();
         this.xyCords = context.getXYCords();
     }
@@ -37,7 +37,7 @@ public final class ScrollPage extends CommandAction implements Command {
     }
 
     public void scrollPageAction() {
-        WebElement element = webElement.getElement(locatorSet, false, isMultiple);
+        WebElement element = webElement.getElement(locators, false, isMultiple);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("window.scrollBy(%d ,%d)", xyCords[0], xyCords[1]), element);
     }
 

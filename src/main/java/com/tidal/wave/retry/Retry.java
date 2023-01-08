@@ -10,9 +10,9 @@ public class Retry {
     private Retry() {
     }
 
-    public static void retry(boolean isVisible, boolean isMultiple, List<By> locatorSet, RetryCondition retryCondition, int numberOfTimes) {
+    public static void retry(boolean isVisible, boolean isMultiple, List<By> locators, RetryCondition retryCondition, int numberOfTimes) {
         for (int i = 0; i < numberOfTimes; i++) {
-            if (retryCondition.retry(isVisible, isMultiple, locatorSet)) {
+            if (retryCondition.retry(isVisible, isMultiple, locators)) {
                 break;
             }
             ThreadSleep.forMilliS(500);

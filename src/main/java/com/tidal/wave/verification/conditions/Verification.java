@@ -5,5 +5,5 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public interface Verification {
-    void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet);
+    void verify(boolean isVisible, boolean isMultiple, List<By> locators);
 }

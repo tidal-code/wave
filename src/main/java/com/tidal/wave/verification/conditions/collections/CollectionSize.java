@@ -22,19 +22,18 @@ public class CollectionSize extends CollectionsCondition {
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locatorSet) {
+    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
 
         Duration waitDuration = Duration.ofSeconds(1);
 
-        //noinspection RedundantCast
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Expected number of elements is %d but could find %d element[s]", value, (int) executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetSize.class, "getSize")))
+                .withMessage(String.format("Expected number of elements is %d but could find %d element[s]", value, (int) executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetSize.class, "getSize")))
                 .until(e -> (int) e
                         .isVisible(isVisible)
                         .withMultipleElements(isMultiple)
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .invokeCommand(GetSize.class) == value);
     }
 }

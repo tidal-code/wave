@@ -27,7 +27,7 @@ public final class ScrollToView extends CommandAction implements Command {
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locatorSet = context.getLocatorSet();
+        this.locators = context.getLocators();
         this.visibility = context.getVisibility();
         this.isMultiple = context.isMultiple();
     }
@@ -38,10 +38,10 @@ public final class ScrollToView extends CommandAction implements Command {
     }
 
     public void scrollToViewAction() {
-        WebElement element = webElement.getElement(locatorSet, false,  isMultiple);
+        WebElement element = webElement.getElement(locators, false,  isMultiple);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 
-        element = webElement.getElement(locatorSet, false,  isMultiple);
+        element = webElement.getElement(locators, false,  isMultiple);
 
         if(visibility && !element.isDisplayed()){
             throw new ElementNotInteractableException("Element is not in view, applying scroll-to-view again");

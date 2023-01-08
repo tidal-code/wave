@@ -27,7 +27,7 @@ public class SizeLessThan implements Expectations {
 
 
     @Override
-    public void assertion(boolean isMultiple, List<By> locatorSet) {
+    public void assertion(boolean isMultiple, List<By> locators) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -40,9 +40,9 @@ public class SizeLessThan implements Expectations {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected number of elements is %d but found %d element[s]", size, (int) executor.isVisible(false).withMultipleElements(isMultiple).usingLocator(locatorSet).invokeCommand(GetSize.class, "getSize")))
+                .withMessage(String.format("Expected number of elements is %d but found %d element[s]", size, (int) executor.isVisible(false).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetSize.class, "getSize")))
                 .until(e -> (int) e
-                        .usingLocator(locatorSet)
+                        .usingLocator(locators)
                         .withMultipleElements(isMultiple)
                         .invokeCommand(GetSize.class, "getSize") < size);
     }
