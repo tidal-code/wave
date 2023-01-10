@@ -1,19 +1,35 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.wave.browser.Driver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
 public class IframeNewHandler {
 
-
-    int limit = 5;
-    int value = 0;
-
-    public void printElement(){
-        for (int i = 0; i <= limit ; i++) {
-            System.out.println("value is " + value);
+    public static boolean switchToIframeOfElement(By locator, boolean visibility) {
+        WebDriver driver = Driver.getDriver();
+        if (driver.findElements(locator).size() > 0) {
+            return true;
         }
-        value = value + 1;
+        return iframeIterator(locator);
     }
 
-    public static void main(String[] args) {
-        new IframeNewHandler().printElement();
+    private static boolean iframeIterator(By locator) {
+        WebDriver driver = Driver.getDriver();
+        List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
+        for (WebElement iframe : iframes) {
+            driver.switchTo().frame(iframe);
+            if (driver.findElements(locator).size() > 0) {
+                return true;
+            } else {
+                iframeIterator(locator);
+            }
+        }
+        driver.switchTo().parentFrame();
+        return false;
     }
+
 }
