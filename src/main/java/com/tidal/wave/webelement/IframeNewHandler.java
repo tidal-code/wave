@@ -11,24 +11,43 @@ public class IframeNewHandler {
 
     public static boolean switchToIframeOfElement(By locator, boolean visibility) {
         WebDriver driver = Driver.getDriver();
-        if (driver.findElements(locator).size() > 0) {
-            return true;
+        List<WebElement> elements = driver.findElements(locator);
+        if (!elements.isEmpty()) {
+            return checkVisibleCondition(elements, visibility);
         }
-        return iframeIterator(locator);
+        return iframeIterator(locator, visibility);
     }
 
-    private static boolean iframeIterator(By locator) {
+    private static boolean iframeIterator(By locator, boolean visibility) {
         WebDriver driver = Driver.getDriver();
         List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
         for (WebElement iframe : iframes) {
             driver.switchTo().frame(iframe);
-            if (driver.findElements(locator).size() > 0) {
-                return true;
+            List<WebElement> elements = driver.findElements(locator);
+            if (!elements.isEmpty()) {
+                return checkVisibleCondition(elements, visibility);
             } else {
-                iframeIterator(locator);
+                iframeIterator(locator, visibility);
             }
         }
         driver.switchTo().parentFrame();
+        return false;
+    }
+
+    private static boolean checkVisibleCondition(List<WebElement> elements, boolean visibility){
+            if (visibility) {
+                return findDisplayedElement(elements);
+            } else {
+                return true;
+            }
+    }
+
+    private static boolean findDisplayedElement(List<WebElement> elements) {
+        for (WebElement element : elements) {
+            if (element.isDisplayed()) {
+                return true;
+            }
+        }
         return false;
     }
 

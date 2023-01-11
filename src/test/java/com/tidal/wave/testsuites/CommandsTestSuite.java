@@ -1,16 +1,11 @@
 package com.tidal.wave.testsuites;
 
-
-import com.tidal.wave.browsers.OpenTest;
 import com.tidal.wave.commands.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-
-//        OpenTest.class,
 
         // Commands Test
         CheckTest.class,
@@ -26,7 +21,6 @@ import org.junit.runners.Suite;
         SetInnerHtmlTest.class,
         SetTextTest.class,
         UnCheckTest.class,
-
 })
-public class FunctionTestSuite {
+public class CommandsTestSuite {
 }

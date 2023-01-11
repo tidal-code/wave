@@ -9,7 +9,7 @@ public abstract class CollectionsCondition implements Verification {
      * Condition for a collection of element that the size should be equal to the given value.
      *
      * @param numberOfElements input number of elements to be verified
-     *                         Throws AssertionError if the condition is not satisfied
+     *                         Throws TestAssertionError if the condition is not satisfied
      * @return A self reference
      */
     public static CollectionsCondition size(int numberOfElements) {
@@ -20,7 +20,7 @@ public abstract class CollectionsCondition implements Verification {
      * Condition for a collection of element that the size should be greater than the given value.
      *
      * @param numberOfElements input number of elements to be verified
-     *                         Throws AssertionError if the condition is not satisfied
+     *                         Throws TestAssertionError if the condition is not satisfied
      * @return A self reference
      */
     public static CollectionsCondition sizeGreaterThan(int numberOfElements) {
@@ -31,7 +31,7 @@ public abstract class CollectionsCondition implements Verification {
      * Condition for a collection of element that the size should be less than the given value.
      *
      * @param numberOfElements input number of elements to be verified.
-     *                         Throws AssertionError if the condition is not satisfied.
+     *                         Throws TestAssertionError if the condition is not satisfied.
      * @return A self reference
      */
     public static CollectionsCondition sizeLessThan(int numberOfElements) {

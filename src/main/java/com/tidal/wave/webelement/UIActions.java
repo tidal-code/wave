@@ -300,6 +300,12 @@ public class UIActions implements UIElement {
         return this;
     }
 
+    @Override
+    public UIActions inShadowDom(String locator){
+
+        return null;
+    }
+
     /**
      * Method to uncheck the checkbox. The check method will deselect the checkbox only if it is already checked.
      * It will do nothing if it is already deselected.
@@ -725,6 +731,7 @@ public class UIActions implements UIElement {
     public void uploadFile(@NotNull String fileName) {
         executor.usingLocator(locators).withText(fileName).invokeCommand(FileUpload.class);
     }
+
 
     /**
      * Method to upload a file to the application using Java Robot Class.

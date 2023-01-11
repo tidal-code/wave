@@ -25,7 +25,7 @@ public abstract class Condition implements Verification {
 
     /**
      * Condition to be satisfied that the element should have the exact text.<br>
-     * Throws AssertionError if the condition is not satisfied.
+     * Throws TestAssertionError if the condition is not satisfied.
      *
      * @param value The string to be matched
      * @return A self reference.
@@ -36,7 +36,7 @@ public abstract class Condition implements Verification {
 
     /**
      * Condition to be satisfied that the element should have the text, ignoring case.<br>
-     * Throws AssertionError if the condition is not satisfied.
+     * Throws TestAssertionError if the condition is not satisfied.
      * @param value The string to be matched
      * @return A self reference.
      */
@@ -46,7 +46,7 @@ public abstract class Condition implements Verification {
 
     /**
      * Condition to be satisfied that the element should have a matching text.
-     * Throws AssertionError if the condition is not satisfied
+     * Throws TestAssertionError if the condition is not satisfied
      *
      * @param value The string to be matched
      * @return A self reference.
@@ -57,7 +57,7 @@ public abstract class Condition implements Verification {
 
     /**
      * Condition to be satisfied that the element should have a non-empty text.
-     * Throws AssertionError if the condition is not satisfied
+     * Throws TestAssertionError if the condition is not satisfied
      *
      * @return A self reference.
      */
