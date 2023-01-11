@@ -10,6 +10,7 @@ import com.tidal.wave.wait.Activity;
 import com.tidal.wave.wait.ActivityWaiter;
 import com.tidal.wave.wait.ThreadSleep;
 import com.tidal.wave.wait.Wait;
+import io.cucumber.java.bs.I;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,12 +30,13 @@ public class FindWebElement extends IFrameHandler {
     private WebDriverWait wait;
     private WebDriverWait backgroundActivityWait;
     private TimeCounter timeCounter;
+    private IFrameContext iFrameContext;
 
-    public WebElement webElement(By elemLocator) {
-        return webElement(elemLocator, true);
+    public WebElement webElement(By locator) {
+        return webElement(locator, true);
     }
 
-    public WebElement webElement(By elemLocator, boolean ensureVisibilityOfElement) {
+    public WebElement webElement(By locator, boolean ensureVisibilityOfElement) {
         wait = Wait.getWait();
         driver = Driver.getDriver();
         backgroundActivityWait = Wait.getBackgroundMaxWait();
@@ -43,25 +45,25 @@ public class FindWebElement extends IFrameHandler {
             waitForPageLoad(driver, backgroundActivityWait);
         }
 
-        log.elementsLog("Searching for element " + elemLocator);
+        log.elementsLog("Searching for element " + locator);
 
-        List<WebElement> elements = driver.findElements(elemLocator);
+        List<WebElement> elements = driver.findElements(locator);
 
         if (ensureVisibilityOfElement) {
             if (elements.isEmpty() || !elements.get(0).isDisplayed()) {
-                findFrameOfElement(elemLocator);
+                findFrameOfElement(locator);
             }
         } else {
             if (elements.isEmpty()) {
-                findFrameOfElement(elemLocator, false);
+                findFrameOfElement(locator, false);
             }
         }
 
-        log.elementsLog("Found Element " + elemLocator);
-        return foundElement(driver, elemLocator);
+        log.elementsLog("Found Element " + locator);
+        return foundElement(driver, locator);
     }
 
-    public WebElement webElements(By elemLocator, int index, boolean visibility) {
+    public WebElement webElements(By locator, int index, boolean visibility) {
         wait = Wait.getWait();
         driver = Driver.getDriver();
         backgroundActivityWait = Wait.getBackgroundMaxWait();
@@ -70,19 +72,25 @@ public class FindWebElement extends IFrameHandler {
             waitForPageLoad(driver, backgroundActivityWait);
         }
 
-        log.elementsLog("Searching for " + (index + 1) + " elements with locator " + elemLocator);
+        log.elementsLog("Searching for " + (index + 1) + " elements with locator " + locator);
 
-        switchToIframeOfElement(elemLocator, driver, visibility);
+        iFrameContext = new IFrameContext();
+        iFrameContext.setLocator(locator);
+        iFrameContext.setDriver(driver);
+        iFrameContext.setCheckVisibility(visibility);
 
-        List<WebElement> elements = driver.findElements(elemLocator);
+//        new IFrameHandler().switchToIframeOfElement(locator, visibility);
+        IframeNewHandler.switchToIframeOfElement(locator, visibility);
+
+        List<WebElement> elements = driver.findElements(locator);
 
         try {
-            wait.until(d -> (d.findElements(elemLocator).size() - 1 >= index));
+            wait.until(d -> (d.findElements(locator).size() - 1 >= index));
         } catch (TimeoutException e) {
             throw new TimeoutException(String.format("Expected %d elements, but found only %d element[s] in %d seconds", index + 1, elements.size(), getWaitTime()));
         }
 
-        elements = wait.until(d -> d.findElements(elemLocator));
+        elements = wait.until(d -> d.findElements(locator));
 
         if (elements.size() - 1 >= index) {
             return elements.get(index);
@@ -91,46 +99,58 @@ public class FindWebElement extends IFrameHandler {
         }
     }
 
-    public List<WebElement> webElements(By elemLocator, boolean visibility) {
+    public List<WebElement> webElements(By locator, boolean visibility) {
         wait = Wait.getWait();
         driver = Driver.getDriver();
         backgroundActivityWait = Wait.getBackgroundMaxWait();
 
-        log.elementsLog("Searching for elements " + elemLocator);
+        log.elementsLog("Searching for elements " + locator);
 
         if (getBGCheck()) {
             waitForPageLoad(driver, backgroundActivityWait);
         }
 
-        switchToIframeOfElement(elemLocator, driver, visibility);
+        iFrameContext = new IFrameContext();
+        iFrameContext.setLocator(locator);
+        iFrameContext.setDriver(driver);
+        iFrameContext.setCheckVisibility(visibility);
 
-        List<WebElement> elements = wait.until(d -> d.findElements(elemLocator));
+//        new IFrameHandler().switchToIframeOfElement(locator, visibility);
+        IframeNewHandler.switchToIframeOfElement(locator, visibility);
+
+        List<WebElement> elements = wait.until(d -> d.findElements(locator));
 
         if (!elements.isEmpty()) {
-            log.elementsLog("Elements found " + elemLocator + " is [" + elements.size() + "]");
+            log.elementsLog("Elements found " + locator + " is [" + elements.size() + "]");
         } else {
-            log.elementsLog("No elements found " + elemLocator);
+            log.elementsLog("No elements found " + locator);
         }
         return elements;
     }
 
-    private void findFrameOfElement(By elementLocator) {
-        findFrameOfElement(elementLocator, true);
+    private void findFrameOfElement(By locator) {
+        findFrameOfElement(locator, true);
     }
 
-    private void findFrameOfElement(By elemLocator, boolean elementNeedToBeVisible) {
+    private void findFrameOfElement(By locator, boolean visibility) {
+
+        iFrameContext = new IFrameContext();
+        iFrameContext.setLocator(locator);
+        iFrameContext.setDriver(driver);
+        iFrameContext.setCheckVisibility(visibility);
 
         Function<WebDriver, Boolean> findElement = d -> {
             if (getBGCheck()) {
                 waitForPageLoad(d, backgroundActivityWait);
             }
-            return switchToIframeOfElement(elemLocator, d, elementNeedToBeVisible);
+//            return new IFrameHandler().switchToIframeOfElement(locator, visibility);
+            return IframeNewHandler.switchToIframeOfElement(locator, visibility);
         };
 
         try {
             wait.until(findElement);
         } catch (TimeoutException e) {
-            throw new TimeoutException(String.format("Element not found using %s in %d seconds", elemLocator, getWaitTime()));
+            throw new TimeoutException(String.format("Element not found using %s in %d seconds", locator, getWaitTime()));
         } catch (RuntimeException e) {
             if (e.getMessage().contains("Cannot find context with specified id")) {
                 log.elementsLog("Chromedriver iframe switching issue");
@@ -161,12 +181,12 @@ public class FindWebElement extends IFrameHandler {
         }
     }
 
-    private WebElement foundElement(WebDriver driver, By byLocator) {
+    private WebElement foundElement(WebDriver driver, By locator) {
         if (timeCounter == null) {
             timeCounter = new TimeCounter();
         }
 
-        List<WebElement> elements = driver.findElements(byLocator);
+        List<WebElement> elements = driver.findElements(locator);
 
         try {
             //If we are looking for a visible element, it will be returned
@@ -187,15 +207,15 @@ public class FindWebElement extends IFrameHandler {
 
         } catch (RuntimeException e) {
             if (timeCounter.timeElapsed(Duration.ofSeconds(getWaitTime()))) {
-                throw new TimeoutException(String.format("Element is not found using %s in %d seconds", byLocator, getWaitTime()));
+                throw new TimeoutException(String.format("Element is not found using %s in %d seconds", locator, getWaitTime()));
             }
             ThreadSleep.forMilliS(1000);
-            foundElement(driver, byLocator);
+            foundElement(driver, locator);
         } finally {
             timeCounter = null;
         }
 
-        throw new TimeoutException(String.format("Element is not found using %s in %d seconds", byLocator, getWaitTime()));
+        throw new TimeoutException(String.format("Element is not found using %s in %d seconds", locator, getWaitTime()));
     }
 
     private int getWaitTime() {

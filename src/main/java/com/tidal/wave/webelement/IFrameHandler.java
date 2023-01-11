@@ -1,5 +1,6 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.wave.browser.Driver;
 import com.tidal.wave.loggers.LoggerUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,8 +15,8 @@ class IFrameHandler extends LoggerUtil {
     private static final String ELEMENT_FOUND = "Element found using ";
     int counter = 0;
 
-    boolean switchToIframeOfElement(By locator, WebDriver driver, boolean checkVisibility) {
-
+    boolean switchToIframeOfElement(By locator, boolean checkVisibility) {
+        WebDriver driver = Driver.getDriver();
         counter++;
         logger.iframeLog("Counter: " + counter);
 

@@ -15,7 +15,7 @@ public class Reporter {
     };
 
     private static final String[] funcAssertion = {
-            "AssertionError",
+            "TestAssertionError",
             "ComparisonFailure",
             "ExpectationFailure"
     };

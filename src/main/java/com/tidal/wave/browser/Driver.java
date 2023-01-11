@@ -22,7 +22,7 @@ public class Driver {
 
     public void close(){
         logger.info("Quitting Driver");
-        Objects.requireNonNull(driverCommand, "Attempting to close a browser which is not initiated");
+        Objects.requireNonNull(driverCommand, "Attempting to close a browser which was not initiated");
         driverCommand.closeDriver();
     }
 

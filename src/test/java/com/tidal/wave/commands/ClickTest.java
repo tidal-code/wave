@@ -35,7 +35,7 @@ public class ClickTest {
                 throw new ElementClickInterceptedException("test");
             }
      */
-    //@Test(expected = AssertionError.class)
+    //@Test(expected = TestAssertionError.class)
     public void clickTimeOutTest() {
         String locator = "id:test_button_id";
         addData("test", "do not throw");

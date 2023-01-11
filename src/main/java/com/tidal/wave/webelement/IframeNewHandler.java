@@ -1,19 +1,54 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.wave.browser.Driver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
 public class IframeNewHandler {
 
-
-    int limit = 5;
-    int value = 0;
-
-    public void printElement(){
-        for (int i = 0; i <= limit ; i++) {
-            System.out.println("value is " + value);
+    public static boolean switchToIframeOfElement(By locator, boolean visibility) {
+        WebDriver driver = Driver.getDriver();
+        List<WebElement> elements = driver.findElements(locator);
+        if (!elements.isEmpty()) {
+            return checkVisibleCondition(elements, visibility);
         }
-        value = value + 1;
+        return iframeIterator(locator, visibility);
     }
 
-    public static void main(String[] args) {
-        new IframeNewHandler().printElement();
+    private static boolean iframeIterator(By locator, boolean visibility) {
+        WebDriver driver = Driver.getDriver();
+        List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
+        for (WebElement iframe : iframes) {
+            driver.switchTo().frame(iframe);
+            List<WebElement> elements = driver.findElements(locator);
+            if (!elements.isEmpty()) {
+                return checkVisibleCondition(elements, visibility);
+            } else {
+                iframeIterator(locator, visibility);
+            }
+        }
+        driver.switchTo().parentFrame();
+        return false;
     }
+
+    private static boolean checkVisibleCondition(List<WebElement> elements, boolean visibility){
+            if (visibility) {
+                return findDisplayedElement(elements);
+            } else {
+                return true;
+            }
+    }
+
+    private static boolean findDisplayedElement(List<WebElement> elements) {
+        for (WebElement element : elements) {
+            if (element.isDisplayed()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
