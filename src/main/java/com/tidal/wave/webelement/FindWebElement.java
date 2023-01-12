@@ -10,7 +10,6 @@ import com.tidal.wave.wait.Activity;
 import com.tidal.wave.wait.ActivityWaiter;
 import com.tidal.wave.wait.ThreadSleep;
 import com.tidal.wave.wait.Wait;
-import io.cucumber.java.bs.I;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -79,7 +78,6 @@ public class FindWebElement extends IFrameHandler {
         iFrameContext.setDriver(driver);
         iFrameContext.setCheckVisibility(visibility);
 
-//        new IFrameHandler().switchToIframeOfElement(locator, visibility);
         IframeNewHandler.switchToIframeOfElement(locator, visibility);
 
         List<WebElement> elements = driver.findElements(locator);
@@ -115,7 +113,6 @@ public class FindWebElement extends IFrameHandler {
         iFrameContext.setDriver(driver);
         iFrameContext.setCheckVisibility(visibility);
 
-//        new IFrameHandler().switchToIframeOfElement(locator, visibility);
         IframeNewHandler.switchToIframeOfElement(locator, visibility);
 
         List<WebElement> elements = wait.until(d -> d.findElements(locator));
@@ -143,7 +140,6 @@ public class FindWebElement extends IFrameHandler {
             if (getBGCheck()) {
                 waitForPageLoad(d, backgroundActivityWait);
             }
-//            return new IFrameHandler().switchToIframeOfElement(locator, visibility);
             return IframeNewHandler.switchToIframeOfElement(locator, visibility);
         };
 

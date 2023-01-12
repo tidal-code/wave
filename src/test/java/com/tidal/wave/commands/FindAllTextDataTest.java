@@ -1,6 +1,7 @@
 package com.tidal.wave.commands;
 
 import com.tidal.wave.browser.Browser;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Assert;
@@ -47,7 +48,7 @@ public class FindAllTextDataTest {
         Assert.assertEquals(expectedValues, allTextData);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = TestAssertionError.class)
     public void findAllTextDataTestFail() {
         List<String> allTextData = findAll("css:#testid3 p").getAllText();
         List<String> expectedValues = new ArrayList<>();
