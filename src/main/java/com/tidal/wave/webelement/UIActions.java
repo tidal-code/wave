@@ -302,8 +302,13 @@ public class UIActions implements UIElement {
 
     @Override
     public UIActions inShadowDom(String locator){
-
         return null;
+    }
+
+    @Override
+    public UIActions inShadowDom() {
+        executor.presenceOfShadownDom();
+        return this;
     }
 
     /**

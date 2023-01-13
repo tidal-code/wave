@@ -29,6 +29,8 @@ public interface ExecutorCommands {
 
     Executor isVisible(boolean visible);
 
+    Executor presenceOfShadownDom();
+
     Executor usingLocator(List<By> locators);
 
     Executor withXYCords(int xCords, int yCords);
