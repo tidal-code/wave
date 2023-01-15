@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class IframeNewHandler {
+public class IframeIterator {
 
     protected WebElement contextElement;
 
@@ -21,10 +21,10 @@ public class IframeNewHandler {
         }
 
         driver.switchTo().defaultContent();
-        return iframeIterator(locator, visibility);
+        return findElementsIframe(locator, visibility);
     }
 
-    private boolean iframeIterator(By locator, boolean visibility) throws IterationStopper{
+    private boolean findElementsIframe(By locator, boolean visibility) throws IterationStopper{
         WebDriver driver = Driver.getDriver();
 
         List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
@@ -34,10 +34,10 @@ public class IframeNewHandler {
             if (!elements.isEmpty() && checkVisibleCondition(elements, visibility)) {
                 throw new IterationStopper("This exception is thrown to stop iteration after the element is found. " +
                         "Unless an exception is thrown, the iteration will continue the full cycle. " +
-                        "So if this exception is thrown, it means the element if found");
+                        "So if this exception is thrown, it means the element is found");
             }
             else {
-                iframeIterator(locator, visibility);
+                findElementsIframe(locator, visibility);
             }
         }
         driver.switchTo().parentFrame();
