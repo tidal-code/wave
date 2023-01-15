@@ -3,6 +3,7 @@ package com.tidal.wave.verification.conditions;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.By;
@@ -32,7 +33,7 @@ public class MatchingCondition extends Condition {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .throwing(AssertionError.class)
+                .throwing(TestAssertionError.class)
                 .withMessage(String.format("Expected value %s is not matching with actual value %s", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData")))
                 .until(e -> e
                         .withMultipleElements(isMultiple)

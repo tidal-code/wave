@@ -18,6 +18,7 @@ public class CommandContext {
     private double zoomLevel;
     private CharSequence[] sequence;
     private List<By> locators = new LinkedList<>();
+    private boolean shadowDomPresence;
 
     public String getAttributeName() {
         return attributeName;
@@ -106,5 +107,13 @@ public class CommandContext {
 
     public void setZoomLevel(double zoomLevel) {
         this.zoomLevel = zoomLevel;
+    }
+
+    public void setShadowDomPresence() {
+        shadowDomPresence = true;
+    }
+
+    public boolean getShadowDomPresence() {
+        return shadowDomPresence;
     }
 }

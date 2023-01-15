@@ -3,6 +3,7 @@ package com.tidal.wave.verification.conditions;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.By;
@@ -28,7 +29,7 @@ public class NonEmptyTextCondition extends Condition {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .throwing(AssertionError.class)
+                .throwing(TestAssertionError.class)
                 .withMessage("Some text value is expected but got null")
                 .until(e -> !e
                         .withMultipleElements(isMultiple)

@@ -3,6 +3,7 @@ package com.tidal.wave.verification.conditions;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetAttribute;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.By;
@@ -37,7 +38,7 @@ public class AttributeCondition extends Condition{
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
                 .ignoring(StaleElementReferenceException.class)
-                .throwing(AssertionError.class)
+                .throwing(TestAssertionError.class)
                 .withMessage(String.format("Failed to find attribute '%s' with value '%s'",
                         attributeType, value))
                 .until(e -> e

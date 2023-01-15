@@ -37,6 +37,7 @@ public class IframesTest {
     @Test
     public void findingOuterFrameElementTest(){
         find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
         find("id:outerframetext").shouldHave(exactText("Text from OuterIframe"));
     }
 
@@ -63,8 +64,14 @@ public class IframesTest {
     }
 
     @Test
+    public void sixthParallelInnerFrameTest(){
+        find("id:sixth_parallel_inner_frame_text_2").shouldHave(exactText("Sixth Parallel Inner Frame Text 2"));
+    }
+
+
+    @Test
     public void findSixthIframeElement() {
-        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
+//        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
         find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
         find("#default_content_text").shouldHave(exactText("Text From Default Content"));
     }

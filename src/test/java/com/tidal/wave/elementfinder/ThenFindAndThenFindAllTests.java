@@ -1,6 +1,7 @@
 package com.tidal.wave.elementfinder;
 
 import com.tidal.wave.browser.Browser;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.filehandlers.Finder;
 import com.tidal.wave.verification.conditions.Condition;
@@ -78,7 +79,7 @@ public class ThenFindAndThenFindAllTests {
         Assert.assertEquals("Of", text);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test(expected = TestAssertionError.class)
     public void findThenFindThenFindThenFindAllError() {
         String text = find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).getText();
         Assert.assertEquals("Automation", text);

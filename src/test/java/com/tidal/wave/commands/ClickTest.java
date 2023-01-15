@@ -2,6 +2,7 @@ package com.tidal.wave.commands;
 
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.counter.TimeCounter;
+import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class ClickTest {
             find(locator).waitFor(4).click();
         } catch (RuntimeException e) {
             if (timeCounter.timeElapsed().getSeconds() < 10) {
-                throw new AssertionError("Click time out did not work propertly");
+                throw new TestAssertionError("Click time out did not work propertly");
             }
         }
     }
@@ -70,7 +71,7 @@ public class ClickTest {
             find(locator).waitFor(7).click();
         } catch (RuntimeException e) {
             if (timeCounter.timeElapsed().getSeconds() < 7) {
-                throw new AssertionError("Click time out did not work propertly");
+                throw new TestAssertionError("Click time out did not work propertly");
             }
         }
     }

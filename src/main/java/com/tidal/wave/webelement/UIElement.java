@@ -58,6 +58,8 @@ public interface UIElement {
 
     UIActions inShadowDom(String locator);
 
+    UIActions inShadowDom();
+
     UIElement unCheck();
 
     String select(String selectValue);
