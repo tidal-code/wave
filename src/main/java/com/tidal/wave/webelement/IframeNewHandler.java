@@ -32,7 +32,9 @@ public class IframeNewHandler {
             driver.switchTo().frame(iframe);
             List<WebElement> elements = driver.findElements(locator);
             if (!elements.isEmpty() && checkVisibleCondition(elements, visibility)) {
-                throw new IterationStopper("This is a pseudo code line to exit nested iteration");
+                throw new IterationStopper("This exception is thrown to stop iteration after the element is found. " +
+                        "Unless an exception is thrown, the iteration will continue the full cycle. " +
+                        "So if this exception is thrown, it means the element if found");
             }
             else {
                 iframeIterator(locator, visibility);

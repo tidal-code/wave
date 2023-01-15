@@ -1,6 +1,7 @@
 package com.tidal.wave.commands;
 
 import com.tidal.wave.browser.Browser;
+import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.filehandlers.Finder;
 import org.junit.*;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,14 +25,20 @@ public class IsVisibleTest {
         Browser.close();
     }
 
-    @Test @Ignore
+    @Test
     public void isPresentTest() {
         Assert.assertTrue(findAll("title:hidden").isPresent());
     }
 
-    @Test
-    public void isDisplayedTest() {
-        find("title:hiddenX").invisibleElement().expecting(toBeInteractable);
+    @Test (expected = ExpectationFailure.class)
+    public void interactionExpectationShouldFail() {
+        find("title:hidden").invisibleElement().expecting(toBeInteractable).orElseFail();
+    }
+
+    @Test(expected = AssertionError.class)
+    public void displayTestShouldFail(){
         Assert.assertTrue(find("name:display_test").isDisplayed());
     }
+
+
 }

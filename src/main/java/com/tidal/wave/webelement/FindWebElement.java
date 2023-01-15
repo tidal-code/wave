@@ -65,7 +65,7 @@ public class FindWebElement extends IframeNewHandler {
 
         try {
             switchToIframeOfElement(locator, visibility);
-        } catch (IterationStopper ignored) {
+        } catch (IterationStopper ignored) { //Iteration Exception is thrown when an element is found
             //ignored
         }
 
@@ -101,7 +101,7 @@ public class FindWebElement extends IframeNewHandler {
 
         try {
             switchToIframeOfElement(locator, visibility);
-        } catch (IterationStopper ignored){
+        } catch (IterationStopper ignored){ //Iteration Exception is thrown when an element is found
             //ignored
         }
 
@@ -123,7 +123,7 @@ public class FindWebElement extends IframeNewHandler {
             }
             try {
                 return switchToIframeOfElement(locator, visibility);
-            } catch (IterationStopper ignored) {
+            } catch (IterationStopper ignored) { //Iteration Exception is thrown when an element is found
                 return true;
             }
         };
@@ -185,7 +185,10 @@ public class FindWebElement extends IframeNewHandler {
     }
 
     private int getWaitTime() {
-        String time = WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
+        String time = WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
+                ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
+                : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
+
         return Integer.parseInt(time);
     }
 
