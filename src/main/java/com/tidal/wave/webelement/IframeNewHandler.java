@@ -10,8 +10,9 @@ import java.util.List;
 
 public class IframeNewHandler {
 
+    protected WebElement contextElement;
 
-    public static boolean switchToIframeOfElement(By locator, boolean visibility) {
+    public boolean switchToIframeOfElement(By locator, boolean visibility) throws IterationStopper {
         WebDriver driver = Driver.getDriver();
 
         List<WebElement> elements = driver.findElements(locator);
@@ -23,7 +24,7 @@ public class IframeNewHandler {
         return iframeIterator(locator, visibility);
     }
 
-    private static boolean iframeIterator(By locator, boolean visibility) {
+    private boolean iframeIterator(By locator, boolean visibility) throws IterationStopper{
         WebDriver driver = Driver.getDriver();
 
         List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
@@ -31,7 +32,9 @@ public class IframeNewHandler {
             driver.switchTo().frame(iframe);
             List<WebElement> elements = driver.findElements(locator);
             if (!elements.isEmpty() && checkVisibleCondition(elements, visibility)) {
-                throw new IterationStopper("This is a pseudo code line to exit nested iteration");
+                throw new IterationStopper("This exception is thrown to stop iteration after the element is found. " +
+                        "Unless an exception is thrown, the iteration will continue the full cycle. " +
+                        "So if this exception is thrown, it means the element if found");
             }
             else {
                 iframeIterator(locator, visibility);
@@ -41,17 +44,22 @@ public class IframeNewHandler {
         return false;
     }
 
-    private static boolean checkVisibleCondition(List<WebElement> elements, boolean visibility) {
+    private boolean checkVisibleCondition(List<WebElement> elements, boolean visibility) {
         if (visibility) {
             return findDisplayedElement(elements);
         } else {
-            return true;
+            if(!elements.isEmpty()) {
+                contextElement = elements.get(0);
+                return true;
+            }
         }
+        return false;
     }
 
-    private static boolean findDisplayedElement(List<WebElement> elements) {
+    private boolean findDisplayedElement(List<WebElement> elements) {
         for (WebElement element : elements) {
             if (element.isDisplayed()) {
+                contextElement = element;
                 return true;
             }
         }

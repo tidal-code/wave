@@ -1,6 +1,6 @@
 package com.tidal.wave.exceptions;
 
-public class IterationStopper extends RuntimeException {
+public class IterationStopper extends Exception {
     public IterationStopper(String message) {
         super(message);
     }

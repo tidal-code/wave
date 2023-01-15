@@ -307,6 +307,7 @@ public class UIActions implements UIElement {
 
     @Override
     public UIActions inShadowDom() {
+        addData("SE", "true");
         executor.presenceOfShadownDom();
         return this;
     }
