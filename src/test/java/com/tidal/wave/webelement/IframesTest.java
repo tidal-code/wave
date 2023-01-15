@@ -12,6 +12,7 @@ import java.time.Duration;
 
 import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.webelement.ElementFinder.find;
+import static com.tidal.wave.webelement.ElementFinder.findAll;
 
 public class IframesTest {
 
@@ -31,12 +32,12 @@ public class IframesTest {
 
     @Test
     public void findingElementOutsideFrame(){
-        find("id:default_content_text_2").shouldHave(exactText("Text From Default Content 2"));
+        findAll("id:default_content_text_2").get(0).shouldHave(exactText("Text From Default Content 2"));
     }
 
     @Test
     public void findingOuterFrameElementTest(){
-        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        findAll("#fist_innerframe_text").get(0).shouldHave(exactText("Text from First Inner Frame"));
         find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
         find("id:outerframetext").shouldHave(exactText("Text from OuterIframe"));
     }
@@ -44,7 +45,7 @@ public class IframesTest {
 
     @Test
     public void canAutoSwitchToFrame() {
-        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("#fist_innerframe_text").waitFor(2).shouldHave(exactText("Text from First Inner Frame"));
     }
 
     @Test
@@ -71,7 +72,7 @@ public class IframesTest {
 
     @Test
     public void findSixthIframeElement() {
-//        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
+        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
         find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
         find("#default_content_text").shouldHave(exactText("Text From Default Content"));
     }

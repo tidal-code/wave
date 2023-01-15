@@ -48,7 +48,7 @@ public class FindAllTextDataTest {
         Assert.assertEquals(expectedValues, allTextData);
     }
 
-    @Test(expected = TestAssertionError.class)
+    @Test(expected = AssertionError.class)
     public void findAllTextDataTestFail() {
         List<String> allTextData = findAll("css:#testid3 p").getAllText();
         List<String> expectedValues = new ArrayList<>();

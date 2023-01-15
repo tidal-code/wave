@@ -10,8 +10,9 @@ import java.util.List;
 
 public class IframeNewHandler {
 
+    protected WebElement contextElement;
 
-    public static boolean switchToIframeOfElement(By locator, boolean visibility) {
+    public boolean switchToIframeOfElement(By locator, boolean visibility) throws IterationStopper {
         WebDriver driver = Driver.getDriver();
 
         List<WebElement> elements = driver.findElements(locator);
@@ -23,7 +24,7 @@ public class IframeNewHandler {
         return iframeIterator(locator, visibility);
     }
 
-    private static boolean iframeIterator(By locator, boolean visibility) {
+    private boolean iframeIterator(By locator, boolean visibility) throws IterationStopper{
         WebDriver driver = Driver.getDriver();
 
         List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
@@ -41,17 +42,22 @@ public class IframeNewHandler {
         return false;
     }
 
-    private static boolean checkVisibleCondition(List<WebElement> elements, boolean visibility) {
+    private boolean checkVisibleCondition(List<WebElement> elements, boolean visibility) {
         if (visibility) {
             return findDisplayedElement(elements);
         } else {
-            return true;
+            if(!elements.isEmpty()) {
+                contextElement = elements.get(0);
+                return true;
+            }
         }
+        return false;
     }
 
-    private static boolean findDisplayedElement(List<WebElement> elements) {
+    private boolean findDisplayedElement(List<WebElement> elements) {
         for (WebElement element : elements) {
             if (element.isDisplayed()) {
+                contextElement = element;
                 return true;
             }
         }
