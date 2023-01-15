@@ -21,7 +21,7 @@ import static com.tidal.wave.data.GlobalData.getData;
 import static com.tidal.wave.loggers.LoggerUtil.getLogger;
 
 
-public class FindWebElement extends IframeNewHandler {
+public class FindWebElement extends IframeIterator {
 
     private static final LoggerUtil log = getLogger(FindWebElement.class);
 
