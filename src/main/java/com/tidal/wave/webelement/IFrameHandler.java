@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+
+@Deprecated (since = "1.2.0", forRemoval=true)
 class IFrameHandler extends LoggerUtil {
 
     private static final LoggerUtil logger = LoggerUtil.getLogger(IFrameHandler.class);
