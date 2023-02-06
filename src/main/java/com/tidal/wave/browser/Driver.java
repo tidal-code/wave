@@ -13,20 +13,23 @@ public class Driver {
 
     private DriverCommand driverCommand;
 
-    public DriverCommand create(String browserType, AbstractDriverOptions<?> options){
-        WebDriver webDriver = new BrowserFactory().getBrowser(browserType, options);
+    public DriverCommand create(String browserType, AbstractDriverOptions<?> options) {
+        WebDriver webDriver = getDriver();
+        if (null == webDriver) {
+            webDriver = new BrowserFactory().getBrowser(browserType, options);
+        }
         Store.objectType("Driver", webDriver);
         driverCommand = new DriverCommand(webDriver);
         return driverCommand;
     }
 
-    public void close(){
+    public void close() {
         logger.info("Quitting Driver");
         Objects.requireNonNull(driverCommand, "Attempting to close a browser which was not initiated");
         driverCommand.closeDriver();
     }
 
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver() {
         return (WebDriver) Store.getTypeObject("Driver");
     }
 }

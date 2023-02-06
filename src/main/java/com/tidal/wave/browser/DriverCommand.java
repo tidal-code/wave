@@ -18,7 +18,6 @@ public class DriverCommand {
     }
 
     public void closeDriver() {
-        webDriver.close();
         webDriver.quit();
     }
 
