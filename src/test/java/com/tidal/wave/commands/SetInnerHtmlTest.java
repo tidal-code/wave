@@ -17,10 +17,11 @@ public class SetInnerHtmlTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         
-        Browser.withOptions(chromeOptions)
+        Browser.withOptions(options)
                 .withWaitTime(Duration.ofSeconds(7))
                 .open("file://" + Finder.findFilePath("components/textinput/textinput.html"));
     }

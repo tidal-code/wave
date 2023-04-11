@@ -19,9 +19,10 @@ public class MultiElementDataFinderTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
-        Browser.withOptions(chromeOptions).open("https://google.co.nz");
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
+        Browser.withOptions(options).open("https://google.co.nz");
     }
 
     @After
@@ -48,10 +49,10 @@ public class MultiElementDataFinderTest {
 
     @Test
     public void testFindAllShouldHave() {
-//        ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.setHeadless(true);
+//        ChromeOptions options = new ChromeOptions();
+//        options.setHeadless(true);
 //        Browser 
-//        Browser.withOptions(chromeOptions).open("https://google.co.nz");
+//        Browser.withOptions(options).open("https://google.co.nz");
         findAll("name:q").shouldHave(size(1));
 //        Browser.close();
     }

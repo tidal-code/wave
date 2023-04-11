@@ -18,9 +18,10 @@ public class SetTextTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
-        Browser.withOptions(chromeOptions)
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
+        Browser.withOptions(options)
                 .withWaitTime(Duration.ofSeconds(6))
                 .open("file://" + Finder.findFilePath("components/textinput/textinput.html"));
     }

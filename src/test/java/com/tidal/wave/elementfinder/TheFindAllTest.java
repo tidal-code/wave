@@ -22,10 +22,11 @@ public class TheFindAllTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/elements/elements.html"));
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
     }
 
     @After
@@ -130,6 +131,13 @@ public class TheFindAllTest {
     @Test
     public void testGetSize() {
         findAll("xxxxxxx").shouldHave(size(0));
+    }
+
+    @Test
+    public void nestedFindAllTest(){
+        findAll("class:parent").forEach(e -> {
+            e.thenFindAll("class:child").forEach(v -> System.out.println(v.getText()));
+        });
     }
 
 }

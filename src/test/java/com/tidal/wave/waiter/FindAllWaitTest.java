@@ -19,10 +19,11 @@ public class FindAllWaitTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
 
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/elements/elements.html"));
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
     }
 
     @After

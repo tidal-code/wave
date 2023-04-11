@@ -20,10 +20,11 @@ public class TimeoutTest {
 
     @Before
     public void testSetUp() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
 
-        Browser.withOptions(chromeOptions).open("http://www.google.com");
+        Browser.withOptions(options).open("http://www.google.com");
     }
 
     @After

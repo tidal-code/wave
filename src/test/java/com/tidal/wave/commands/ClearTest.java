@@ -17,9 +17,10 @@ public class ClearTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/textinput/textinput.html"));
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/textinput/textinput.html"));
     }
 
     @After

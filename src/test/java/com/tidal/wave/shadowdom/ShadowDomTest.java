@@ -14,9 +14,10 @@ import static com.tidal.wave.webelement.ElementFinder.find;
 public class ShadowDomTest {
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/nestedshadowdom/index.html"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/nestedshadowdom/index.html"));
     }
 
     @After
@@ -30,6 +31,5 @@ public class ShadowDomTest {
         find("id:non_host").shouldBe(present);
         find("id:nested_shadow_content")
                 .inShadowDom().shouldBe(present);
-
     }
 }

@@ -8,7 +8,6 @@ import com.tidal.wave.utils.Helper;
 import com.tidal.wave.xml.Processors;
 import com.tidal.wave.xml.XMLReader;
 import com.tidal.wave.xml.XmlBuilder;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,11 +19,12 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ResultParser {
 
-    private static final Logger logger = Logger.getLogger(ResultParser.class);
+    private static final Logger logger = Logger.getLogger("ResultParser");
 
     //Even if there is no rerun the output file name will be 'TestResultFinal.xml'
     private static final String FINAL_RESULT_FILE = "TestResultFinal.xml";

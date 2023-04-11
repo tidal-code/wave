@@ -426,7 +426,7 @@ public class UIActions implements UIElement {
      * @return A self reference
      * @deprecated This is being deprecated as we cannot rely on this action
      */
-    @Override
+    @Override @Deprecated
     public UIActions pressTab(int times) {
         executor.usingLocator(locators).withTabIndex(times).invokeCommand(PressTab.class);
         return this;
