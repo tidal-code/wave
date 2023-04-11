@@ -17,7 +17,8 @@ public class Reporter {
     private static final String[] funcAssertion = {
             "TestAssertionError",
             "ComparisonFailure",
-            "ExpectationFailure"
+            "ExpectationFailure",
+            "AssertionError"
     };
 
     private static final String[] scriptIssues = {

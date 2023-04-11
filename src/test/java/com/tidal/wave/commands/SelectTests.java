@@ -14,10 +14,11 @@ public class SelectTests {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/select/select.html"));
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/select/select.html"));
     }
 
     @After

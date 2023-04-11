@@ -9,7 +9,6 @@ import com.tidal.wave.propertieshandler.Config;
 import com.tidal.wave.propertieshandler.PropertiesFinder;
 import com.tidal.wave.utils.Helper;
 import com.tidal.wave.xml.XMLReader;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -18,21 +17,18 @@ import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
 public class ReportBuilder {
-    private static final Logger logger = Logger.getLogger(ReportBuilder.class);
-
+    private static final Logger logger = Logger.getLogger("ReportBuilder");
     private static final String FINAL_RESULT_FILE = "TestResultFinal.xml";
     private static final String RESULT_FOLDER_NAME = "test-summary";
     private static final Path TARGET_FOLDER_PATH = Paths.get(Helper.getAbsoluteFromRelativePath(FilePaths.TARGET_FOLDER_PATH.getPath()));
     private static final Path PATH_TO_WRITE_FILE = Paths.get(TARGET_FOLDER_PATH.toString(), RESULT_FOLDER_NAME, "TestResult.csv");
-
     private static final List<String> testFailures = new ArrayList<>();
-
-
     private static final String REPORT_HEADERS = "" +
             "Test Case, " +
             "Result, " +
@@ -113,7 +109,6 @@ public class ReportBuilder {
         String totalTime = String.format("%02d:%02d:%02d", timeInHours, timeInMinutes, totalSeconds);
         totalTime = totalTime + " (This is the total run time if tests run sequentially. It does not take into account the time saved by parallel runs)";
 
-
         result.append("Pipeline Name: ").append(pipelineName == null ? "" : pipelineName).append(System.lineSeparator());
         result.append("Project Name: ").append(projectName == null ? "" : projectName).append(System.lineSeparator());
         result.append("Branch Name: ").append(branchName == null ? "" : branchName).append(System.lineSeparator());
@@ -121,7 +116,6 @@ public class ReportBuilder {
         result.append("Total tests failed: ").append(totalFailedTests).append(System.lineSeparator());
         result.append("Pass percentage: ").append(passPercentage).append(System.lineSeparator());
         result.append("Total run time: ").append(totalTime).append(System.lineSeparator());
-
 
         result.append(System.lineSeparator());
 
@@ -198,8 +192,12 @@ public class ReportBuilder {
             Node messageAttribute = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("message");
             //Failure type to classify what caused the run to fail
             String typeContent = type.getTextContent();
+
             //Clean the verification message of new lines and commas.
-            String failureMessage = messageAttribute.getTextContent().replace(",", "").replace("\n", "");
+            String failureMessage = "Exception unknown. Refer other reports.";
+            if(null != messageAttribute) {
+                failureMessage = messageAttribute.getTextContent().replace(",", "").replace("\n", "");
+            }
             //Parse the type content and error message to classify the failure types
             reportModel = reportMatcher.parse(typeContent, failureMessage);
 

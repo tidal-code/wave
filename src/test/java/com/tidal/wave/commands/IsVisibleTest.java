@@ -3,7 +3,10 @@ package com.tidal.wave.commands;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.filehandlers.Finder;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.tidal.wave.verification.expectations.Expectation.toBeInteractable;
@@ -14,10 +17,11 @@ public class IsVisibleTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/elements/elements.html"));
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
     }
 
     @After

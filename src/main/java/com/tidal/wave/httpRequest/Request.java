@@ -115,6 +115,8 @@ public class Request {
             DATA_MAP.get().put("queryParamOneValue", value);
         }
 
+        else
+
         if(DATA_MAP.get().get(QUERY_PARAM_TWO_KEY) == null){
             DATA_MAP.get().put(QUERY_PARAM_TWO_KEY, key);
             DATA_MAP.get().put("queryParamTwoValue", value);

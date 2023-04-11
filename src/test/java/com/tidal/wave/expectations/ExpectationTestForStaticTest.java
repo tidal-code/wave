@@ -15,9 +15,10 @@ public class ExpectationTestForStaticTest {
 
     @Before
     public void initialize() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setHeadless(true);
-        Browser.withOptions(chromeOptions).open("file://" + Finder.findFilePath("components/elements/softassertelements.html"));
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/softassertelements.html"));
     }
 
     @After

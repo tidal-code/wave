@@ -17,8 +17,9 @@ public class OpenCloseTest {
 
     @Test
     public void chromeOpenTest(){
-        ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         Browser.withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
         assertThat(browserName, is(equalTo("chrome")));
@@ -28,7 +29,7 @@ public class OpenCloseTest {
     @Test
     public void firefoxOpenTest(){
         FirefoxOptions options = new FirefoxOptions();
-        options.setHeadless(true);
+        options.addArguments("--headless");
         Browser.type(BrowserTypes.FIREFOX).withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
         assertThat(browserName, is(equalTo("firefox")));
@@ -38,7 +39,7 @@ public class OpenCloseTest {
     @Test
     public void edgeOpenTest(){
         EdgeOptions options = new EdgeOptions();
-        options.setHeadless(true);
+        options.addArguments("--headless");
         Browser.type("edge").withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
         assertThat(browserName, is(equalTo("msedge")));

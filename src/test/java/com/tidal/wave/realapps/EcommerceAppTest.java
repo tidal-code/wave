@@ -25,11 +25,8 @@ public class EcommerceAppTest {
 
         find("//span[contains(@class, 'ui-menu-icon')]").waitFor(4).expecting(toBePresent);
         find(String.format("//span[text()='%s']", "Men")).hover(1);
-
         find(String.format("//span[text()='%s']", "Tops")).hover(1);
-
         find(String.format("//span[text()='%s']", "Jackets")).click();
-
         find("partialLinkText:Beaumont Summit Kit").hover(2);
         find("Add to Cart").click();
 

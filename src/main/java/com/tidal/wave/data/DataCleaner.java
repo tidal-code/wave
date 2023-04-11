@@ -11,6 +11,7 @@ public class DataCleaner {
 
     public static void cleanData() {
         GlobalData.clean();
+        Store.clean();
         Wait.removeWait();
         Tabs.remove();
         Windows.remove();

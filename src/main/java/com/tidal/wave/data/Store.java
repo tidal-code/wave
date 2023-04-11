@@ -30,5 +30,9 @@ public class Store {
         return data.get().get(key);
     }
 
+    public static void clean(){
+        data.remove();
+    }
+
 
 }
