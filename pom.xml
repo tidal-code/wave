@@ -6,7 +6,7 @@
 
     <groupId>io.github.tidal-code</groupId>
     <artifactId>wave</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 
     <name>Tidal Automation Library</name>
     <description>Automation Code Repository</description>
