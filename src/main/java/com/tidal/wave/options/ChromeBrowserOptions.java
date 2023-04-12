@@ -25,7 +25,7 @@ public final class ChromeBrowserOptions implements BrowserOptions {
         options.addArguments(Config.REMOTE_SCREEN_SIZE);
         setCommonOptions(options);
 
-        options.addArguments("--headless");
+        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
@@ -42,10 +42,14 @@ public final class ChromeBrowserOptions implements BrowserOptions {
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
         prefs.put("profile.password_manager_enabled", false);
+
+        String downloadPath = System.getProperty("user.dir") + File.separator +
+                String.join(File.separator, PropertiesFinder.getProperty(
+                        "path.downloads").split(","));
+
+        System.out.println("Download path is " + downloadPath);
         prefs.put("download.default_directory",
-                System.getProperty("user.dir") + File.separator +
-                        String.join(File.separator, PropertiesFinder.getProperty(
-                                "path.downloads").split(",")));
+                downloadPath);
 
         options.setExperimentalOption("prefs", prefs);
     }

@@ -46,7 +46,7 @@ public class FileReader {
         return new String(byteArray);
     }
 
-    public static InputStream getFileContentsAsStream(String resource) {
+    public synchronized static InputStream getFileContentsAsStream(String resource) {
         return ClassLoader.getSystemResourceAsStream(resource);
     }
 }

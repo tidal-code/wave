@@ -21,15 +21,15 @@ public class Finder {
     private Finder() {
     }
 
-    public static void setFolder(String folder) {
+    public synchronized static void setFolder(String folder) {
         resourceFolder = Paths.get(folder);
     }
 
-    public static void setTargetAsBaseFolder() {
+    public synchronized static void setTargetAsBaseFolder() {
         resourceFolder = Paths.get(Helper.getAbsoluteFromRelativePath(FilePaths.TARGET_FOLDER_PATH.getPath()));
     }
 
-    public static void resetToResourceFolder(){
+    public synchronized static void resetToResourceFolder(){
         resourceFolder = Paths.get(Helper.getAbsoluteFromRelativePath(FilePaths.RESOURCE_FOLDER_PATH.getPath()));
     }
 
@@ -48,11 +48,11 @@ public class Finder {
         }
     }
 
-    public static Optional<File> findFileIfExists(String fileName) {
+    public synchronized static Optional<File> findFileIfExists(String fileName) {
         return findFileIfExists(fileName, resourceFolder);
     }
 
-    public static Optional<File> findFileIfExists(String fileName, Path baseFolderPath) {
+    public synchronized static Optional<File> findFileIfExists(String fileName, Path baseFolderPath) {
         try (Stream<String> stringStream = Files.walk(baseFolderPath).map(Path::toString).filter(f -> f.contains(fileName))) {
             Optional<String> filePath = stringStream.findFirst();
             if (filePath.isPresent()) {
@@ -64,16 +64,16 @@ public class Finder {
         return Optional.empty();
     }
 
-    public static String findFilePath(String fileName) {
+    public synchronized static String findFilePath(String fileName) {
         File foundFile = Finder.findFile(fileName);
         return foundFile.getPath();
     }
 
-    public static String getAbsoluteFilePath(String fileName) {
+    public synchronized static String getAbsoluteFilePath(String fileName) {
         return FilePaths.getAbsoluteFromRelativePath(findFilePath(fileName));
     }
 
-    public static void openFile(String htmlFileName) {
+    public synchronized static void openFile(String htmlFileName) {
         File htmlFile = Finder.findFile(htmlFileName);
         try {
             Desktop.getDesktop().browse(htmlFile.toURI());

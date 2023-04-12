@@ -1,6 +1,7 @@
 package com.tidal.wave.report;
 
 import com.tidal.flow.assertions.VerificationError;
+import com.tidal.wave.loggers.Logger;
 import org.junit.Test;
 
 import static com.tidal.flow.assertions.Assert.verify;
@@ -8,9 +9,12 @@ import static com.tidal.flow.assertions.Assert.verify;
 
 public class ReportBuilderTest {
 
+    Logger logger = new Logger(ReportBuilderTest.class);
 
     @Test
     public void frameworkVerificationTest(){
+        logger.info("Hello Logger");
+
         final ReportMatcher functionalMatcher = new Reporter.FunctionalFailure();
         String typeContent = "nz.co.wc.utility.components.assertions.VerificationError";
         String errorMessage = "Verification Failed: 'Testing' does not end with 'hello'&#10;Description: Intentional assertion failure&#10;at nz.co.wc.utility.components.assertions.strings.StringAssertion.endsWith(StringAssertion.java:113)&#10;at nz.co.watercare.ui.framework.cukes.rules.InputValueRules.bingSearchInputVerification(InputValueRules.java:13)&#10;at nz.co.watercare.ui.framework.cukes.stepdefs.StepDefs.thenICanSeeBingHomepage(StepDefs.java:45)&#10;";

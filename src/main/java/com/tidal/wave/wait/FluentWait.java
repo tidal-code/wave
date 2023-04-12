@@ -25,7 +25,7 @@ import java.util.function.Supplier;
  */
 public class FluentWait<T> {
 
-    private final Logger logger = new Logger().forClass(FluentWait.class);
+    private final Logger logger = new Logger(FluentWait.class);
     private final T input;
     private final Sleeper sleeper;
     private final List<Class<? extends Throwable>> ignoredExceptions = new ArrayList<>();
