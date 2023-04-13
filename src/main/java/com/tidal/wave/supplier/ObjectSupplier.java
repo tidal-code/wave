@@ -1,11 +1,8 @@
 package com.tidal.wave.supplier;
 
 
-
-
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ObjectSupplier {
 
-    private static final Logger logger = LogManager.getLogger(ObjectSupplier.class);
+    private static final Logger logger = LoggerFactory.getLogger(ObjectSupplier.class);
 
     private static final ThreadLocal<Map<String, Object>> objectMap = ThreadLocal.withInitial(() -> new ConcurrentHashMap<>(200));
 

@@ -1,17 +1,17 @@
 package com.tidal.wave.wait;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Function;
 
 public class ActivityWaiter {
 
-    private final Logger logger = LogManager.getLogger(ActivityWaiter.class);
+    private final Logger logger = LoggerFactory.getLogger(ActivityWaiter.class);
 
     public void waitAllRequest(WebDriver driver, WebDriverWait wait) {
         waitUntilDocReady(driver, wait);
