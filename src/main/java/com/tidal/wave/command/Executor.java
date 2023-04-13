@@ -1,9 +1,9 @@
 package com.tidal.wave.command;
 
 import com.tidal.wave.supplier.ObjectSupplier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.beans.Introspector;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Executor implements ExecutorCommands {
 
-    private static final Logger logger = LoggerFactory.getLogger(Executor.class);
+    private static final Logger logger = LogManager.getLogger(Executor.class);
 
     Map<String, Command> commandCollection = new ConcurrentHashMap<>(200);
     CommandContext context = (CommandContext) ObjectSupplier.instanceOf(CommandContext.class);

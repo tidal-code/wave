@@ -1,15 +1,15 @@
 package com.tidal.wave.browser;
 
 import com.tidal.wave.data.Store;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.AbstractDriverOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 public class Driver {
-    private final Logger logger = LoggerFactory.getLogger(Driver.class);
+    private final Logger logger = LogManager.getLogger(Driver.class);
 
     private DriverCommand driverCommand;
 

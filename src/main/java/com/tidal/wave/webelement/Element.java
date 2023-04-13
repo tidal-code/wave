@@ -5,12 +5,12 @@ import com.tidal.wave.data.ElementData;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.ContextException;
 import com.tidal.wave.wait.ThreadSleep;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class Element {
 
-    private static final Logger logger = LoggerFactory.getLogger(Element.class);
+    private static final Logger logger = LogManager.getLogger(Element.class);
 
     private TimeCounter timeCounter;
 

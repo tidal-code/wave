@@ -3,8 +3,8 @@ package com.tidal.wave.csv;
 
 
 import com.tidal.wave.scenario.ScenarioInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -20,7 +20,7 @@ import static com.tidal.wave.data.GlobalData.addObjectData;
 
 public class DataResolver<T> {
 
-    private static final Logger logger = LoggerFactory.getLogger(DataResolver.class);
+    private static final Logger logger = LogManager.getLogger(DataResolver.class);
 
     public static synchronized <T> void resolveData(T modelClass, String csvFile) {
         String testCaseName = ScenarioInfo.getScenarioName();

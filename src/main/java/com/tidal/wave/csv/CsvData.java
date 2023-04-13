@@ -7,8 +7,8 @@ import com.tidal.wave.exceptions.DataResolverException;
 import com.tidal.wave.propertieshandler.PropertiesFinder;
 import com.tidal.wave.scenario.ScenarioInfo;
 import com.tidal.wave.utils.Helper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,7 +17,7 @@ import java.util.*;
 
 @SuppressWarnings("All")
 public class CsvData {
-    private final Logger logger = LoggerFactory.getLogger(CsvData.class);
+    private final Logger logger = LogManager.getLogger(CsvData.class);
 
     public static synchronized void updateDataTo(String dataPoolName, String key, String value) {
         String testCaseName = ScenarioInfo.getScenarioName();
