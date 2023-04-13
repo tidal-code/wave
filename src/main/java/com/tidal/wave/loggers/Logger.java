@@ -7,6 +7,12 @@ public class Logger {
 
     private org.slf4j.Logger loggerKlass;
 
+    private Logger(){}
+
+    public Logger(Class<?> any){
+        loggerKlass = LoggerFactory.getLogger(any.getSimpleName());
+    }
+
     @Step("{1}")
     public static <T> void info(Class<T> klass, String logMessage) {
         org.slf4j.Logger logger = LoggerFactory.getLogger(klass);
@@ -53,11 +59,6 @@ public class Logger {
     public static <T> void debug(Class<T> klass, String logMessage, Throwable t) {
         org.slf4j.Logger logger = LoggerFactory.getLogger(klass);
         logger.debug(logMessage, t);
-    }
-
-    public Logger forClass(Class<?> any) {
-        loggerKlass = LoggerFactory.getLogger(any.getSimpleName());
-        return this;
     }
 
     @Step("{0}")

@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class Page {
 
-    private static final Logger logger = new Logger().forClass(Page.class);
+    private static final Logger logger = new Logger(Page.class);
 
     private Page() {
     }
