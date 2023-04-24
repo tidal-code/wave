@@ -19,16 +19,13 @@ public final class GetAttribute extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
+    private CommandContext context;
 
-    private boolean visibility;
-    private boolean isMultiple;
     private String attributeName;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.visibility = context.getVisibility();
-        this.locators = context.getLocators();
+        this.context = context;
         this.attributeName = context.getAttributeName();
     }
 
@@ -38,7 +35,7 @@ public final class GetAttribute extends CommandAction implements Command {
     }
 
     public String getAttributeAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         return element.getAttribute(attributeName);
     }
 

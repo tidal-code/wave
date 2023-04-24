@@ -1,7 +1,5 @@
 package com.tidal.wave.retry;
 
-import org.openqa.selenium.By;
-
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -49,5 +47,5 @@ public abstract class RetryCondition {
         return new StillVisible();
     }
 
-    public abstract boolean retry(boolean isVisible, boolean isMultiple, List<By> locators);
+    public abstract boolean retry(boolean isVisible, boolean isMultiple, List<String> locators);
 }

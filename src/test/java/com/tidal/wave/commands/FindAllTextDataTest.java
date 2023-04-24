@@ -56,4 +56,30 @@ public class FindAllTextDataTest {
         expectedValues.add("Automation");
         Assert.assertEquals(expectedValues, allTextData);
     }
+
+    @Test
+    public void findAllTextDataTestNPTest() {
+
+        List<String> testList = new ArrayList<>();
+        testList.add("hello");
+        testList.add("world");
+        testList.add("java");
+
+        testList.forEach(e -> {
+            List<String> allTextData = findAll("css:#testid3 p").getAllText();
+            System.out.println(allTextData.size());
+            List<String> expectedValues = new ArrayList<>();
+            expectedValues.add("Tester");
+            expectedValues.add("Of");
+            expectedValues.add("Automation");
+            Assert.assertEquals(expectedValues, allTextData);
+        });
+
+//        List<String> allTextData = findAll("css:#testid3 p").getAllText();
+//        System.out.println(allTextData.size());
+//        List<String> expectedValues = new ArrayList<>();
+//        expectedValues.add("Tester");
+//        expectedValues.add("Automation");
+//        Assert.assertEquals(expectedValues, allTextData);
+    }
 }

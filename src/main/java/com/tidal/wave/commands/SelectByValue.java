@@ -21,15 +21,12 @@ public final class SelectByValue extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private String selectionValue;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
         this.selectionValue = context.getTextInput();
     }
 
@@ -39,7 +36,7 @@ public final class SelectByValue extends CommandAction implements Command {
     }
 
     public String selectByValueAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         Select select = new Select(element);
         select.selectByValue(selectionValue);
         return select.getFirstSelectedOption().getText();

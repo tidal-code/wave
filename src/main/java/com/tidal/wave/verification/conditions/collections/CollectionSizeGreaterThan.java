@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
-import org.openqa.selenium.By;
 
 import java.time.Duration;
 import java.util.List;
@@ -23,7 +22,7 @@ public class CollectionSizeGreaterThan extends CollectionsCondition {
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<By> locators) {
+    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
         Duration waitDuration = Duration.ofSeconds(1);
 
         new FluentWait<>(executor)

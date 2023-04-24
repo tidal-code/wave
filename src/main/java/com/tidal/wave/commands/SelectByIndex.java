@@ -19,17 +19,13 @@ public final class SelectByIndex extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private int selectIndex;
 
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
         this.selectIndex = context.getSelectIndex();
     }
 
@@ -39,7 +35,7 @@ public final class SelectByIndex extends CommandAction implements Command {
     }
 
     public String selectByIndexAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         Select select = new Select(element);
         select.selectByIndex(selectIndex);
         return select.getFirstSelectedOption().getText();

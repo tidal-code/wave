@@ -45,7 +45,7 @@ public class Parser {
 
         @Override
         public By parse(String locator) {
-            if (locator.startsWith("//") || locator.startsWith("(//") || locator.startsWith(".//"))
+            if (locator.startsWith("//") || locator.startsWith("(//") || locator.startsWith("./"))
                 return By.xpath(locator);
 
             if (locator.startsWith("title:")) {

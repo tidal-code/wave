@@ -41,6 +41,13 @@ public class ThenFindAndThenFindAllTests {
     }
 
     @Test
+    public void findThenFindThenFindMultipleTest() {
+        String text = find("div with id testid1").thenFind("div with id testid2").thenFind("div with id testid3").thenFind("tagName:p").getText();
+        String text2 = find("div with id testid1").thenFind("div with id testid2").thenFind("div with id testid3").thenFind("tagName:p").getText();
+        Assert.assertEquals(text2, text);
+    }
+
+    @Test
     public void findThenFindThenFindTestWithShouldHave() {
         find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFind("tagName:p").shouldHave(Condition.exactText("Tester"));
     }

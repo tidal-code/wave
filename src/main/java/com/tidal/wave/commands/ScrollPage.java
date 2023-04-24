@@ -21,13 +21,13 @@ public final class ScrollPage extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-    private boolean isMultiple;
+    private CommandContext context;
     private int[] xyCords;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locators = context.getLocators();
-        this.isMultiple = context.isMultiple();
+        this.context = context;
+        this.context.setVisibility(false);
         this.xyCords = context.getXYCords();
     }
 
@@ -37,7 +37,7 @@ public final class ScrollPage extends CommandAction implements Command {
     }
 
     public void scrollPageAction() {
-        WebElement element = webElement.getElement(locators, false, isMultiple);
+        WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("window.scrollBy(%d ,%d)", xyCords[0], xyCords[1]), element);
     }
 

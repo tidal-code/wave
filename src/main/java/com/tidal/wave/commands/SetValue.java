@@ -24,16 +24,13 @@ public final class SetValue extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private String inputText;
 
     @Override
     public void contextSetter(CommandContext context) {
+        this.context = context;
         this.inputText = context.getTextInput();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
-        this.isMultiple = context.isMultiple();
     }
 
     @Override
@@ -44,7 +41,7 @@ public final class SetValue extends CommandAction implements Command {
     public void setValueAction() {
         Function<WebElement, String> expectedValue = e -> e.getAttribute("value");
 
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("arguments[0].value='%s';", inputText), element);
 
         if (!expectedValue.apply(element).equals(inputText)) {

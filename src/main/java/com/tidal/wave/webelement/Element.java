@@ -1,28 +1,28 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.counter.TimeCounter;
-import com.tidal.wave.data.ElementData;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.ContextException;
 import com.tidal.wave.wait.ThreadSleep;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tidal.wave.data.GlobalData.getData;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
+import static com.tidal.wave.locator.LocatorMatcher.getMatchedLocator;
 
 
 public class Element {
 
-    private static final Logger logger = LogManager.getLogger(Element.class);
+    private static final Logger logger = LoggerFactory.getLogger(Element.class);
 
     private TimeCounter timeCounter;
 
@@ -35,7 +35,8 @@ public class Element {
     }
 
 
-    public WebElement getElement(List<By> locatorSet, boolean visibility, boolean isMultiple) {
+    public WebElement getElement(CommandContext context) {
+
         final int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
         if (timeCounter == null) {
@@ -44,12 +45,12 @@ public class Element {
 
         WebElement element;
         try {
-            element = getWebElement(locatorSet, visibility, isMultiple);
+            element = getWebElement(context);
 
             if (!timeCounter.timeElapsed(Duration.ofSeconds(duration))) {
                 if (movementDetected(element)) {
                     logger.info("Element not stable, movement detected, retrying to find the element");
-                    element = getElement(locatorSet, visibility, isMultiple);
+                    element = getElement(context);
                 }
             }
 
@@ -60,7 +61,7 @@ public class Element {
             if (timeCounter.timeElapsed(Duration.ofSeconds(duration))) {
                 throw e;
             }
-            element = getElement(locatorSet, visibility, isMultiple);
+            element = getElement(context);
         }
         return element;
     }
@@ -76,14 +77,18 @@ public class Element {
         return xCordDiff != 0 || yCordDiff != 0;
     }
 
-    private WebElement getWebElement(List<By> locators, boolean visibility, boolean isMultiple){
+    private WebElement getWebElement(CommandContext context){
+        List<String> locators = context.getLocators();
+        boolean visibility = context.getVisibility();
+        boolean isMultiple = context.isMultiple();
+
         WebElement element;
         if (locators.size() > 1) {
-            element = getWebElementFromSet(locators, visibility, isMultiple);
+            element = getWebElementFromSet(context);
         } else if (isMultiple) {
-            element = new FindWebElement().webElements(locators.get(0), Integer.parseInt(getData(ElementData.INDEX)), visibility);
+            element = new FindWebElement().webElements(getMatchedLocator(locators.get(0)), context.getElementIndex(), visibility);
         } else if (locators.size() == 1) {
-            element = new FindWebElement().webElement(locators.get(0), visibility);
+            element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
         } else {
             throw new ContextException("Locator(s) not set. Set locator context with appropriate function");
         }
@@ -96,27 +101,32 @@ public class Element {
      * The very first element is found first. If the list contains information about more than one locator, it is an indication
      * that there needs to be a chain elements to be found.
      *
-     * @param locators list of locators
-     * @param visibility decides to find a visible or hidden element
-     * @param isMultiple decides to find an element from a list of elements
      * @return WebElement
      */
-    private WebElement getWebElementFromSet(List<By> locators, boolean visibility, boolean isMultiple){
-        WebElement element = new FindWebElement().webElement(locators.get(0), visibility);
+    private WebElement getWebElementFromSet(CommandContext context){
+
+        List<String> locators = context.getLocators();
+        boolean visibility = context.getVisibility();
+        boolean isMultiple = context.isMultiple();
+
+        WebElement element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
 
         for (int i = 1; i < locators.size() - 1; i++) {
-            element = element.findElement(locators.get(i));
+            element = element.findElement(getMatchedLocator(locators.get(i)));
         }
         if (isMultiple) {
-            element = element.findElements(locators.get(locators.size() - 1)).get(Integer.parseInt(getData(ElementData.INDEX)));
+            element = element.findElements(getMatchedLocator(locators.get(locators.size() - 1))).get(context.getElementIndex());
         } else {
-            element = element.findElement(locators.get(locators.size() - 1));
+            element = element.findElement(getMatchedLocator(locators.get(locators.size() - 1)));
         }
         return element;
     }
 
 
-    public List<WebElement> getElements(List<By> locatorSet, boolean visibility) {
+    public List<WebElement> getElements(CommandContext context) {
+
+        List<String> locatorSet = context.getLocators();
+        boolean visibility = context.getVisibility();
 
         int duration = Integer.parseInt(getWaitTime(WaitTime.DEFAULT_WAIT_TIME));
 
@@ -128,15 +138,15 @@ public class Element {
 
         try {
             if (locatorSet.size() > 1) {
-                List<By> locators = new ArrayList<>(locatorSet);
-                element = new FindWebElement().webElement(locators.get(0), visibility);
+                List<String> locators = new ArrayList<>(locatorSet);
+                element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
 
                 for (int i = 1; i < locators.size() - 1; i++) {
-                    element = element.findElement(locators.get(i));
+                    element = element.findElement(getMatchedLocator(locators.get(i)));
                 }
-                elements = element.findElements(locators.get(locators.size() - 1));
+                elements = element.findElements(getMatchedLocator(locators.get(locators.size() - 1)));
             } else {
-                elements = new FindWebElement().webElements(locatorSet.get(0), visibility);
+                elements = new FindWebElement().webElements(getMatchedLocator(locatorSet.get(0)), visibility);
             }
         } catch (WebDriverException e) {
             logger.error(e.getMessage());
@@ -145,14 +155,12 @@ public class Element {
             if (timeCounter.timeElapsed(Duration.ofSeconds(duration))) {
                 throw e;
             }
-            elements = getElements(locatorSet, visibility);
+            elements = getElements(context);
         }
 
         timeCounter = null;
         return elements;
     }
 
-    public List<WebElement> getElements(List<By> locatorSet) {
-        return getElements(locatorSet, false);
-    }
+
 }

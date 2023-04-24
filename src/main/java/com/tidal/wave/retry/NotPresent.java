@@ -2,10 +2,8 @@ package com.tidal.wave.retry;
 
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetSize;
-import com.tidal.wave.locator.LocatorMatcher;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.ThreadSleep;
-import org.openqa.selenium.By;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,15 +11,15 @@ import java.util.List;
 public class NotPresent extends RetryCondition {
 
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
-    private final List<By> newElementLocatorSet;
+    private final List<String> newElementLocatorSet;
 
-    public NotPresent(String locatorMatcher) {
+    public NotPresent(String locator) {
         newElementLocatorSet = new LinkedList<>();
-        newElementLocatorSet.add(LocatorMatcher.getMatchedLocator(locatorMatcher));
+        newElementLocatorSet.add(locator);
     }
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locators) {
+    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
 
         boolean result = (int) executor
                 .withMultipleElements(isMultiple)

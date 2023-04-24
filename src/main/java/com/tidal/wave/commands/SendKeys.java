@@ -20,16 +20,13 @@ public final class SendKeys extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private CharSequence[] charSequences;
 
     @Override
     public void contextSetter(CommandContext context) {
+        this.context = context;
         this.charSequences = context.getSequence();
-        this.locators = context.getLocators();
-        this.isMultiple = context.isMultiple();
-        this.visibility = context.getVisibility();
     }
 
     @Override
@@ -38,7 +35,7 @@ public final class SendKeys extends CommandAction implements Command {
     }
 
     public void sendKeysAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         element.sendKeys(charSequences);
     }
 

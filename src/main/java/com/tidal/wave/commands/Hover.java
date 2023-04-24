@@ -21,17 +21,13 @@ public final class Hover extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private boolean visibility;
-    private boolean isMultiple;
+    private CommandContext context;
     private int secondsToHover;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
+        this.context = context;
         this.secondsToHover = context.getSecondsToWait();
-        this.visibility = context.getVisibility();
-        this.locators = context.getLocators();
     }
 
     @Override
@@ -40,7 +36,7 @@ public final class Hover extends CommandAction implements Command {
     }
 
     public void hoverAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         new Actions(((RemoteWebElement) element).getWrappedDriver()).moveToElement(element).pause(secondsToHover).perform();
     }
 

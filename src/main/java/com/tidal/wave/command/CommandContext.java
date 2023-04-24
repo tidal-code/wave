@@ -1,7 +1,5 @@
 package com.tidal.wave.command;
 
-import org.openqa.selenium.By;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,8 +15,10 @@ public class CommandContext {
     private int secondsToWait;
     private double zoomLevel;
     private CharSequence[] sequence;
-    private List<By> locators = new LinkedList<>();
+    private List<String> locators = new LinkedList<>();
     private boolean shadowDomPresence;
+
+    private int elementIndex;
 
     public String getAttributeName() {
         return attributeName;
@@ -84,11 +84,11 @@ public class CommandContext {
         this.isVisible = isVisible;
     }
 
-    public List<By> getLocators() {
+    public List<String> getLocators() {
         return locators;
     }
 
-    public void setLocatorSet(List<By> locators) {
+    public void setLocatorSet(List<String> locators) {
         this.locators = locators;
     }
 
@@ -115,5 +115,13 @@ public class CommandContext {
 
     public boolean getShadowDomPresence() {
         return shadowDomPresence;
+    }
+
+    public int getElementIndex() {
+        return elementIndex;
+    }
+
+    public void setElementIndex(int elementIndex) {
+        this.elementIndex = elementIndex;
     }
 }

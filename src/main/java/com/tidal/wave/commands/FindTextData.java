@@ -23,15 +23,11 @@ public final class FindTextData extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.visibility = context.getVisibility();
-        this.locators = context.getLocators();
+        this.context = context;
     }
 
     @Override
@@ -42,7 +38,7 @@ public final class FindTextData extends CommandAction implements Command {
     public String findTextDataAction() {
         String textContent;
 
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         textContent = element.getText();
 
         if (!isNullOrEmpty(textContent)) {

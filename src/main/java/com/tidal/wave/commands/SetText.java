@@ -23,17 +23,14 @@ public final class SetText extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private TimeCounter timeCounter;
     private String inputText;
 
     @Override
     public void contextSetter(CommandContext context) {
+        this.context = context;
         this.inputText = context.getTextInput();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
-        this.isMultiple = context.isMultiple();
     }
 
     @Override
@@ -48,7 +45,7 @@ public final class SetText extends CommandAction implements Command {
 
         Function<WebElement, String> currentInputValue = e -> e.getAttribute("value");
 
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         if (!currentInputValue.apply(element).equals(inputText)) {
             element.sendKeys(inputText);
         }

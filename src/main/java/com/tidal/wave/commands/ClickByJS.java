@@ -20,15 +20,13 @@ public final class ClickByJS extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
+    private CommandContext context;
     private boolean visibility;
     private boolean isMultiple;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.visibility = context.getVisibility();
-        locators = context.getLocators();
-        isMultiple = context.isMultiple();
+        this.context = context;
     }
 
     @Override
@@ -37,7 +35,7 @@ public final class ClickByJS extends CommandAction implements Command {
     }
 
     public void clickByJSAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
     }
 

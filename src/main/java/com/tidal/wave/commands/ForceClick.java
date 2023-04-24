@@ -21,15 +21,12 @@ public final class ForceClick extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
+    private CommandContext context;
 
-    private boolean visibility;
-    private boolean isMultiple;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.visibility = context.getVisibility();
-        this.locators = context.getLocators();
+        this.context = context;
     }
 
     @Override
@@ -38,7 +35,7 @@ public final class ForceClick extends CommandAction implements Command {
     }
 
     public void forceClickAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         new Actions(((RemoteWebElement) element).getWrappedDriver())
                 .clickAndHold(element)
                 .pause(1)

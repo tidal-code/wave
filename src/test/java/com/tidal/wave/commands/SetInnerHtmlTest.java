@@ -34,8 +34,8 @@ public class SetInnerHtmlTest {
     @Test
     public void textInputText() {
         String textInputLocator ="id:innerHtmlP";
-        find(textInputLocator).setInnerHtml("Watercare");
-        Assert.assertEquals(find(textInputLocator).getText(), "Watercare");
+        find(textInputLocator).setInnerHtml("Tidal-Wave");
+        Assert.assertEquals(find(textInputLocator).getText(), "Tidal-Wave");
     }
 
 }

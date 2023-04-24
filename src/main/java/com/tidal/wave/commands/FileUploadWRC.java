@@ -23,17 +23,13 @@ public class FileUploadWRC extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private String fileName;
     private String filePath;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
         this.fileName = context.getTextInput();
     }
 
@@ -45,7 +41,7 @@ public class FileUploadWRC extends CommandAction implements Command {
 
 
     public void fileUploadAction() throws AWTException {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         element.click();
 
         Robot robot = new Robot();

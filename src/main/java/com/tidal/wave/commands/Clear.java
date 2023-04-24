@@ -20,14 +20,11 @@ public final class Clear extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
     }
 
     @Override
@@ -36,7 +33,7 @@ public final class Clear extends CommandAction implements Command {
     }
 
     public void clearAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         element.clear();
     }
 
