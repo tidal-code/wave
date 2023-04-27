@@ -1,4 +1,6 @@
-package com.tidal.wave.propertieshandler;
+package com.tidal.wave.config;
+
+import com.tidal.wave.propertieshandler.PropertiesFinder;
 
 import java.util.function.UnaryOperator;
 

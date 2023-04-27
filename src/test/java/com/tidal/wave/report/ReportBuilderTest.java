@@ -1,15 +1,16 @@
 package com.tidal.wave.report;
 
 import com.tidal.flow.assertions.VerificationError;
-import com.tidal.wave.loggers.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.tidal.flow.assertions.Assert.verify;
 
 
 public class ReportBuilderTest {
 
-    Logger logger = new Logger(ReportBuilderTest.class);
+    Logger logger = LoggerFactory.getLogger(ReportBuilderTest.class);
 
     @Test
     public void frameworkVerificationTest(){

@@ -1,5 +1,6 @@
-package com.tidal.wave.propertieshandler;
+package com.tidal.wave.config;
 
+import com.tidal.wave.propertieshandler.PropertiesFinder;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

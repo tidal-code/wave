@@ -1,7 +1,6 @@
 package com.tidal.wave.page;
 
 import com.tidal.wave.browser.Driver;
-import com.tidal.wave.loggers.Logger;
 import com.tidal.wave.wait.Wait;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Alert;
@@ -12,6 +11,8 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Set;
 
 public class Page {
 
-    private static final Logger logger = new Logger(Page.class);
+    private static final Logger logger = LoggerFactory.getLogger(Page.class);
 
     private Page() {
     }
