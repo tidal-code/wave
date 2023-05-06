@@ -1,7 +1,7 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.command.CommandContext;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.ContextException;
 import com.tidal.wave.wait.ThreadSleep;

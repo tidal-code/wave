@@ -1,10 +1,10 @@
 package com.tidal.wave.webelement;
 
 
+import com.tidal.utils.data.DataEnum;
+import com.tidal.utils.data.GlobalData;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.*;
-import com.tidal.wave.data.DataEnum;
-import com.tidal.wave.data.GlobalData;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.supplier.ObjectSupplier;

@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.AbstractDriverOptions;
 import java.time.Duration;
 import java.util.HashMap;
 
-import static com.tidal.wave.data.GlobalData.addData;
+import static com.tidal.utils.data.GlobalData.addData;
 import static com.tidal.wave.data.WaitTimeData.setWaitTime;
 
 public final class BrowserConfig {

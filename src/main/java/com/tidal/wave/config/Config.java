@@ -1,6 +1,6 @@
 package com.tidal.wave.config;
 
-import com.tidal.wave.propertieshandler.PropertiesFinder;
+import com.tidal.utils.propertieshandler.PropertiesFinder;
 
 import java.util.function.UnaryOperator;
 
@@ -40,7 +40,7 @@ public class Config {
     public static final String DRIVER_EXECUTABLE_FOLDER = CONFIGURATION.apply("driver.executable.folder") != null ? CONFIGURATION.apply("driver.executable.folder") : "";
     public static final String RUNNER = CONFIGURATION.apply("runner") != null ? CONFIGURATION.apply("runner") : "TestNgRunner";
     public static final boolean RETRY_FAILED_TESTS = CONFIGURATION.apply("retry.failed.tests") != null && Boolean.parseBoolean(CONFIGURATION.apply("retry.failed.tests"));
-
+    public static final boolean DEBUG = CONFIGURATION.apply("debug") != null && Boolean.parseBoolean(CONFIGURATION.apply("debug"));
     private Config() {
     }
 

@@ -1,5 +1,6 @@
 package com.tidal.wave.data;
 
+import com.tidal.utils.data.GlobalData;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.tabsandwindows.Tabs;
 import com.tidal.wave.tabsandwindows.Windows;

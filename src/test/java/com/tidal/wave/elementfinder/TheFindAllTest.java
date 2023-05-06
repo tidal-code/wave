@@ -1,8 +1,8 @@
 package com.tidal.wave.elementfinder;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.browser.Driver;
-import com.tidal.wave.filehandlers.Finder;
 import com.tidal.wave.webelement.UIElement;
 import org.junit.After;
 import org.junit.Assert;

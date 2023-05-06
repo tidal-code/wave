@@ -1,6 +1,6 @@
 package com.tidal.wave.command;
 
-import com.tidal.wave.counter.TimeCounter;
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.MethodInvokerException;
 import com.tidal.wave.exceptions.RuntimeTestException;

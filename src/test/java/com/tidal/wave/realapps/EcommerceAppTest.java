@@ -28,6 +28,8 @@ public class EcommerceAppTest {
         find(String.format("//span[text()='%s']", "Tops")).hover(1);
         find(String.format("//span[text()='%s']", "Jackets")).click();
         find("partialLinkText:Beaumont Summit Kit").hover(2);
+        String addToCart = find("Add to Cart").getText();
+        System.out.println(addToCart);
         find("Add to Cart").click();
 
         find("//div[text()='You need to choose options for your item.']").expecting(toBeVisible);

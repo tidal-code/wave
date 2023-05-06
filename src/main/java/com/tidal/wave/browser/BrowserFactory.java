@@ -1,6 +1,6 @@
 package com.tidal.wave.browser;
 
-import com.tidal.wave.utils.CheckString;
+import com.tidal.utils.utils.CheckString;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;

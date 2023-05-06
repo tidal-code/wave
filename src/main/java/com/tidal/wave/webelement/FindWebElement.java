@@ -1,11 +1,11 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.loggers.LoggerUtil;
 import com.tidal.wave.browser.Driver;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.data.WaitTimeData;
 import com.tidal.wave.exceptions.IterationStopper;
-import com.tidal.wave.loggers.LoggerUtil;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.Activity;
 import com.tidal.wave.wait.ActivityWaiter;
@@ -17,8 +17,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.tidal.wave.data.GlobalData.getData;
-import static com.tidal.wave.loggers.LoggerUtil.getLogger;
+import static com.tidal.utils.data.GlobalData.getData;
+import static com.tidal.utils.loggers.LoggerUtil.getLogger;
 
 
 public class FindWebElement extends IframeIterator {
