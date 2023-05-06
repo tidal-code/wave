@@ -1,7 +1,7 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 

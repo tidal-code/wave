@@ -1,7 +1,7 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,16 +34,16 @@ public class SetTextTest {
     @Test
     public void inputUsingSetText() {
         String textInputLocator = "id:myText1";
-        find(textInputLocator).click().clear().setText("Watercare");
+        find(textInputLocator).click().clear().setText("Tidal-Wave");
         String buttonLocator = "id:text_submit_button";
         find(buttonLocator).click();
 
         String textAfter = find("id:result").getText();
-        Assert.assertEquals("", "Watercare QA Team", textAfter);
+        Assert.assertEquals("", "Tidal-Wave QA Team", textAfter);
     }
 
     @Test(expected = RuntimeException.class)
     public void inputUsingSetTextShouldFail() {
-        find("id:myText1").waitFor(6).click().clear().setText("Watercare" + Keys.TAB);
+        find("id:myText1").waitFor(6).click().clear().setText("Tidal-Wave" + Keys.TAB);
     }
 }

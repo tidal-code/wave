@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.IsVisible;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.ThreadSleep;
-import org.openqa.selenium.By;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class StillVisible extends RetryCondition {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<By> locators) {
+    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
 
 
         boolean result = (executor

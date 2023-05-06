@@ -1,7 +1,7 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +16,7 @@ public class CheckTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/checkbox/checkbox.html"));

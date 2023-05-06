@@ -1,15 +1,15 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.exceptions.TestAssertionError;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import static com.tidal.wave.data.GlobalData.addData;
+import static com.tidal.utils.data.GlobalData.addData;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class ClickTest {

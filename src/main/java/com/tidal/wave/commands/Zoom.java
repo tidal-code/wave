@@ -1,10 +1,10 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
@@ -22,16 +22,13 @@ public final class Zoom extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private boolean isMultiple;
-    private boolean visibility;
+    private CommandContext context;
     private double zoomLevel;
 
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
         this.zoomLevel = context.getZoomLevel();
     }
 
@@ -41,7 +38,7 @@ public final class Zoom extends CommandAction implements Command {
     }
 
     public void zoomAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("document.body.style.zoom='" + zoomLevel + "%';");
     }
 

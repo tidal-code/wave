@@ -3,15 +3,14 @@ package com.tidal.wave.commands;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.browser.BrowserTypes;
 import com.tidal.wave.browser.Driver;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static com.tidal.flow.assertions.Assert.verify;
 
 public class OpenCloseTest {
 
@@ -22,7 +21,7 @@ public class OpenCloseTest {
         options.addArguments("--remote-allow-origins=*");
         Browser.withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
-        assertThat(browserName, is(equalTo("chrome")));
+        Assert.assertEquals(browserName, "chrome");
         Browser.close();
     }
 
@@ -32,7 +31,7 @@ public class OpenCloseTest {
         options.addArguments("--headless");
         Browser.type(BrowserTypes.FIREFOX).withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
-        assertThat(browserName, is(equalTo("firefox")));
+        verify("Firefox browser open test", browserName).isEqualTo("firefox");
         Browser.close();
     }
 
@@ -42,7 +41,7 @@ public class OpenCloseTest {
         options.addArguments("--headless");
         Browser.type("edge").withOptions(options).open("https://google.co.nz");
         String browserName = ((RemoteWebDriver) Driver.getDriver()).getCapabilities().getBrowserName();
-        assertThat(browserName, is(equalTo("msedge")));
+        verify("Edge browser open test", browserName).isEqualTo("msedge");
         Browser.close();
     }
 }

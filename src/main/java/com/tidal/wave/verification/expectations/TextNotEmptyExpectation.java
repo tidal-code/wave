@@ -6,7 +6,6 @@ import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.time.Duration;
@@ -20,7 +19,7 @@ public class TextNotEmptyExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);

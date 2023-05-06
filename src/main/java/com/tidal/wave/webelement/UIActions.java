@@ -1,11 +1,10 @@
 package com.tidal.wave.webelement;
 
 
+import com.tidal.utils.data.DataEnum;
+import com.tidal.utils.data.GlobalData;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.*;
-import com.tidal.wave.data.DataEnum;
-import com.tidal.wave.data.GlobalData;
-import com.tidal.wave.locator.LocatorMatcher;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.supplier.ObjectSupplier;
@@ -18,7 +17,6 @@ import com.tidal.wave.verification.expectations.SoftAssertion;
 import com.tidal.wave.wait.ThreadSleep;
 import com.tidal.wave.wait.Wait;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
@@ -32,16 +30,18 @@ import java.util.function.Supplier;
 
 public class UIActions implements UIElement {
 
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);;
+    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
-    private List<By> locators;
+    private List<String> locators;
     private boolean visibility = true;
     private boolean isMultiple = false;
+    private int elementIndex;
 
 
-    protected UIActions setProperties(By byLocator) {
+    protected UIActions setProperties(String byLocator) {
         isMultiple = false;
         visibility = true;
+        elementIndex = 0;
         locators = new LinkedList<>();
         locators.add(byLocator);
         executor.isVisible(true).withMultipleElements(false).clearCommands();
@@ -52,6 +52,10 @@ public class UIActions implements UIElement {
     public void setMultiple() {
         isMultiple = true;
         executor.withMultipleElements(true);
+    }
+
+    public void setElementIndex(int index){
+        executor.withElementIndex(index);
     }
 
     protected UIActions withDefaultWait() {
@@ -523,36 +527,26 @@ public class UIActions implements UIElement {
     /**
      * Method to chain locators to get relative elements.
      *
-     * @param locatorMatcher the second/third/fourth locators relative to the first one
+     * @param locator the second/third/fourth locators relative to the first one
      * @return ElementChain instance
      */
     @Override
-    public UIActions thenFind(String locatorMatcher) {
-        locators.add(LocatorMatcher.getMatchedLocator(locatorMatcher));
+    public UIActions thenFind(String locator) {
+        locators.add(locator);
         return this;
     }
 
     /**
      * Method to chain locators to get relative elements.
-     * @param byNewLocator the locator relative to the first locator.
-     * @return list of WebElements
-     */
-    private UIElements thenFindAll(By byNewLocator) {
-        locators.add(byNewLocator);
-        UIElements uiElements = new UIElements();
-        uiElements.setElementProperties(this, visibility);
-        return uiElements;
-    }
-
-    /**
-     * Method to chain locators to get relative elements.
-     *
-     * @param byNewLocatorMatcher the locator relative to the first locator
+     * @param newLocator the locator relative to the first locator.
      * @return list of WebElements
      */
     @Override
-    public UIElements thenFindAll(String byNewLocatorMatcher) {
-        return thenFindAll(LocatorMatcher.getMatchedLocator(byNewLocatorMatcher));
+    public UIElements thenFindAll(String newLocator) {
+        locators.add(newLocator);
+        UIElements uiElements = new UIElements();
+        uiElements.setElementProperties(this, newLocator, visibility);
+        return uiElements;
     }
 
     /**
@@ -768,7 +762,7 @@ public class UIActions implements UIElement {
         return this;
     }
 
-    protected List<By> getLocators() {
+    protected List<String> getLocators() {
         return locators;
     }
 }

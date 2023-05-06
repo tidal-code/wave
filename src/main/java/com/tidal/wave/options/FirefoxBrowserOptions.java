@@ -1,6 +1,6 @@
 package com.tidal.wave.options;
 
-import com.tidal.wave.propertieshandler.Config;
+import com.tidal.wave.config.Config;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class FirefoxBrowserOptions {

@@ -1,10 +1,10 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
@@ -20,10 +20,11 @@ public final class IsPresent extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
+    private CommandContext context;
     @Override
     public void contextSetter(CommandContext context) {
-        this.locators = context.getLocators();
+        this.context = context;
+        this.context.setVisibility(false);
     }
 
     @Override
@@ -32,7 +33,7 @@ public final class IsPresent extends CommandAction implements Command {
     }
 
     public boolean isPresentAction() {
-        List<WebElement> elements = webElement.getElements(locators, false);
+        List<WebElement> elements = webElement.getElements(context);
         return !elements.isEmpty();
     }
 

@@ -1,7 +1,7 @@
 package com.tidal.wave.options;
 
-import com.tidal.wave.propertieshandler.Config;
-import com.tidal.wave.propertieshandler.PropertiesFinder;
+import com.tidal.wave.config.Config;
+import com.tidal.wave.data.TestData;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
@@ -44,7 +44,7 @@ public final class ChromeBrowserOptions implements BrowserOptions {
         prefs.put("profile.password_manager_enabled", false);
 
         String downloadPath = System.getProperty("user.dir") + File.separator +
-                String.join(File.separator, PropertiesFinder.getProperty(
+                String.join(File.separator, TestData.readProperty(
                         "path.downloads").split(","));
 
         System.out.println("Download path is " + downloadPath);

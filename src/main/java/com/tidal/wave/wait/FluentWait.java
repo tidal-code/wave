@@ -3,8 +3,9 @@ package com.tidal.wave.wait;
 
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.loggers.Logger;
 import org.openqa.selenium.support.ui.Sleeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +26,7 @@ import java.util.function.Supplier;
  */
 public class FluentWait<T> {
 
-    private final Logger logger = new Logger(FluentWait.class);
+    private final Logger logger = LoggerFactory.getLogger(FluentWait.class);
     private final T input;
     private final Sleeper sleeper;
     private final List<Class<? extends Throwable>> ignoredExceptions = new ArrayList<>();

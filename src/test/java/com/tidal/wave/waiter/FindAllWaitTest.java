@@ -1,15 +1,15 @@
 package com.tidal.wave.waiter;
 
+import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.counter.TimeCounter;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.utils.data.GlobalData.getData;
 import static com.tidal.wave.browser.Browser.close;
-import static com.tidal.wave.data.GlobalData.getData;
 import static com.tidal.wave.data.WaitTime.DEFAULT_WAIT_TIME;
 import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.*;
 import static com.tidal.wave.webelement.ElementFinder.find;

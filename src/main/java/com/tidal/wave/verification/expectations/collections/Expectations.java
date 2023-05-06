@@ -1,7 +1,5 @@
 package com.tidal.wave.verification.expectations.collections;
 
-import org.openqa.selenium.By;
-
 import java.util.List;
 
 public interface Expectations {
@@ -18,7 +16,7 @@ public interface Expectations {
         return new SizeLessThan(size);
     }
 
-    void assertion(boolean isMultiple, List<By> locators);
+    void assertion(boolean isMultiple, List<String> locators);
 
     void orElseFail();
 }

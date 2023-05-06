@@ -6,7 +6,6 @@ import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.time.Duration;
@@ -21,14 +20,14 @@ public class MatchingTextExpectation extends Expectation {
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
     private boolean isMultiple;
     private boolean isVisible;
-    private List<By> locators;
+    private List<String> locators;
 
     public MatchingTextExpectation(String value) {
         this.value = value;
     }
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<By> locators) {
+    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
         this.isMultiple = isMultiple;
         this.isVisible = isVisible;
         this.locators = locators;

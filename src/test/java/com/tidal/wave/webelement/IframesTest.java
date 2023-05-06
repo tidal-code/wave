@@ -1,7 +1,7 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

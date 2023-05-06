@@ -1,6 +1,6 @@
 package com.tidal.wave.waiter;
 
-import com.tidal.wave.counter.TimeCounter;
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.wait.FluentWait;
 import org.junit.Test;

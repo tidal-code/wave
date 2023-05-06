@@ -1,7 +1,6 @@
 package com.tidal.wave.command;
 
 import com.tidal.wave.supplier.ObjectSupplier;
-import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,7 +111,7 @@ public class Executor implements ExecutorCommands {
     }
 
     @Override
-    public Executor usingLocator(List<By> locators) {
+    public Executor usingLocator(List<String> locators) {
         context.setLocatorSet(locators);
         return this;
     }
@@ -128,4 +127,12 @@ public class Executor implements ExecutorCommands {
         context.setZoomLevel(zoomLevel);
         return this;
     }
+
+    @Override
+    public Executor withElementIndex(int index) {
+        context.setElementIndex(index);
+        return this;
+    }
+
+
 }

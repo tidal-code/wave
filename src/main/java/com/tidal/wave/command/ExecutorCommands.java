@@ -1,7 +1,5 @@
 package com.tidal.wave.command;
 
-import org.openqa.selenium.By;
-
 import java.util.List;
 
 public interface ExecutorCommands {
@@ -31,9 +29,10 @@ public interface ExecutorCommands {
 
     Executor presenceOfShadownDom();
 
-    Executor usingLocator(List<By> locators);
+    Executor usingLocator(List<String> locators);
 
     Executor withXYCords(int xCords, int yCords);
 
     Executor withZoomLevel(double zoomLevel);
+    Executor withElementIndex(int index);
 }

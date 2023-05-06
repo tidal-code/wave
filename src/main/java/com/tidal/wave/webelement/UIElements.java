@@ -4,28 +4,42 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindAllTextData;
 import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.commands.IsPresent;
-import com.tidal.wave.data.ElementData;
-import com.tidal.wave.data.GlobalData;
 import com.tidal.wave.verification.conditions.collections.CollectionsCondition;
 import com.tidal.wave.verification.expectations.CollectionsSoftAssertion;
 import com.tidal.wave.verification.expectations.collections.Expectations;
 import com.tidal.wave.wait.ThreadSleep;
 import com.tidal.wave.wait.Wait;
-import org.openqa.selenium.By;
 
-import java.util.AbstractList;
+import java.util.AbstractCollection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.tidal.wave.verification.conditions.TestVerification.verification;
 
 
-public class UIElements extends AbstractList<UIElement> {
+public class UIElements extends AbstractCollection<UIElement> {
 
     private UIActions uiActions;
     private boolean visibility;
 
-    protected UIElements setProperties(By byLocator) {
+    private String byLocator;
+    private int currentIndex = 0;
+    private int size = -1;
+    private final LinkedList<UIElement> dimensions;
+
+    public UIElements() {
+        dimensions = new LinkedList<>();
+    }
+
+    @Override
+    public Iterator<UIElement> iterator(){
+        return new UIElementsIterator();
+    }
+
+    protected UIElements setProperties(String byLocator) {
         visibility = false;
+        this.byLocator = byLocator;
         uiActions = new UIActions();
         uiActions.setProperties(byLocator);
         uiActions.setMultiple();
@@ -33,7 +47,8 @@ public class UIElements extends AbstractList<UIElement> {
     }
 
     //For thenFindAll in UIElement
-    protected void setElementProperties(UIActions uiActions, boolean visibility) {
+    protected void setElementProperties(UIActions uiActions, String newLocator, boolean visibility) {
+        this.byLocator = newLocator;
         this.uiActions = uiActions;
         this.visibility = visibility;
         uiActions.setMultiple();
@@ -62,9 +77,39 @@ public class UIElements extends AbstractList<UIElement> {
      * @return UIElement instance
      */
     public UIElement get(int index) {
-        GlobalData.addData(ElementData.INDEX, String.valueOf(index));
+        visibility = false;
+        uiActions.setElementIndex(index);
         return uiActions;
     }
+
+    public UIElement first(){
+        return get(0);
+    }
+
+    public UIElement last(){
+        return get(size() - 1);
+    }
+
+    public void skipFirst(){
+        currentIndex = 1;
+    }
+
+    public void skipLast(){
+        size = size() - 1;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (o instanceof UIElement) {
+            UIElement element = (UIElement) o;
+//            size = size - 1;
+            dimensions.remove(element);
+            size = dimensions.size();
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * To get the list of text from all similar elements in the page
@@ -80,8 +125,15 @@ public class UIElements extends AbstractList<UIElement> {
      *
      * @return the number of WebElements present in the DOM
      */
+    @Override
     public int size() {
-        return new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
+        size = new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
+        if(dimensions.isEmpty()) {
+            for (int i = 0; i < size; i++) {
+                dimensions.add(get(i));
+            }
+        }
+        return size;
     }
 
     /**
@@ -130,11 +182,24 @@ public class UIElements extends AbstractList<UIElement> {
         return obj == this;
     }
 
-    @Override
-    public int hashCode() {
-        int hashCode = 1;
-        for (UIElement e : this)
-            hashCode = 31 * hashCode + (e == null ? 0 : e.hashCode());
-        return hashCode;
+    private class UIElementsIterator implements Iterator<UIElement> {
+            public boolean hasNext() {
+                if(size < 0){
+                    size = size();
+                }
+                return currentIndex < size && get(currentIndex) != null;
+            }
+
+            public UIElement next() {
+                System.out.println("returning index : "  + currentIndex);
+                return dimensions.get(currentIndex++);
+            }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
     }
+
 }

@@ -1,10 +1,10 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.javascript.Scripts;
 import com.tidal.wave.supplier.ObjectSupplier;
@@ -22,15 +22,11 @@ public final class GetAllCssAttributes extends CommandAction implements Command 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private boolean visibility;
-    private boolean isMultiple;
+    private CommandContext context;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.isMultiple = context.isMultiple();
-        this.visibility = context.getVisibility();
-        this.locators = context.getLocators();
+        this.context = context;
     }
 
     @Override
@@ -39,7 +35,7 @@ public final class GetAllCssAttributes extends CommandAction implements Command 
     }
 
     public String getAllCssAttributesAction() {
-        WebElement element = webElement.getElement(locators, visibility, isMultiple);
+        WebElement element = webElement.getElement(context);
         return (String) ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(Scripts.getCssAttributes(), element);
     }
 

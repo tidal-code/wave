@@ -1,13 +1,13 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.utils.CheckString;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.counter.TimeCounter;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
-import com.tidal.wave.utils.CheckString;
 import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
@@ -23,13 +23,12 @@ public final class FindAllTextData extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
+    private CommandContext context;
     private boolean visibility;
 
     @Override
     public void contextSetter(CommandContext context) {
-        this.locators = context.getLocators();
-        this.visibility = context.getVisibility();
+        this.context = context;
     }
 
     @Override
@@ -38,7 +37,7 @@ public final class FindAllTextData extends CommandAction implements Command {
     }
 
     public List<String> findAllTextDataAction() {
-        List<WebElement> elements = webElement.getElements(locators, visibility);
+        List<WebElement> elements = webElement.getElements(context);
 
         List<String> textContent = elements.stream().map(WebElement::getText).collect(Collectors.toList());
 

@@ -1,7 +1,7 @@
 package com.tidal.wave.commands;
 
+import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.filehandlers.Finder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,8 +34,8 @@ public class SetInnerHtmlTest {
     @Test
     public void textInputText() {
         String textInputLocator ="id:innerHtmlP";
-        find(textInputLocator).setInnerHtml("Watercare");
-        Assert.assertEquals(find(textInputLocator).getText(), "Watercare");
+        find(textInputLocator).setInnerHtml("Tidal-Wave");
+        Assert.assertEquals(find(textInputLocator).getText(), "Tidal-Wave");
     }
 
 }

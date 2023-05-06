@@ -1,6 +1,6 @@
 package com.tidal.wave.webelement;
 
-import com.tidal.wave.data.DataEnum;
+import com.tidal.utils.data.DataEnum;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.criteria.Criteria;

@@ -1,7 +1,6 @@
 package com.tidal.wave.verification.expectations;
 
 import com.tidal.wave.exceptions.ExpectationFailure;
-import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -232,7 +231,7 @@ public abstract class Expectation {
         return new MatchingTextExpectation(text);
     }
 
-    public abstract void assertion(boolean isVisible, boolean isMultiple, List<By> locators);
+    public abstract void assertion(boolean isVisible, boolean isMultiple, List<String> locators);
 
     public abstract void orElseFail();
 
