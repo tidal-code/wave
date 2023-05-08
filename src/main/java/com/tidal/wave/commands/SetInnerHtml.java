@@ -34,12 +34,12 @@ public final class SetInnerHtml extends CommandAction implements Command {
     }
 
     @Override
-    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.Of.sendKeys();
+    public CommandContext getCommandContext() {
+        return context;
     }
 
-    public void setInnerHtmlAction() {
-        Function<WebElement, String> expectedValue = e -> e.getAttribute("innerHTML");
+    Function<CommandContext, Void> function = e -> {
+        Function<WebElement, String> expectedValue = w -> w.getAttribute("innerHTML");
 
         WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("arguments[0].innerHTML='%s';", inputText), element);
@@ -48,6 +48,21 @@ public final class SetInnerHtml extends CommandAction implements Command {
             element.clear();
             throw new ElementNotInteractableException("Element Not Interactable");
         }
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
+    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.Of.sendKeys();
+    }
+
+    public void setInnerHtmlAction() {
+       function.apply(context);
     }
 
     public void setInnerHtml() {

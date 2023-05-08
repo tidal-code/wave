@@ -13,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -31,13 +32,28 @@ public final class ClickAndHold extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        new Actions(((RemoteWebElement) element).getWrappedDriver()).clickAndHold(element).release().perform();
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.Of.click();
     }
 
     public void clickAndHoldAction() {
-        WebElement element = webElement.getElement(context);
-        new Actions(((RemoteWebElement) element).getWrappedDriver()).clickAndHold(element).release().perform();
+        function.apply(context);
     }
 
     public void clickAndHold() {

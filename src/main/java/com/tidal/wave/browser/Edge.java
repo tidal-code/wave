@@ -1,6 +1,5 @@
 package com.tidal.wave.browser;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -13,8 +12,6 @@ class Edge{
 
     public WebDriver getDriver(EdgeOptions options) {
         logger.info("Test Starting with Edge Browser");
-
-        WebDriverManager.edgedriver().setup();
         if(options == null){
            return new EdgeDriver();
         }

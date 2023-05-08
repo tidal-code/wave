@@ -13,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class RightClick extends CommandAction implements Command {
@@ -28,13 +29,28 @@ public final class RightClick extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        new Actions(((RemoteWebElement) element).getWrappedDriver()).contextClick(element).perform();
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public void rightClickAction() {
-        WebElement element = webElement.getElement(context);
-        new Actions(((RemoteWebElement) element).getWrappedDriver()).contextClick(element).perform();
+        function.apply(context);
     }
 
     public void rightClick() {

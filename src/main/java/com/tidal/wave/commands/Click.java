@@ -11,20 +11,34 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class Click extends CommandAction implements Command {
-
+public final class Click extends CommandAction implements Command<Void> {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private CommandContext context;
-
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
+    }
+
+    @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        element.click();
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
     }
 
     @Override
@@ -33,8 +47,7 @@ public final class Click extends CommandAction implements Command {
     }
 
     public void clickAction() {
-        WebElement element = webElement.getElement(context);
-        element.click();
+       function.apply(context);
     }
 
     public void click() {

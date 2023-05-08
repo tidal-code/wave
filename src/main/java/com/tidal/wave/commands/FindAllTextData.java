@@ -13,12 +13,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public final class FindAllTextData extends CommandAction implements Command {
+public final class FindAllTextData extends CommandAction implements Command<List<String>> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -32,28 +33,42 @@ public final class FindAllTextData extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, List<String>> function = e -> {
+        List<WebElement> elements = webElement.getElements(context);
+
+        List<String> textContent = elements.stream().map(WebElement::getText).collect(Collectors.toList());
+
+        Predicate<List<String>> contentCheck = l -> l.stream().anyMatch(v -> !CheckString.isNullOrEmpty(v));
+
+        if (contentCheck.test(textContent)) {
+            return textContent;
+        }
+        textContent = elements.stream().map(v -> v.getAttribute("value")).collect(Collectors.toList());
+
+        if (contentCheck.test(textContent)) {
+            return textContent;
+        }
+        textContent = elements.stream().map(v -> v.getAttribute("innerHTML")).collect(Collectors.toList());
+
+        return textContent;
+    };
+
+    @Override
+    public Function<CommandContext, List<String>> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public List<String> findAllTextDataAction() {
-        List<WebElement> elements = webElement.getElements(context);
-
-        List<String> textContent = elements.stream().map(WebElement::getText).collect(Collectors.toList());
-
-        Predicate<List<String>> contentCheck = l -> l.stream().anyMatch(e -> !CheckString.isNullOrEmpty(e));
-
-        if (contentCheck.test(textContent)) {
-            return textContent;
-        }
-        textContent = elements.stream().map(e -> e.getAttribute("value")).collect(Collectors.toList());
-
-        if (contentCheck.test(textContent)) {
-            return textContent;
-        }
-        textContent = elements.stream().map(e -> e.getAttribute("innerHTML")).collect(Collectors.toList());
-
-        return textContent;
+       return function.apply(context);
     }
 
     public List<String> findAllTextData() {

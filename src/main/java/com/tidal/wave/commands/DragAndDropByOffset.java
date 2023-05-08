@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -37,17 +38,31 @@ public final class DragAndDropByOffset extends CommandAction implements Command 
     }
 
     @Override
-    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.TypeOf.stale();
+    public CommandContext getCommandContext() {
+        return context;
     }
-
-    public void dragAndDropByOffsetAction() {
+    Function<CommandContext, Void> function = e -> {
         List<String> linkedListOne = new LinkedList<>();
         linkedListOne.add(locators.get(0));
         context.setLocatorSet(linkedListOne);
         WebElement sourceElement = webElement.getElement(context);
 
         new Actions(((RemoteWebElement) sourceElement).getWrappedDriver()).dragAndDropBy(sourceElement, xyCords[0], xyCords[1]).perform();
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
+    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.TypeOf.stale();
+    }
+
+    public void dragAndDropByOffsetAction() {
+        function.apply(context);
     }
 
     public void dragAndDropByOffset() {

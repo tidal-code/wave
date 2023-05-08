@@ -11,6 +11,7 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -30,13 +31,28 @@ public final class SendKeys extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        element.sendKeys(charSequences);
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.Of.sendKeys();
     }
 
     public void sendKeysAction() {
-        WebElement element = webElement.getElement(context);
-        element.sendKeys(charSequences);
+        function.apply(context);
     }
 
     public void sendKeys() {

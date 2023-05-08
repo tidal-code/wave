@@ -12,10 +12,11 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class GetLocation extends CommandAction implements Command {
+public final class GetLocation extends CommandAction implements Command<Point> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -28,13 +29,27 @@ public final class GetLocation extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Point> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.getLocation();
+    };
+
+    @Override
+    public Function<CommandContext, Point> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public Point getLocationAction() {
-        WebElement element = webElement.getElement(context);
-        return element.getLocation();
+        return function.apply(context);
     }
 
     public Point getLocation() {

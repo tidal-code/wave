@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -30,15 +31,29 @@ public final class SelectByText extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, String> function = e -> {
+        WebElement element = webElement.getElement(context);
+        Select select = new Select(element);
+        select.selectByVisibleText(context.getTextInput());
+        return select.getFirstSelectedOption().getText();
+    };
+
+    @Override
+    public Function<CommandContext, String> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public String selectByTextAction() {
-        WebElement element = webElement.getElement(context);
-        Select select = new Select(element);
-        select.selectByVisibleText(context.getTextInput());
-        return select.getFirstSelectedOption().getText();
+        return function.apply(context);
     }
 
     public String selectByText() {

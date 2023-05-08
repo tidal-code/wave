@@ -11,6 +11,7 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -27,13 +28,27 @@ public final class IsEnabled extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Boolean> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.isEnabled();
+    };
+
+    @Override
+    public  Function<CommandContext, Boolean> getFunction() {
+        return null;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public boolean isEnabledAction() {
-        WebElement element = webElement.getElement(context);
-        return element.isEnabled();
+        return function.apply(context);
     }
 
     public boolean isEnabled() {

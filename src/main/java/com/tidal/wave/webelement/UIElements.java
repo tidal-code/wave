@@ -18,6 +18,7 @@ import java.util.List;
 import static com.tidal.wave.verification.conditions.TestVerification.verification;
 
 
+@SuppressWarnings({"unchecked", "parameterized"})
 public class UIElements extends AbstractCollection<UIElement> {
 
     private UIActions uiActions;
@@ -117,7 +118,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @return List of text from all similar elements
      */
     public List<String> getAllText() {
-        return new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(FindAllTextData.class);
+        return (List<String>) new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(FindAllTextData.class);
     }
 
     /**
@@ -127,7 +128,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      */
     @Override
     public int size() {
-        size = new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
+        size = (int) new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
         if(dimensions.isEmpty()) {
             for (int i = 0; i < size; i++) {
                 dimensions.add(get(i));

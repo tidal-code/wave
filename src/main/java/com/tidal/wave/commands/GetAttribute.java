@@ -11,10 +11,11 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class GetAttribute extends CommandAction implements Command {
+public final class GetAttribute extends CommandAction implements Command<String> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -30,13 +31,27 @@ public final class GetAttribute extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, String> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.getAttribute(attributeName);
+    };
+
+    @Override
+    public Function<CommandContext, String> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public String getAttributeAction() {
-        WebElement element = webElement.getElement(context);
-        return element.getAttribute(attributeName);
+        return function.apply(context);
     }
 
     public String getAttribute() {

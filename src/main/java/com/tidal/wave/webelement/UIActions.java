@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 
+@SuppressWarnings("unchecked")
 public class UIActions implements UIElement {
 
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
@@ -36,7 +37,6 @@ public class UIActions implements UIElement {
     private boolean visibility = true;
     private boolean isMultiple = false;
     private int elementIndex;
-
 
     protected UIActions setProperties(String byLocator) {
         isMultiple = false;
@@ -174,7 +174,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAttribute(String value) {
-        return executor.usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
+        return (String) executor.usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
     }
 
     /**
@@ -185,7 +185,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getCSSAttribute(String value) {
-        return executor.usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
+        return (String) executor.usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
     }
 
     /**
@@ -195,7 +195,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAllCSSAttributes() {
-        return executor.usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
+        return (String) executor.usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
     }
 
     /**
@@ -205,7 +205,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Map<String, String> getAllAttributes() {
-        return executor.usingLocator(locators).invokeCommand(GetAllAttributes.class);
+        return (Map<String, String>) executor.usingLocator(locators).invokeCommand(GetAllAttributes.class);
     }
 
     /**
@@ -215,7 +215,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getTagName() {
-        return executor.usingLocator(locators).invokeCommand(GetTagName.class);
+        return (String) executor.usingLocator(locators).invokeCommand(GetTagName.class);
     }
 
     /**
@@ -225,7 +225,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Point getLocation() {
-        return executor.usingLocator(locators).invokeCommand(GetLocation.class);
+        return (Point) executor.usingLocator(locators).invokeCommand(GetLocation.class);
     }
 
     /**
@@ -235,7 +235,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Rectangle getRect() {
-        return executor.usingLocator(locators).invokeCommand(GetRect.class);
+        return (Rectangle) executor.usingLocator(locators).invokeCommand(GetRect.class);
     }
 
     /**
@@ -245,7 +245,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Dimension getDimension() {
-        return executor.usingLocator(locators).invokeCommand(GetDimension.class);
+        return (Dimension) executor.usingLocator(locators).invokeCommand(GetDimension.class);
     }
 
 
@@ -257,7 +257,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isDisplayed() {
-        return executor.usingLocator(locators).invokeCommand(IsVisible.class);
+        return (boolean)executor.usingLocator(locators).invokeCommand(IsVisible.class);
     }
 
     /**
@@ -268,7 +268,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isEnabled() {
-        return executor.usingLocator(locators).invokeCommand(IsEnabled.class);
+        return (boolean) executor.usingLocator(locators).invokeCommand(IsEnabled.class);
     }
 
     /**
@@ -278,7 +278,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isSelected() {
-        return executor.usingLocator(locators).invokeCommand(IsSelected.class);
+        return (boolean)executor.usingLocator(locators).invokeCommand(IsSelected.class);
     }
 
     /**
@@ -289,7 +289,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getText() {
-        return executor.usingLocator(locators).invokeCommand(FindTextData.class);
+        return (String)executor.usingLocator(locators).invokeCommand(FindTextData.class);
     }
 
     /**
@@ -336,7 +336,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(String selectValue) {
-        return executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
+        return (String)executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
     }
 
     /**
@@ -347,7 +347,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String selectByValue(String selectValue) {
-        return executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
+        return (String)executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
     }
 
     /**
@@ -358,7 +358,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(int index) {
-        return executor.usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
+        return (String) executor.usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
     }
 
     /**
@@ -692,7 +692,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions addData(String key) {
-        GlobalData.addData(key, executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
+        GlobalData.addData(key, (String) executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
         return this;
     }
 
@@ -705,7 +705,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions addData(DataEnum key) {
-        GlobalData.addData(key, executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
+        GlobalData.addData(key, (String) executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
         return this;
     }
 

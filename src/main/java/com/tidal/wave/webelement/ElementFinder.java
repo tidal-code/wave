@@ -4,9 +4,11 @@ import com.tidal.wave.browser.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.locators.RelativeLocator;
 
+import java.util.Objects;
+
 import static com.tidal.wave.wait.Wait.setDefaultWait;
 
-public class ElementFinder {
+public class ElementFinder<T> {
 
     // Class not to be instantiated.
     private ElementFinder() {
@@ -16,11 +18,12 @@ public class ElementFinder {
      * Sets the locator to be found for ui actions
      * Warning: This method is just a collector and no element finding would happen unless an action method is called
      *
-     * @param byLocator is a string to be passed that would be parsed into a By locator
+     * @param locator is a string to be passed that would be parsed into a By locator
      * @return Instance of the UIElement
      */
-    public static UIElement find(String byLocator) {
-        return new UIActions().setProperties(byLocator).withDefaultWait();
+    public static UIElement find(String locator) {
+        Objects.requireNonNull(locator, "Locator needs to be set to find an element");
+        return new UIActions().setProperties(locator).withDefaultWait();
     }
 
     /**
@@ -31,6 +34,7 @@ public class ElementFinder {
      * @return A WebElement that is different from other instances of 'find' methods
      */
     public static WebElement find(RelativeLocator.RelativeBy relativeBy) {
+        Objects.requireNonNull(relativeBy, "Locator needs to be set to find an element");
         setDefaultWait();
         return Driver.getDriver().findElement(relativeBy);
     }
@@ -43,6 +47,7 @@ public class ElementFinder {
      * @return UIElements instance with properties of a collection
      */
     public static UIElements findAll(String locator) {
+        Objects.requireNonNull(locator, "Locator needs to be set to find an element");
         return new UIElements().setProperties(locator).withDefaultWait();
     }
 

@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+@SuppressWarnings("rawtypes")
 public class Executor implements ExecutorCommands {
 
     private static final Logger logger = LoggerFactory.getLogger(Executor.class);
 
-    Map<String, Command> commandCollection = new ConcurrentHashMap<>(200);
+     Map<String, Command> commandCollection = new ConcurrentHashMap<>(200);
     CommandContext context = (CommandContext) ObjectSupplier.instanceOf(CommandContext.class);
     List<Class<? extends Command>> commands = new LinkedList<>();
 
@@ -33,17 +35,17 @@ public class Executor implements ExecutorCommands {
         return commandCollection.get(className);
     }
 
-    @Override
-    public <T> T invokeCommand(Class<? extends Command> commandClass, String method) {
+    @Override @SuppressWarnings("unchecked")
+    public <U> U invokeCommand(Class<? extends Command> commandClass, String method) {
         getInstance(commandClass).contextSetter(context);
-        return getInstance(commandClass).execute(method);
+        return (U) getInstance(commandClass).execute(method);
     }
 
-    @Override
-    public <T> T invokeCommand(Class<? extends Command> commandClass) {
+    @Override @SuppressWarnings("unchecked")
+    public <U> U invokeCommand(Class<? extends Command> commandClass) {
         getInstance(commandClass).contextSetter(context);
         commands.add(commandClass);
-        return getInstance(commandClass).execute(Introspector.decapitalize(commandClass.getSimpleName()));
+        return (U) getInstance(commandClass).execute(Introspector.decapitalize(commandClass.getSimpleName()));
     }
 
     @Override

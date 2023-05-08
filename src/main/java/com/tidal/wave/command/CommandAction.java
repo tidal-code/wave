@@ -19,6 +19,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public abstract class CommandAction {
     protected List<By> locators;
+    protected CommandContext context;
 
     protected abstract Map<Class<? extends Throwable>, Supplier<String>> ignoredEx();
 
@@ -61,5 +62,7 @@ public abstract class CommandAction {
         }
         return (T) value;
     }
+
+
 
 }
