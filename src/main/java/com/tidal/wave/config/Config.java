@@ -41,6 +41,8 @@ public class Config {
     public static final String RUNNER = CONFIGURATION.apply("runner") != null ? CONFIGURATION.apply("runner") : "TestNgRunner";
     public static final boolean RETRY_FAILED_TESTS = CONFIGURATION.apply("retry.failed.tests") != null && Boolean.parseBoolean(CONFIGURATION.apply("retry.failed.tests"));
     public static final boolean DEBUG = CONFIGURATION.apply("debug") != null && Boolean.parseBoolean(CONFIGURATION.apply("debug"));
+    public static final boolean DEBUG_SLOW = CONFIGURATION.apply("debug.slow") != null && Boolean.parseBoolean(CONFIGURATION.apply("debug.slow"));;
+
     private Config() {
     }
 

@@ -1,12 +1,14 @@
 package com.tidal.wave.command;
 
 
-import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.config.Config;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.MethodInvokerException;
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.stackbuilder.ErrorStack;
+import com.tidal.wave.wait.ThreadSleep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,6 +17,9 @@ import java.util.function.Function;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public interface Command<T> {
+
+    Logger logger = LoggerFactory.getLogger(Command.class);
+
     void contextSetter(CommandContext context);
 
     CommandContext getCommandContext();
@@ -24,7 +29,15 @@ public interface Command<T> {
     @SuppressWarnings("unchecked")
     default <X> X execute(String action) {
 
-        if (Config.DEBUG) {
+        CommandContext commandContext = getCommandContext();
+
+        if (commandContext.getDebugMode() || Config.DEBUG) {
+            logger.info("---------------------");
+            logger.info("Executing action '" + action.replace("Action", "").toUpperCase() + "'");
+            logger.info("Locators using: " + String.join(",", commandContext.getLocators()));
+            int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+            logger.info("Wait duration: " + duration + " seconds");
+            logger.info(commandContext.toString());
             return (X) executeAction(getFunction());
         }
 
@@ -51,9 +64,12 @@ public interface Command<T> {
 
     default <Y> Y executeAction(Function<CommandContext, Y> function) {
         final int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
-        TimeCounter timeCounter = new TimeCounter();
-
-        return function.apply(getCommandContext());
+        try {
+            return function.apply(getCommandContext());
+        } catch (Exception e) {
+            ThreadSleep.forSeconds((double) duration / 2);
+            return function.apply(getCommandContext());
+        }
     }
 
 }

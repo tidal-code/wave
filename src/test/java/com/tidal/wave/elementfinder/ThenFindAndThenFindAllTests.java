@@ -6,10 +6,7 @@ import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.conditions.collections.CollectionsCondition;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
@@ -87,7 +84,7 @@ public class ThenFindAndThenFindAllTests {
         Assert.assertEquals("Of", text);
     }
 
-    @Test(expected = TestAssertionError.class)
+    @Test(expected = ComparisonFailure.class)
     public void findThenFindThenFindThenFindAllError() {
         String text = find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).getText();
         Assert.assertEquals("Automation", text);

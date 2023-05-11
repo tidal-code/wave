@@ -39,7 +39,7 @@ public final class IsEnabled extends CommandAction implements Command {
 
     @Override
     public  Function<CommandContext, Boolean> getFunction() {
-        return null;
+        return function;
     }
 
     @Override

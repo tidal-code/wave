@@ -78,7 +78,7 @@ public class Executor implements ExecutorCommands {
 
     @Override
     public Executor withTimeToWait(int seconds) {
-        context.setSecondsToWait(seconds);
+        context.setHoverWaitTime(seconds);
         return this;
     }
 
@@ -137,4 +137,8 @@ public class Executor implements ExecutorCommands {
     }
 
 
+    public Executor debugMode(boolean debugMode) {
+        context.setDebugMode(debugMode);
+        return this;
+    }
 }

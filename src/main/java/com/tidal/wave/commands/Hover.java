@@ -28,7 +28,7 @@ public final class Hover extends CommandAction implements Command<Void> {
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
-        this.secondsToHover = context.getSecondsToWait();
+        this.secondsToHover = context.getHoverWaitTime();
     }
 
     @Override

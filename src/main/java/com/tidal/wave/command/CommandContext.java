@@ -1,5 +1,6 @@
 package com.tidal.wave.command;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,13 +13,14 @@ public class CommandContext {
     private String attributeName;
     private int selectIndex;
     private int tabIndex;
-    private int secondsToWait;
+    private int hoverWaitTime;
     private double zoomLevel;
     private CharSequence[] sequence;
     private List<String> locators = new LinkedList<>();
     private boolean shadowDomPresence;
 
     private int elementIndex;
+    private boolean debugMode;
 
     public String getAttributeName() {
         return attributeName;
@@ -28,12 +30,12 @@ public class CommandContext {
         this.attributeName = attributeName;
     }
 
-    public int getSecondsToWait() {
-        return secondsToWait;
+    public int getHoverWaitTime() {
+        return hoverWaitTime;
     }
 
-    public void setSecondsToWait(int secondsToWait) {
-        this.secondsToWait = secondsToWait;
+    public void setHoverWaitTime(int hoverWaitTime) {
+        this.hoverWaitTime = hoverWaitTime;
     }
 
     public int getTabIndex() {
@@ -123,5 +125,32 @@ public class CommandContext {
 
     public void setElementIndex(int elementIndex) {
         this.elementIndex = elementIndex;
+    }
+
+    public boolean getDebugMode(){
+        return debugMode;
+    }
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
+    }
+
+    @Override
+    public String toString() {
+        return "CommandContext{" +
+                "\n xyCordsArray: " + Arrays.toString(xyCordsArray) +
+                ", \n Finding Multiple Elements:" + isMultiple +
+                ", \n Looking for visible element:" + isVisible +
+                ", \n Text input:'" + textInput + '\'' +
+                ", \n Attribute Name:'" + attributeName + '\'' +
+                ", \n Select Index:" + selectIndex +
+                ", \n Tab Index:" + tabIndex +
+                ", \n Hover Wait Time:" + hoverWaitTime +
+                ", \n Zoom Level:" + zoomLevel +
+                ", \n Char Sequence Input:" + Arrays.toString(sequence) +
+                ", \n Locators:" + String.join(",", locators) +
+                ", \n Shadow DOM Check:" + shadowDomPresence +
+                ", \n Element Index:" + elementIndex +
+                ", \n Debug Mode:" + debugMode +
+                '}';
     }
 }
