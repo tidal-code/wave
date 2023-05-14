@@ -31,6 +31,10 @@ public interface Command<T> {
 
         CommandContext commandContext = getCommandContext();
 
+        if(Config.SLOW_RUN){
+            ThreadSleep.forSeconds(1);
+        }
+
         if (commandContext.getDebugMode() || Config.DEBUG) {
             logger.info("---------------------");
             logger.info("Executing action '" + action.replace("Action", "").toUpperCase() + "'");

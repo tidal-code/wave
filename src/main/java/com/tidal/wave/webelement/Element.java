@@ -62,6 +62,7 @@ public class Element {
                 throw e;
             }
             element = getElement(context);
+            timeCounter = null;
         }
         return element;
     }
