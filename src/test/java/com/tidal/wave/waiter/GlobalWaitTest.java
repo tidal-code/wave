@@ -51,8 +51,6 @@ public class GlobalWaitTest {
 
     @Test
     public void testExplicitWaitTimeOut() {
-
-
         find("name:q").sendKeys("Selenium");
         TimeCounter timeCounter = new TimeCounter();
 

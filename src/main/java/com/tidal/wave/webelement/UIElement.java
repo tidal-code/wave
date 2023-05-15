@@ -16,6 +16,8 @@ public interface UIElement {
 
     UIElement invisibleElement();
 
+    UIActions debugMode();
+
     UIElement click();
 
     UIElement sendKeys(CharSequence... keysToSend);
@@ -100,9 +102,9 @@ public interface UIElement {
 
     void dragAndDropByOffset(int xDirection, int yDirection);
 
-    UIElement thenFind(String locatorMatcher);
+    UIElement thenFind(String locator);
 
-    UIElements thenFindAll(String byNewLocatorMatcher);
+    UIElements thenFindAll(String locator);
 
     UIElement waitFor(int waitTime);
 

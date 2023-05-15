@@ -11,6 +11,7 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -29,13 +30,27 @@ public final class GetCssAttribute extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, String> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.getCssValue(attributeName);
+    };
+
+    @Override
+    public Function<CommandContext, String> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public String getCssAttributeAction() {
-        WebElement element = webElement.getElement(context);
-        return element.getCssValue(attributeName);
+       return function.apply(context);
     }
 
     public String getCssAttribute() {

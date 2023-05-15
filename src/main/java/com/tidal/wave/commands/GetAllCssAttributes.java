@@ -14,10 +14,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class GetAllCssAttributes extends CommandAction implements Command {
+public final class GetAllCssAttributes extends CommandAction implements Command<String> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -30,13 +31,27 @@ public final class GetAllCssAttributes extends CommandAction implements Command 
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, String> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return (String) ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(Scripts.getCssAttributes(), element);
+    };
+
+    @Override
+    public Function<CommandContext, String> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public String getAllCssAttributesAction() {
-        WebElement element = webElement.getElement(context);
-        return (String) ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(Scripts.getCssAttributes(), element);
+        return function.apply(context);
     }
 
     public String getAllCssAttributes() {

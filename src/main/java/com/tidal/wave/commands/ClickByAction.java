@@ -13,10 +13,11 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class ClickByAction extends CommandAction implements Command {
+public final class ClickByAction extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -32,13 +33,28 @@ public final class ClickByAction extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        new Actions(((RemoteWebElement) element).getWrappedDriver()).click(element).perform();
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
             return CommandExceptions.Of.click();
     }
 
     public void clickAction() {
-        WebElement element = webElement.getElement(context);
-        new Actions(((RemoteWebElement) element).getWrappedDriver()).click(element).perform();
+        function.apply(context);
     }
 
     public void clickByAction() {

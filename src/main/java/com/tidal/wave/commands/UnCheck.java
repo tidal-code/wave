@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -29,15 +30,30 @@ public final class UnCheck extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        if (element.isSelected()) {
+            ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
+        }
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public void unCheckAction() {
-        WebElement element = webElement.getElement(context);
-        if (element.isSelected()) {
-            ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
-        }
+       function.apply(context);
     }
 
     public void unCheck() {

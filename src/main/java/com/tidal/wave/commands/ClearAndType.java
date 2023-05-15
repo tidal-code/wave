@@ -5,7 +5,6 @@ import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.config.Config;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
@@ -17,13 +16,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class ClearAndType extends CommandAction implements Command {
+public final class ClearAndType extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
     private CommandContext context;
-
     private CharSequence[] charSequences;
     private boolean visibility;
     private boolean isMultiple;
@@ -34,14 +32,13 @@ public final class ClearAndType extends CommandAction implements Command {
         charSequences = context.getSequence();
     }
 
-
     @Override
-    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.Of.clear();
+    public CommandContext getCommandContext() {
+        return context;
     }
 
-    public void clearAndTypeAction() {
-        Function<WebElement, String> expectedValue = e -> e.getAttribute("value");
+    Function<CommandContext, Void> function = e -> {
+        Function<WebElement, String> expectedValue = w -> w.getAttribute("value");
 
         WebElement element = webElement.getElement(context);
         int existingCharsLength = expectedValue.apply(element).length();
@@ -53,13 +50,24 @@ public final class ClearAndType extends CommandAction implements Command {
         for (CharSequence c : charSequences) {
             element.sendKeys(c);
         }
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
+    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.Of.clear();
+    }
+
+    public void clearAndTypeAction() {
+       function.apply(context);
     }
 
     public void clearAndType() {
-        if(Config.DEBUG){
-            clearAndTypeAction();
-            return;
-        }
         timeCounter.restart();
         super.execute(Commands.ClickCommands.CLEAR_AND_TYPE.toString(), ignoredExceptions, timeCounter);
     }

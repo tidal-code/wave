@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 
+@SuppressWarnings("unchecked")
 public class UIActions implements UIElement {
 
     private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
@@ -35,11 +36,12 @@ public class UIActions implements UIElement {
     private List<String> locators;
     private boolean visibility = true;
     private boolean isMultiple = false;
+    private boolean debugMode;
     private int elementIndex;
-
 
     protected UIActions setProperties(String byLocator) {
         isMultiple = false;
+        debugMode = false;
         visibility = true;
         elementIndex = 0;
         locators = new LinkedList<>();
@@ -75,6 +77,12 @@ public class UIActions implements UIElement {
         return this;
     }
 
+    @Override
+    public UIActions debugMode(){
+        this.debugMode = true;
+        return this;
+    }
+
     /**
      * The click method involves a normal selenium click. It handles stale element exception and element intercepted
      * exceptions.
@@ -83,7 +91,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions click() {
-        executor.usingLocator(locators).invokeCommand(Click.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(Click.class);
         return this;
     }
 
@@ -97,7 +105,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions sendKeys(CharSequence... keysToSend) {
         Objects.requireNonNull(keysToSend, "The input value for 'SendKeys' should not be null");
-        executor.usingLocator(locators).withCharSequence(keysToSend).invokeCommand(SendKeys.class);
+        executor.debugMode(debugMode).usingLocator(locators).withCharSequence(keysToSend).invokeCommand(SendKeys.class);
         return this;
     }
 
@@ -113,7 +121,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions setText(String text) {
         Objects.requireNonNull(text, "The input value for 'SetText' should not be null");
-        executor.usingLocator(locators).withText(text).invokeCommand(SetText.class);
+        executor.debugMode(debugMode).usingLocator(locators).withText(text).invokeCommand(SetText.class);
         return this;
     }
 
@@ -126,7 +134,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions setValue(String value) {
-        executor.usingLocator(locators).withText(value).invokeCommand(SetValue.class);
+        executor.debugMode(debugMode).usingLocator(locators).withText(value).invokeCommand(SetValue.class);
         return this;
     }
 
@@ -139,7 +147,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions setInnerHtml(String value) {
-        executor.usingLocator(locators).withText(value).invokeCommand(SetInnerHtml.class);
+        executor.debugMode(debugMode).usingLocator(locators).withText(value).invokeCommand(SetInnerHtml.class);
         return this;
     }
 
@@ -151,7 +159,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions clearAndType(CharSequence... charSequences) {
-        executor.usingLocator(locators).withCharSequence(charSequences).invokeCommand(ClearAndType.class);
+        executor.debugMode(debugMode).usingLocator(locators).withCharSequence(charSequences).invokeCommand(ClearAndType.class);
         return this;
     }
 
@@ -162,7 +170,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions clear() {
-        executor.usingLocator(locators).invokeCommand(Clear.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(Clear.class);
         return this;
     }
 
@@ -174,7 +182,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAttribute(String value) {
-        return executor.usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
     }
 
     /**
@@ -185,7 +193,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getCSSAttribute(String value) {
-        return executor.usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
     }
 
     /**
@@ -195,7 +203,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAllCSSAttributes() {
-        return executor.usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
     }
 
     /**
@@ -205,7 +213,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Map<String, String> getAllAttributes() {
-        return executor.usingLocator(locators).invokeCommand(GetAllAttributes.class);
+        return (Map<String, String>) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllAttributes.class);
     }
 
     /**
@@ -215,7 +223,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getTagName() {
-        return executor.usingLocator(locators).invokeCommand(GetTagName.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetTagName.class);
     }
 
     /**
@@ -225,7 +233,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Point getLocation() {
-        return executor.usingLocator(locators).invokeCommand(GetLocation.class);
+        return (Point) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetLocation.class);
     }
 
     /**
@@ -235,7 +243,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Rectangle getRect() {
-        return executor.usingLocator(locators).invokeCommand(GetRect.class);
+        return (Rectangle) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetRect.class);
     }
 
     /**
@@ -245,7 +253,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Dimension getDimension() {
-        return executor.usingLocator(locators).invokeCommand(GetDimension.class);
+        return (Dimension) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetDimension.class);
     }
 
 
@@ -257,7 +265,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isDisplayed() {
-        return executor.usingLocator(locators).invokeCommand(IsVisible.class);
+        return (boolean)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsVisible.class);
     }
 
     /**
@@ -268,7 +276,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isEnabled() {
-        return executor.usingLocator(locators).invokeCommand(IsEnabled.class);
+        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsEnabled.class);
     }
 
     /**
@@ -278,7 +286,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isSelected() {
-        return executor.usingLocator(locators).invokeCommand(IsSelected.class);
+        return (boolean)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsSelected.class);
     }
 
     /**
@@ -289,7 +297,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getText() {
-        return executor.usingLocator(locators).invokeCommand(FindTextData.class);
+        return (String)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class);
     }
 
     /**
@@ -300,7 +308,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions check() {
-        executor.usingLocator(locators).invokeCommand(Check.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(Check.class);
         return this;
     }
 
@@ -312,7 +320,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions inShadowDom() {
         addData("SE", "true");
-        executor.presenceOfShadownDom();
+        executor.debugMode(debugMode).presenceOfShadownDom();
         return this;
     }
 
@@ -324,7 +332,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions unCheck() {
-        executor.usingLocator(locators).invokeCommand(UnCheck.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(UnCheck.class);
         return this;
     }
 
@@ -336,7 +344,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(String selectValue) {
-        return executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
+        return (String)executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
     }
 
     /**
@@ -347,7 +355,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String selectByValue(String selectValue) {
-        return executor.usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
+        return (String)executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
     }
 
     /**
@@ -358,7 +366,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(int index) {
-        return executor.usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
     }
 
     /**
@@ -368,7 +376,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions moveToElement() {
-        executor.usingLocator(locators).invokeCommand(MoveToElement.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(MoveToElement.class);
         return this;
     }
 
@@ -377,7 +385,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void doubleClick() {
-        executor.usingLocator(locators).invokeCommand(DoubleClick.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(DoubleClick.class);
     }
 
     /**
@@ -385,7 +393,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void rightClick() {
-        executor.usingLocator(locators).invokeCommand(RightClick.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(RightClick.class);
     }
 
     /**
@@ -393,7 +401,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void contextClick() {
-        executor.usingLocator(locators).invokeCommand(RightClick.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(RightClick.class);
     }
 
     /**
@@ -401,7 +409,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void actionClick() {
-        executor.usingLocator(locators).invokeCommand(ClickByAction.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ClickByAction.class);
     }
 
     /**
@@ -409,7 +417,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void forceClick() {
-        executor.usingLocator(locators).invokeCommand(ForceClick.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ForceClick.class);
     }
 
     /**
@@ -419,7 +427,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions pressTab() {
-        executor.usingLocator(locators).invokeCommand(PressTab.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(PressTab.class);
         return this;
     }
 
@@ -432,7 +440,7 @@ public class UIActions implements UIElement {
      */
     @Override @Deprecated
     public UIActions pressTab(int times) {
-        executor.usingLocator(locators).withTabIndex(times).invokeCommand(PressTab.class);
+        executor.debugMode(debugMode).usingLocator(locators).withTabIndex(times).invokeCommand(PressTab.class);
         return this;
     }
 
@@ -441,7 +449,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void pressEnter() {
-        executor.usingLocator(locators).invokeCommand(PressEnter.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(PressEnter.class);
     }
 
     /**
@@ -449,7 +457,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void clickByJS() {
-        executor.usingLocator(locators).invokeCommand(ClickByJS.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ClickByJS.class);
     }
 
     /**
@@ -460,7 +468,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions hover(int secondsToHover) {
-        executor.usingLocator(locators).withTimeToWait(secondsToHover).invokeCommand(Hover.class);
+        executor.debugMode(debugMode).usingLocator(locators).withTimeToWait(secondsToHover).invokeCommand(Hover.class);
         return this;
     }
 
@@ -472,7 +480,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions scrollToView() {
-        executor.usingLocator(locators).invokeCommand(ScrollToView.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ScrollToView.class);
         return this;
     }
 
@@ -485,7 +493,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions scrollPage(int xDirection, int yDirection) {
-        executor.usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(ScrollPage.class);
+        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(ScrollPage.class);
         return this;
     }
 
@@ -498,7 +506,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions moveByOffset(int xDirection, int yDirection) {
-        executor.usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(MoveByOffSet.class);
+        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(MoveByOffSet.class);
         return this;
     }
 
@@ -509,7 +517,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void dragAndDrop() {
-        executor.usingLocator(locators).invokeCommand(DragAndDrop.class);
+        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(DragAndDrop.class);
     }
 
     /**
@@ -521,7 +529,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void dragAndDropByOffset(int xDirection, int yDirection) {
-        executor.usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDrop.class);
+        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDrop.class);
     }
 
     /**
@@ -692,7 +700,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions addData(String key) {
-        GlobalData.addData(key, executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
+        GlobalData.addData(key, executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
         return this;
     }
 
@@ -705,7 +713,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions addData(DataEnum key) {
-        GlobalData.addData(key, executor.usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
+        GlobalData.addData(key, executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData"));
         return this;
     }
 
@@ -729,7 +737,7 @@ public class UIActions implements UIElement {
      * @param fileName of the file to be found
      */
     public void uploadFile(@NotNull String fileName) {
-        executor.usingLocator(locators).withText(fileName).invokeCommand(FileUpload.class);
+        executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUpload.class);
     }
 
 
@@ -741,7 +749,7 @@ public class UIActions implements UIElement {
      * @param fileName of the file to be found - An absolute, relative path or file name can be provided.
      */
     public void uploadFileWRC(@NotNull String fileName) {
-        executor.usingLocator(locators).withText(fileName).invokeCommand(FileUploadWRC.class);
+        executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUploadWRC.class);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.tidal.wave.realapps;
 
 import com.tidal.wave.browser.Browser;
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -53,6 +54,10 @@ public class EcommerceAppTest {
         find("span with text Next").click();
         find("Place Order").click();
 
+    }
+
+    @After
+    public void TestCleanup(){
         Browser.close();
     }
 }

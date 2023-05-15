@@ -11,16 +11,15 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class IsVisible extends CommandAction implements Command {
-
+public final class IsVisible extends CommandAction implements Command<Boolean> {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
     private CommandContext context;
-
     private boolean isMultiple;
 
     @Override
@@ -30,13 +29,27 @@ public final class IsVisible extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Boolean> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.isDisplayed();
+    };
+
+    @Override
+    public Function<CommandContext, Boolean> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public boolean isVisibleAction() {
-        WebElement element = webElement.getElement(context);
-        return element.isDisplayed();
+        return function.apply(context);
     }
 
     public boolean isVisible() {

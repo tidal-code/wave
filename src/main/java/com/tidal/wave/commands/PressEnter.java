@@ -17,6 +17,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -35,14 +36,29 @@ public final class PressEnter extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        new Actions(((RemoteWebElement) element).getWrappedDriver()).sendKeys(element, Keys.ENTER).perform();
+        activityWaiter.waitUntilDocReady(Driver.getDriver(), Wait.getBackgroundMaxWait());
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public void pressEnterAction() {
-        WebElement element = webElement.getElement(context);
-        new Actions(((RemoteWebElement) element).getWrappedDriver()).sendKeys(element, Keys.ENTER).perform();
-        activityWaiter.waitUntilDocReady(Driver.getDriver(), Wait.getBackgroundMaxWait());
+       function.apply(context);
     }
 
     public void pressEnter() {

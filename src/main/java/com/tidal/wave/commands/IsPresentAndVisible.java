@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -29,13 +30,27 @@ public final class IsPresentAndVisible extends CommandAction implements Command 
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Boolean> function = e -> {
+        List<WebElement> elements = webElement.getElements(context);
+        return !elements.isEmpty() && elements.stream().anyMatch(WebElement::isDisplayed);
+    };
+
+    @Override
+    public Function<CommandContext, Boolean> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public boolean isPresentAndVisibleAction() {
-        List<WebElement> elements = webElement.getElements(context);
-        return !elements.isEmpty() && elements.stream().anyMatch(WebElement::isDisplayed);
+        return function.apply(context);
     }
 
     public boolean isPresentAndVisible() {

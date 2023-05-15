@@ -13,10 +13,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class Check extends CommandAction implements Command {
+public final class Check extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -39,6 +40,24 @@ public final class Check extends CommandAction implements Command {
         if (!element.isSelected()) {
             ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
         }
+    }
+
+    @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        if (!element.isSelected()) {
+            ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
+        }
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
     }
 
     public void check() {

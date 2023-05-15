@@ -13,12 +13,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 @SuppressWarnings("unused")
-public final class FindTextData extends CommandAction implements Command{
+public final class FindTextData extends CommandAction implements Command<String> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -31,11 +32,11 @@ public final class FindTextData extends CommandAction implements Command{
     }
 
     @Override
-    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.TypeOf.stale();
+    public CommandContext getCommandContext() {
+        return context;
     }
 
-    public String findTextDataAction() {
+    Function<CommandContext, String> function = e -> {
         String textContent;
 
         WebElement element = webElement.getElement(context);
@@ -60,6 +61,20 @@ public final class FindTextData extends CommandAction implements Command{
             return textContent;
         }
         return "";
+    };
+
+    @Override
+    public Function<CommandContext, String> getFunction() {
+        return function;
+    }
+
+    @Override
+    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.TypeOf.stale();
+    }
+
+    public String findTextDataAction() {
+        return function.apply(context);
     }
 
     public String findTextData() {

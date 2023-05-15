@@ -16,9 +16,10 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class FileUploadWRC extends CommandAction implements Command {
+public class FileUploadWRC extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -33,18 +34,29 @@ public class FileUploadWRC extends CommandAction implements Command {
         this.fileName = context.getTextInput();
     }
 
-
     @Override
-    protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.TypeOf.stale();
+    public CommandContext getCommandContext() {
+        return context;
     }
 
+    Function<CommandContext, Void> function = e -> {
+        if (fileName.isEmpty()) throw new IllegalArgumentException("File name should not be null or empty");
 
-    public void fileUploadAction() throws AWTException {
+        if (Finder.findFileIfExists(fileName).isPresent()) {
+            filePath = Finder.findFilePath(fileName);
+        } else {
+            throw new NoSuchFileException(String.format("No file could be found with the given file name '%s'", fileName));
+        }
+
         WebElement element = webElement.getElement(context);
         element.click();
 
-        Robot robot = new Robot();
+        Robot robot;
+        try {
+            robot = new Robot();
+        } catch (AWTException ex) {
+            throw new RuntimeException(ex);
+        }
         StringSelection stringSelection = new StringSelection(filePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
         robot.keyPress(KeyEvent.VK_CONTROL);
@@ -55,17 +67,27 @@ public class FileUploadWRC extends CommandAction implements Command {
 
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
+
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function getFunction() {
+        return function;
+    }
+
+
+    @Override
+    protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.TypeOf.stale();
+    }
+
+
+    public void fileUploadAction() throws AWTException {
+        function.apply(context);
     }
 
     public void fileUploadWRC() {
-        if (fileName.isEmpty()) throw new IllegalArgumentException("File name should not be null or empty");
-
-        if (Finder.findFileIfExists(fileName).isPresent()) {
-            filePath = Finder.findFilePath(fileName);
-        } else {
-            throw new NoSuchFileException(String.format("No file could be found with the given file name '%s'", fileName));
-        }
-
         timeCounter.restart();
         super.execute(Commands.InputCommands.UPLOAD_FILE.toString(), ignoredExceptions, timeCounter);
     }

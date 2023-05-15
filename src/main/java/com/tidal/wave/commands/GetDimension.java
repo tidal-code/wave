@@ -12,6 +12,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -28,13 +29,27 @@ public final class GetDimension extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Dimension> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.getSize();
+    };
+
+    @Override
+    public Function<CommandContext, Dimension> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public Dimension getDimensionAction() {
-        WebElement element = webElement.getElement(context);
-        return element.getSize();
+        return function.apply(context);
     }
 
     public Dimension getDimension() {

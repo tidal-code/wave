@@ -12,6 +12,7 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -28,13 +29,27 @@ public final class GetRect extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Rectangle> function = e -> {
+        WebElement element = webElement.getElement(context);
+        return element.getRect();
+    };
+
+    @Override
+    public Function<CommandContext, Rectangle> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public Rectangle getRectAction() {
-        WebElement element = webElement.getElement(context);
-        return element.getRect();
+        return function.apply(context);
     }
 
     public Rectangle getRect() {

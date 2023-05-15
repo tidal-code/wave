@@ -37,7 +37,7 @@ public class ElementPresentExpectation extends Expectation {
                         .withMultipleElements(isMultiple)
                         .isVisible(isVisible)
                         .usingLocator(locators)
-                        .invokeCommand(GetSize.class, "getSize") > 0);
+                        .invokeCommand(GetSize.class) > 0);
     }
 
     @Override

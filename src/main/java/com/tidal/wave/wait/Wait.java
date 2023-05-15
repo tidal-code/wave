@@ -84,6 +84,7 @@ public class Wait {
         if (backgroundWait.get() == null) {
             List<Class<? extends Throwable>> ignoredExceptions = new ArrayList<>();
             ignoredExceptions.add(StaleElementReferenceException.class);
+
             backgroundWait.set((WebDriverWait) new WebDriverWait(
                     Driver.getDriver(),
                     Duration.ofSeconds(Integer.parseInt(getWaitTime(WaitTime.ACTIVITY_WAIT_TIME))),

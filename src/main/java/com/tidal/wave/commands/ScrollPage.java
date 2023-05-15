@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -32,13 +33,28 @@ public final class ScrollPage extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("window.scrollBy(%d ,%d)", xyCords[0], xyCords[1]), element);
+        return Void.TYPE.cast(null);
+    };
+
+    @Override
+    public Function getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
 
     public void scrollPageAction() {
-        WebElement element = webElement.getElement(context);
-        ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("window.scrollBy(%d ,%d)", xyCords[0], xyCords[1]), element);
+        function.apply(context);
     }
 
     public void scrollPage() {

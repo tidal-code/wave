@@ -13,9 +13,10 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class FileUpload extends CommandAction implements Command {
+public class FileUpload extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -31,16 +32,11 @@ public class FileUpload extends CommandAction implements Command {
     }
 
     @Override
-    protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.Of.sendKeys();
+    public CommandContext getCommandContext() {
+        return context;
     }
 
-    public void fileUploadAction() {
-        WebElement element = webElement.getElement(context);
-        element.sendKeys(filePath);
-    }
-
-    public void fileUpload() {
+    Function<CommandContext, Void> function = e -> {
         if (fileName.isEmpty()) throw new IllegalArgumentException("File name should not be null or empty");
 
         if (Finder.findFileIfExists(fileName).isPresent()) {
@@ -48,7 +44,27 @@ public class FileUpload extends CommandAction implements Command {
         } else {
             throw new NoSuchFileException(String.format("No file could be found with the given file name '%s'", fileName));
         }
+        WebElement element = webElement.getElement(context);
+        element.sendKeys(filePath);
 
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
+    protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.Of.sendKeys();
+    }
+
+    public void fileUploadAction() {
+        function.apply(context);
+    }
+
+    public void fileUpload() {
         timeCounter.restart();
         super.execute(Commands.InputCommands.UPLOAD_FILE.toString(), ignoredExceptions, timeCounter);
     }

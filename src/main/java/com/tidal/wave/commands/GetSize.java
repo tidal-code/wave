@@ -5,12 +5,12 @@ import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.config.Config;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -26,6 +26,18 @@ public final class GetSize extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    Function<CommandContext, Integer> function = e -> webElement.getElements(context).size();
+
+    @Override
+    public Function<CommandContext, Integer> getFunction() {
+        return function;
+    }
+
+    @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
@@ -35,9 +47,6 @@ public final class GetSize extends CommandAction implements Command {
     }
 
     public int getSize() {
-        if(Config.DEBUG){
-            return getSizeAction();
-        }
         timeCounter.restart();
         return super.execute(Commands.GetCommands.GET_SIZE.toString(), ignoredExceptions, timeCounter);
     }

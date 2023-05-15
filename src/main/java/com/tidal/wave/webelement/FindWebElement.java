@@ -101,7 +101,7 @@ public class FindWebElement extends IframeIterator {
 
         try {
             switchToIframeOfElement(locator, visibility);
-        } catch (IterationStopper ignored){ //Iteration Exception is thrown when an element is found
+        } catch (IterationStopper ignored) { //Iteration Exception is thrown when an element is found
             //ignored
         }
 
@@ -131,9 +131,7 @@ public class FindWebElement extends IframeIterator {
         try {
             wait.until(findElement);
         } catch (TimeoutException e) {
-            throw new TimeoutException(String.format("Element not found using %s in %d seconds", locator, getWaitTime()));
-        } catch (RuntimeException e) {
-            wait.until(findElement);
+            throw new TimeoutException(String.format("Element not found using %s in %d seconds \n %s", locator, getWaitTime(), e.getMessage()));
         }
     }
 
@@ -162,24 +160,10 @@ public class FindWebElement extends IframeIterator {
     private WebElement foundElement(WebDriver driver, By locator) {
         WebElement element = contextElement;
 
-        if (timeCounter == null) {
-            timeCounter = new TimeCounter();
-        }
-
-        try {
-            if (element.isDisplayed()) {
-                String jsHighLighter = "arguments[0].style.border='1px dotted green'";
-                ((JavascriptExecutor) driver).executeScript(jsHighLighter, element);
-                return element;
-            }
-
-        } catch (RuntimeException e) {
-            if (timeCounter.timeElapsed(Duration.ofSeconds(getWaitTime()))) {
-                throw new TimeoutException(String.format("Element is not found using %s in %d seconds", locator, getWaitTime()));
-            }
-            foundElement(driver, locator);
-        } finally {
-            timeCounter = null;
+        if (element.isDisplayed()) {
+            String jsHighLighter = "arguments[0].style.border='1px dotted green'";
+            ((JavascriptExecutor) driver).executeScript(jsHighLighter, element);
+            return element;
         }
         return element;
     }

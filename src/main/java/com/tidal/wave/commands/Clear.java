@@ -11,10 +11,11 @@ import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.WebElement;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class Clear extends CommandAction implements Command {
+public final class Clear extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -28,13 +29,28 @@ public final class Clear extends CommandAction implements Command {
     }
 
     @Override
+    public CommandContext getCommandContext() {
+        return context;
+    }
+
+    public Function<CommandContext, Void> function = e -> {
+        WebElement element = webElement.getElement(context);
+        element.clear();
+        return null;
+    };
+
+    @Override
+    public Function<CommandContext, Void> getFunction() {
+        return function;
+    }
+
+    @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.Of.clear();
     }
 
     public void clearAction() {
-        WebElement element = webElement.getElement(context);
-        element.clear();
+        function.apply(context);
     }
 
     public void clear() {
