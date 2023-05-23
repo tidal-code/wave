@@ -20,7 +20,7 @@ public class RetryTests {
     @Before
     public void initialize() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
+        options.addArguments("--headless=new");
         options.addArguments("--remote-allow-origins=*");
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/timeout/timeoutElements.html"));
     }
