@@ -56,6 +56,7 @@ public class Commands {
 
     public enum InputCommands {
         SEND_KEYS("sendKeysAction"),
+        INPUT_KEYS("keyInputsAction"),
         SET_INNER_HTML("setInnerHtmlAction"),
         SET_TEXT("setTextAction"),
         SET_VALUE("setValueAction"),
@@ -156,6 +157,21 @@ public class Commands {
 
         @Override
         public String toString() {
+            return command;
+        }
+    }
+
+    public enum PageCommands{
+        REFRESH_PAGE_ACTION("pageRefreshAction");
+
+        private final String command;
+
+        PageCommands(String command){
+            this.command = command;
+        }
+
+        @Override
+        public String toString(){
             return command;
         }
     }

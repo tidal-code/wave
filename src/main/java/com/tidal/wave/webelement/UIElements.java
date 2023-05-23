@@ -99,6 +99,19 @@ public class UIElements extends AbstractCollection<UIElement> {
         size = size() - 1;
     }
 
+    /**
+     * The waitFor method would explicitly wait for the specified time for the first action to complete.
+     * It will be active till the chain of actions completes with the find() method. The wait time will be defaulted to the
+     * value set by setOption(int waitTime) method after that. Therefore, there is no need to reset the wait.
+     *
+     * @param waitTime in seconds till the element is found or action is completed
+     * @return A self reference
+     */
+    public UIElements waitFor(int waitTime) {
+        Wait.setExplicitWait(waitTime);
+        return this;
+    }
+
     @Override
     public boolean remove(Object o) {
         if (o instanceof UIElement) {

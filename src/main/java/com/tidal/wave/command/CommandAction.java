@@ -18,13 +18,14 @@ import java.util.function.Supplier;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public abstract class CommandAction {
-    protected List<By> locators;
+
+//    protected List<String> locators; //todo remove this after testing
     protected CommandContext context;
 
     protected abstract Map<Class<? extends Throwable>, Supplier<String>> ignoredEx();
 
-    private By getLocator() {
-        return locators.get(locators.size() - 1);
+    private String getLocator() {
+        return context.getLocators().get(0);
     }
 
     @SuppressWarnings("unchecked")

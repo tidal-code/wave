@@ -5,6 +5,8 @@ import com.tidal.utils.data.DataEnum;
 import com.tidal.utils.data.GlobalData;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.*;
+import com.tidal.wave.data.IntervalTime;
+import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.supplier.ObjectSupplier;
@@ -320,7 +322,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions inShadowDom() {
         addData("SE", "true");
-        executor.debugMode(debugMode).presenceOfShadownDom();
+        executor.debugMode(debugMode).presenceOfShadowDom();
         return this;
     }
 
@@ -521,6 +523,19 @@ public class UIActions implements UIElement {
     }
 
     /**
+     * Method to keep refreshing the page until the element is found.
+     * @param maxTime The maximum time to keep the page refreshing until the element is found
+     * @param intervalTime The interval time to refresh the page
+     * @return A self reference
+     */
+    @Override
+    public UIElement doPageRefresh(MaxTime maxTime, IntervalTime intervalTime) {
+        executor.pageRefreshData(maxTime, intervalTime).usingLocator(locators).invokeCommand(PageRefresh.class);
+        return this;
+    }
+
+
+    /**
      * Drag and drop the source element to the target location.
      * Source element is found using find(locator) method and target location is found through the coordinates.
      *
@@ -531,6 +546,8 @@ public class UIActions implements UIElement {
     public void dragAndDropByOffset(int xDirection, int yDirection) {
         executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDrop.class);
     }
+
+
 
     /**
      * Method to chain locators to get relative elements.
