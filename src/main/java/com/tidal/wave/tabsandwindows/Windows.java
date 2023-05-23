@@ -67,9 +67,9 @@ public class Windows {
     }
 
     /**
-     * Closes the current active tab and switches to the last tab present.
+     * Closes the current active window and switches to the last window present.
      */
-    public static void closeTab() {
+    public static void closeWindow() {
         Driver.getDriver().close();
         switchToWindow(last);
     }

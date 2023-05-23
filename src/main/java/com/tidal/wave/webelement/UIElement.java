@@ -1,6 +1,8 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.data.DataEnum;
+import com.tidal.wave.data.IntervalTime;
+import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.criteria.Criteria;
@@ -99,6 +101,8 @@ public interface UIElement {
     UIElement moveByOffset(int xDirection, int yDirection);
 
     void dragAndDrop();
+
+    UIElement doPageRefresh(MaxTime maxTime, IntervalTime intervalTime);
 
     void dragAndDropByOffset(int xDirection, int yDirection);
 

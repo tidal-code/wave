@@ -30,6 +30,7 @@ public class CommandExceptions {
             ignoredExceptions.put(ElementNotInteractableException.class, Messages.Exceptions::notInteractable);
             ignoredExceptions.put(StaleElementReferenceException.class, Messages.Exceptions::staleElementError);
             ignoredExceptions.put(SetTextException.class, Messages.Exceptions::setTextExceptionError);
+            ignoredExceptions.put(KeyInputException.class, Messages.Exceptions::setTextExceptionError);
             return ignoredExceptions;
         }
 

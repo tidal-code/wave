@@ -1,5 +1,8 @@
 package com.tidal.wave.command;
 
+import com.tidal.wave.data.IntervalTime;
+import com.tidal.wave.data.MaxTime;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +24,8 @@ public class CommandContext {
 
     private int elementIndex;
     private boolean debugMode;
+    private MaxTime maxTime;
+    private IntervalTime intervalTime;
 
     public String getAttributeName() {
         return attributeName;
@@ -134,6 +139,22 @@ public class CommandContext {
         this.debugMode = debugMode;
     }
 
+    public MaxTime getMaxRefreshTime() {
+        return maxTime;
+    }
+
+    public IntervalTime getRefreshIntervalTime() {
+        return intervalTime;
+    }
+
+    public void setMaxRefreshTime(MaxTime maxTime) {
+        this.maxTime = maxTime;
+    }
+
+    public void setIntervalTime(IntervalTime intervalTime) {
+        this.intervalTime = intervalTime;
+    }
+
     @Override
     public String toString() {
         return "CommandContext{" +
@@ -153,4 +174,6 @@ public class CommandContext {
                 ", \n Debug Mode:" + debugMode +
                 '}';
     }
+
+
 }

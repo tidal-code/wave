@@ -3,6 +3,7 @@ package com.tidal.wave.waiter;
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
+import com.tidal.wave.verification.expectations.collections.Expectations;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,5 +117,10 @@ public class FindAllWaitTest {
                         "expected is %s seconds but got %d", getData(DEFAULT_WAIT_TIME), timeElapsed));
             }
         }
+    }
+
+    @Test
+    public void testExplicitWaitCustomWait(){
+        findAll("#testid1000").waitFor(3).expecting(Expectations.sizeGreaterThan(2));
     }
 }

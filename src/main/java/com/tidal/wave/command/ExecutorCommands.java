@@ -1,5 +1,8 @@
 package com.tidal.wave.command;
 
+import com.tidal.wave.data.IntervalTime;
+import com.tidal.wave.data.MaxTime;
+
 import java.util.List;
 
 public interface ExecutorCommands {
@@ -27,7 +30,7 @@ public interface ExecutorCommands {
 
     Executor isVisible(boolean visible);
 
-    Executor presenceOfShadownDom();
+    Executor presenceOfShadowDom();
 
     Executor usingLocator(List<String> locators);
 
@@ -35,4 +38,6 @@ public interface ExecutorCommands {
 
     Executor withZoomLevel(double zoomLevel);
     Executor withElementIndex(int index);
+
+    Executor pageRefreshData(MaxTime maxTime, IntervalTime intervalTime);
 }

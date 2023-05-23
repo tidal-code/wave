@@ -25,7 +25,7 @@ public class NotVisible extends RetryCondition {
                 .withMultipleElements(isMultiple)
                 .isVisible(isVisible)
                 .usingLocator(newElementLocatorSet)
-                .invokeCommand(IsVisible.class);
+                .invokeCommand(IsVisible.class, "isVisible");
 
 
         if (!result) {

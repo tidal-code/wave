@@ -36,7 +36,7 @@ public final class ClickByJS extends CommandAction implements Command<Void> {
     Function<CommandContext, Void> function = e -> {
         WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
-        return Void.TYPE.cast(null);
+        return null;
     };
 
     @Override

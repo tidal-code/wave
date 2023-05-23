@@ -31,7 +31,7 @@ public interface Command<T> {
 
         CommandContext commandContext = getCommandContext();
 
-        if(Config.SLOW_RUN){
+        if (Config.SLOW_RUN) {
             ThreadSleep.forSeconds(1);
         }
 
@@ -42,7 +42,6 @@ public interface Command<T> {
             int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
             logger.info("Wait duration: " + duration + " seconds");
             logger.info(commandContext.toString());
-            return (X) executeAction(getFunction());
         }
 
         Object value;
@@ -54,6 +53,10 @@ public interface Command<T> {
         } catch (NoSuchMethodException e) {
             throw new MethodInvokerException(String.format("No such method with name '%s', in class '%s'", action, klass.getName()), e);
         } catch (InvocationTargetException e) {
+            //
+            if (commandContext.getDebugMode() || Config.DEBUG) {
+                e.printStackTrace();
+            }
             String errorDetail = e.getCause().getMessage();
             errorDetail = new ErrorStack().constructedError(errorDetail, Thread.currentThread().getStackTrace());
             //ReportBuilder class would be using the exception message to sort result types.
