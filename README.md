@@ -6,13 +6,11 @@ Wave browser automation library is a Java based Selenium framework to automate c
 
 You can download the dependency from maven
 
-``` maven
-<dependency>
-   <groupId>io.github.tidal-code</groupId>
-   <artifactId>wave</artifactId>
-   <version>1.2.0</version>
-</dependency>
-```
+For the latest version, refer to the link below:
+
+[Tidal Wave New Version](https://wave.tidalcode.dev/docs/detailed-documentation/Versions/)
+    
+
 
 ## Usage Example:
 
