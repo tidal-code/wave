@@ -24,8 +24,6 @@ public final class SendKeys extends CommandAction implements Command<Void> {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-
-    private CommandContext context;
     private CharSequence[] charSequences;
 
     @Override
@@ -42,7 +40,7 @@ public final class SendKeys extends CommandAction implements Command<Void> {
     Function<CommandContext, Void> function = e -> {
         WebElement element = webElement.getElement(context);
         element.sendKeys(charSequences);
-        return Void.TYPE.cast(null);
+        return null;
     };
 
     @Override

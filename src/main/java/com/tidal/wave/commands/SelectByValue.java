@@ -22,13 +22,9 @@ public final class SelectByValue extends CommandAction implements Command {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
 
-    private CommandContext context;
-    private String selectionValue;
-
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
-        this.selectionValue = context.getTextInput();
     }
 
     @Override
@@ -39,7 +35,7 @@ public final class SelectByValue extends CommandAction implements Command {
     Function<CommandContext, String> function = e -> {
         WebElement element = webElement.getElement(context);
         Select select = new Select(element);
-        select.selectByValue(selectionValue);
+        select.selectByValue(context.getTextInput());
         return select.getFirstSelectedOption().getText();
     };
 

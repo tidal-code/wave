@@ -22,7 +22,6 @@ public final class ScrollPage extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-    private CommandContext context;
     private int[] xyCords;
 
     @Override
@@ -44,7 +43,7 @@ public final class ScrollPage extends CommandAction implements Command {
     };
 
     @Override
-    public Function getFunction() {
+    public Function<CommandContext, Void> getFunction() {
         return function;
     }
 

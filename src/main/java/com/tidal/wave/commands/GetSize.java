@@ -19,7 +19,7 @@ public final class GetSize extends CommandAction implements Command {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
-    private CommandContext context;
+
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;

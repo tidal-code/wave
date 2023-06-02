@@ -3,6 +3,7 @@ package com.tidal.wave.expectations;
 import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.exceptions.ExpectationFailure;
+import com.tidal.wave.verification.expectations.collections.Expectations;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.tidal.wave.verification.expectations.Expectation.*;
 import static com.tidal.wave.webelement.ElementFinder.find;
+import static com.tidal.wave.webelement.ElementFinder.findAll;
 
 
 public class ExpectationTest {
@@ -65,5 +67,10 @@ public class ExpectationTest {
     @Test(expected = ExpectationFailure.class)
     public void testElementToBeInteractable() {
         find("#invisibleElement").invisibleElement().expecting(toBeInteractable).orElseFail();
+    }
+
+    @Test
+    public void findAllExpectationsTest(){
+        findAll("headerid").waitFor(5).expecting(Expectations.sizeGreaterThan(0));
     }
 }

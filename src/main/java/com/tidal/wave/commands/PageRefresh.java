@@ -25,8 +25,7 @@ public final class PageRefresh extends CommandAction implements Command<Boolean>
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
     private final TimeCounter pageRefreshTimeCounter = new TimeCounter();
-    private CommandContext context;
-    private boolean isMultiple;
+
 
     @Override
     public void contextSetter(CommandContext context) {

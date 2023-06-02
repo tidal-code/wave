@@ -114,6 +114,7 @@ public class Commands {
         SCROLL_TO_VIEW("scrollToViewAction"),
         SCROLL_PAGE("scrollPageAction"),
         MOVE_TO_ELEMENT("moveToElementAction"),
+        MOVE_BY_OFFSET("moveByOffSetAction"),
         HOVER("hoverAction"),
         DRAG_AND_DROP("dragAndDropAction"),
         DRAG_AND_DROP_BY_OFFSET("dragAndDropByOffsetAction");
