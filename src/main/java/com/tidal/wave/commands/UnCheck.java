@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class UnCheck extends CommandAction implements Command {
+public final class UnCheck extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -36,7 +36,7 @@ public final class UnCheck extends CommandAction implements Command {
         if (element.isSelected()) {
             ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);
         }
-        return Void.TYPE.cast(null);
+        return null;
     };
 
     @Override

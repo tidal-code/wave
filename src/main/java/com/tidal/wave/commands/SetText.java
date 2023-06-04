@@ -59,7 +59,7 @@ public final class SetText extends CommandAction implements Command<Void> {
             throw new SetTextException("Error when tried to input text using setText method");
         }
         timeCounter = null;
-        return Void.TYPE.cast(null);
+        return null;
     };
 
     @Override
