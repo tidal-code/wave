@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class SetInnerHtml extends CommandAction implements Command {
+public final class SetInnerHtml extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -47,7 +47,7 @@ public final class SetInnerHtml extends CommandAction implements Command {
             element.clear();
             throw new ElementNotInteractableException("Element Not Interactable");
         }
-        return Void.TYPE.cast(null);
+        return null;
     };
 
     @Override
