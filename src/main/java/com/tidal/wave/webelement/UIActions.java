@@ -771,7 +771,7 @@ public class UIActions implements UIElement {
 
     /**
      * Method to upload a file to the application via drag and drop
-     * This method is aimed at pages where files are uploaded when file is dropped into the drag and drop control
+     * This method is to be used in pages where files are uploaded when file is dropped into the drag and drop control
      * component and there is no upload button
      *
      * If only a file name is provided, the file should exist in the 'resources' folder of the project
