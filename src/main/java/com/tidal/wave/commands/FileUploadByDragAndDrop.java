@@ -60,10 +60,9 @@ public class FileUploadByDragAndDrop extends CommandAction implements Command<Vo
 
     @Override
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.Of.sendKeys();
+        return CommandExceptions.TypeOf.stale();
     }
     public void fileUploadByDragAndDropAction() {
-
         function.apply(context);
     }
 

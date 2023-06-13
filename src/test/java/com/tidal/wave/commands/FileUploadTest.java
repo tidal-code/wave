@@ -19,7 +19,6 @@ public class FileUploadTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
-
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components"+ File.separator+"fileUpload"+File.separator+"fileUpload.html"));
     }
 
