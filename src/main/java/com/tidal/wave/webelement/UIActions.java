@@ -770,6 +770,20 @@ public class UIActions implements UIElement {
     }
 
     /**
+     * Method to upload a file to the application via drag and drop
+     * This method is to be used in pages where files are uploaded when file is dropped into the drag and drop control
+     * component and there is no upload button
+     *
+     * If only a file name is provided, the file should exist in the 'resources' folder of the project
+     *
+     * @param fileName of the file to be found - An absolute, relative path or file name can be provided.
+     */
+    public void uploadFileByDragAndDrop(@NotNull String fileName) {
+        executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUploadByDragAndDrop.class);
+    }
+
+
+    /**
      * <p>Just the plain old Thread.sleep wrapped in a method with a nicer name. </p>
      * <p>Use it when absolutely necessary as this is a static wait and would slow down the tests.</p>
      * <b>Examples:</b> <br/>

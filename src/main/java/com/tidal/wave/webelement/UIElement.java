@@ -142,6 +142,8 @@ public interface UIElement {
 
     void uploadFileWRC(String fileName);
 
+    void uploadFileByDragAndDrop(String fileName);
+
     UIElement pause(int seconds);
 
 
