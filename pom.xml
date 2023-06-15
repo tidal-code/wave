@@ -47,7 +47,6 @@
 
         <maven-surefire-plugin>2.22.2</maven-surefire-plugin>
         <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-        <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
         <cucumber-version>7.11.2</cucumber-version>
         <allure-version>2.21.0</allure-version>
         <allure.maven.version>2.10.0</allure.maven.version>

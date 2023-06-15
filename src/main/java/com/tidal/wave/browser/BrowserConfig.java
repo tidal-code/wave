@@ -69,7 +69,7 @@ public final class BrowserConfig {
         }
     }
 
-    public void storePageBackGroundControlOptions(){
+    private void storePageBackGroundControlOptions(){
         if(!activityMap.isEmpty()){
             activityMap.forEach((k, v) -> addData(k.getActivityType(), String.valueOf(v)));
         }
