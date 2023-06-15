@@ -60,7 +60,8 @@ public class Commands {
         SET_INNER_HTML("setInnerHtmlAction"),
         SET_TEXT("setTextAction"),
         SET_VALUE("setValueAction"),
-        UPLOAD_FILE("fileUploadAction");
+        UPLOAD_FILE("fileUploadAction"),
+        UPLOAD_FILE_DRAG_AND_DROP("fileUploadByDragAndDropAction");
 
         private final String command;
 

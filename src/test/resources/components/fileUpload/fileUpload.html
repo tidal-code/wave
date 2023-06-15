@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drag and drop file upload</title>
+    <style>
+    #dropzone {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      font-size: 1.2em;
+      text-align: center;
+      width: 400px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+<div id="dropzone">Drag and drop your file here</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var dropzone = document.getElementById('dropzone');
+
+      dropzone.ondragover = function() {
+        this.classList.add('dragover');
+        return false;
+      }
+
+      dropzone.ondragleave = function() {
+        this.classList.remove('dragover');
+        return false;
+      }
+
+      dropzone.ondrop = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.classList.remove('dragover');
+
+        var fileName = event.dataTransfer.files[0].name;
+        displayFileName(fileName);
+      }
+
+      function displayFileName(fileName) {
+        alert('File "' + fileName + '" selected');
+      }
+    });
+  </script>
+</body>
+</html>
