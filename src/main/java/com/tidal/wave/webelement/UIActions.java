@@ -58,7 +58,7 @@ public class UIActions implements UIElement {
         executor.withMultipleElements(true);
     }
 
-    public void setElementIndex(int index){
+    public void setElementIndex(int index) {
         executor.withElementIndex(index);
     }
 
@@ -80,7 +80,7 @@ public class UIActions implements UIElement {
     }
 
     @Override
-    public UIActions debugMode(){
+    public UIActions debugMode() {
         this.debugMode = true;
         return this;
     }
@@ -267,7 +267,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isDisplayed() {
-        return (boolean)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsVisible.class);
+        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsVisible.class);
     }
 
     /**
@@ -288,7 +288,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isSelected() {
-        return (boolean)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsSelected.class);
+        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsSelected.class);
     }
 
     /**
@@ -299,7 +299,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getText() {
-        return (String)executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class);
     }
 
     /**
@@ -315,7 +315,7 @@ public class UIActions implements UIElement {
     }
 
     @Override
-    public UIActions inShadowDom(String locator){
+    public UIActions inShadowDom(String locator) {
         return null;
     }
 
@@ -346,7 +346,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(String selectValue) {
-        return (String)executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
     }
 
     /**
@@ -357,7 +357,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String selectByValue(String selectValue) {
-        return (String)executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
+        return (String) executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
     }
 
     /**
@@ -440,7 +440,8 @@ public class UIActions implements UIElement {
      * @return A self reference
      * @deprecated This is being deprecated as we cannot rely on this action
      */
-    @Override @Deprecated
+    @Override
+    @Deprecated
     public UIActions pressTab(int times) {
         executor.debugMode(debugMode).usingLocator(locators).withTabIndex(times).invokeCommand(PressTab.class);
         return this;
@@ -524,7 +525,8 @@ public class UIActions implements UIElement {
 
     /**
      * Method to keep refreshing the page until the element is found.
-     * @param maxTime The maximum time to keep the page refreshing until the element is found
+     *
+     * @param maxTime      The maximum time to keep the page refreshing until the element is found
      * @param intervalTime The interval time to refresh the page
      * @return A self reference
      */
@@ -548,7 +550,6 @@ public class UIActions implements UIElement {
     }
 
 
-
     /**
      * Method to chain locators to get relative elements.
      *
@@ -563,6 +564,7 @@ public class UIActions implements UIElement {
 
     /**
      * Method to chain locators to get relative elements.
+     *
      * @param newLocator the locator relative to the first locator.
      * @return list of WebElements
      */
@@ -773,7 +775,7 @@ public class UIActions implements UIElement {
      * Method to upload a file to the application via drag and drop
      * This method is to be used in pages where files are uploaded when file is dropped into the drag and drop control
      * component and there is no upload button
-     *
+     * <p>
      * If only a file name is provided, the file should exist in the 'resources' folder of the project
      *
      * @param fileName of the file to be found - An absolute, relative path or file name can be provided.
