@@ -15,8 +15,6 @@ class Chrome {
     public WebDriver getDriver(ChromeOptions options) {
         logger.info("Test Starting with Chrome Browser");
 
-        WebDriverManager.chromedriver().setup();
-
         if(options == null){
             return new ChromeDriver();
         }

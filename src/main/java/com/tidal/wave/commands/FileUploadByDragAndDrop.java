@@ -48,7 +48,7 @@ public class FileUploadByDragAndDrop extends CommandAction implements Command<Vo
             throw new NoSuchFileException(String.format("No file could be found with the given file name '%s'", fileName));
         }
         WebElement element = webElement.getElement(context);
-        WebElement virtualElement=(WebElement)((JavascriptExecutor)((RemoteWebElement)(element)).getWrappedDriver()).executeScript(Scripts.dragAndDropFileUpload(),element);
+        WebElement virtualElement = (WebElement) ((JavascriptExecutor) ((RemoteWebElement) (element)).getWrappedDriver()).executeScript(Scripts.dragAndDropFileUpload(), element);
         virtualElement.sendKeys(filePath);
         return null;
     };
@@ -62,6 +62,7 @@ public class FileUploadByDragAndDrop extends CommandAction implements Command<Vo
     protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
         return CommandExceptions.TypeOf.stale();
     }
+
     public void fileUploadByDragAndDropAction() {
         function.apply(context);
     }
