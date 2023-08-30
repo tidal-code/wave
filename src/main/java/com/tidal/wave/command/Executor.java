@@ -81,7 +81,7 @@ public class Executor implements ExecutorCommands {
     @Override
     public void invokeCommand() {
         context.setLocatorSet(locators);
-        commands.forEach(c -> getInstance(c).execute(Introspector.decapitalize(c.getSimpleName())));
+        commands.forEach(command -> getInstance(command).execute(Introspector.decapitalize(command.getSimpleName())));
     }
 
     @Override

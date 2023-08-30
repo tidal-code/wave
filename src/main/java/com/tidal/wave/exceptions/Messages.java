@@ -13,7 +13,7 @@ public class Messages {
         public static String staleElementError() {
             return "Stale Element exception occurred with element %s. \n" +
                     "The page may have refreshed or element may have changed. \n" +
-                    "Try to add more waits or retry with the find method.\n" +
+                    "TryUntil to add more waits or retry with the find method.\n" +
                     "Else try using expected conditions as a conditional wait";
         }
 
@@ -21,14 +21,14 @@ public class Messages {
             return "Click intercepted exception occurred with element %s. \n" +
                     "Element click intercepted.\n" +
                     "Check for a spinner or other element overlapping the element.\n" +
-                    "Try using expected conditions as a conditional wait or add more wait time if a spinner is present";
+                    "TryUntil using expected conditions as a conditional wait or add more wait time if a spinner is present";
         }
 
         public static String notInteractable() {
             return "Not interactable exception occurred with element %s. \n" +
                     "Element is in not interactable state\n" +
                     "Check the element is disabled or not visible or out of the view port.\n" +
-                    "Try using using 'scrollToView()' method or assert that the element is visible.\n" +
+                    "TryUntil using using 'scrollToView()' method or assert that the element is visible.\n" +
                     "Calling the 'moveToElement()' function also brings the element to the view";
         }
 

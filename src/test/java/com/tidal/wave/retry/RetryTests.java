@@ -9,7 +9,10 @@ import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 
-import static com.tidal.wave.retry.RetryCondition.stillVisible;
+import java.time.Duration;
+
+import static com.tidal.wave.retry.RetryCondition.*;
+import static com.tidal.wave.retry.TryUntil.with;
 import static com.tidal.wave.verification.criteria.Criteria.notVisible;
 import static com.tidal.wave.verification.criteria.Criteria.visible;
 import static com.tidal.wave.webelement.ElementFinder.find;
@@ -37,18 +40,36 @@ public class RetryTests {
         find("#textInput").shouldBe(notVisible);
 
         if (timeCounter.timeElapsed().toMillis() > 7000) {
-            throw new RuntimeException("Retry Condition did not exited in time (took more than 7000 milli seconds, when the element became invisible in 6000 milli seconds");
+            throw new RuntimeException("Retry Condition did not exit in time (took more than 7000 milli seconds, when the element became invisible in 6000 milli seconds");
         }
     }
 
     @Test
     public void retryTestIfNotVisible() {
         TimeCounter timeCounter = new TimeCounter();
-        find("#textInput2").clear().click().sendKeys("Retry test").retryIf(RetryCondition.notVisible("#buttonId"), 8);
+        find("#textInput2").clearAndType("Retry test").retryIf(notPresent("#buttonId"), 8);
         find("#buttonId").shouldBe(visible);
 
         if (timeCounter.timeElapsed().toMillis() > 7000) {
-            throw new RuntimeException("Retry Condition did exited in time (took more than 7000 milli seconds, when the element was visible in 6000 milli seconds");
+            throw new RuntimeException("Retry Condition did exit in time (took more than 7000 milli seconds, when the element was visible in 6000 milli seconds");
         }
+    }
+
+    @Test
+    public void retryTestIfNotVisibleForTime() {
+        TimeCounter timeCounter = new TimeCounter();
+        find("#textInput2").clear().click().sendKeys("Retry test")
+                .retryIf(notVisible("#buttonId"),
+                        with(Duration.ofSeconds(20), 5, "hello it is failed"));
+        find("#buttonId").shouldBe(visible);
+
+        if (timeCounter.timeElapsed().toMillis() > 7000) {
+            throw new RuntimeException("Retry Condition did exit in time (took more than 7000 milli seconds, when the element was visible in 6000 milli seconds");
+        }
+
+        TryUntil retryDuration = with(Duration.ofSeconds(20), 5, "hello it is failed");
+
+        find("#textInput2").clear().click().sendKeys("Retry test")
+                .retryIf(notVisible("#buttonId"), retryDuration);
     }
 }

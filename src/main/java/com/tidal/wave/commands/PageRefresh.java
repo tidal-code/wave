@@ -50,9 +50,8 @@ public final class PageRefresh extends CommandAction implements Command<Boolean>
                 message = message + String.format("\nTotal time elapsed: %s seconds", pageRefreshTimeCounter.timeElapsed().getSeconds());
                 throw new RuntimeTestException(message);
             }
-
-            ThreadSleep.forSeconds(intervalTime);
             Page.refresh();
+            ThreadSleep.forSeconds(intervalTime);
             elements = webElement.getElements(context);
         }
         pageRefreshTimeCounter.restart();

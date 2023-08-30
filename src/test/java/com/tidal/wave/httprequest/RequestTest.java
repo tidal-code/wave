@@ -1,6 +1,5 @@
 package com.tidal.wave.httprequest;
 
-import com.tidal.flow.assertions.Assert;
 import com.tidal.utils.filehandlers.FileReader;
 import com.tidal.utils.json.JsonReader;
 import com.tidal.wave.httpRequest.ReqType;
@@ -10,19 +9,8 @@ import org.junit.Test;
 
 import static com.tidal.flow.assertions.Assert.verify;
 
-public class RequestQueryParams {
 
-    //ignore
-    @Test
-    public void testQueryParams(){
-        Request.set("https://reqres.in");
-        Request.setQueryParams("KeyOne", "ValueOne");
-        Request.setQueryParams("KeyTwo", "ValueTwo");
-        Request.setHeader("One", "Two");
-        Request.send(ReqType.POST);
-        System.out.println(Request.getResponseString());
-        Request.reset();
-    }
+public class RequestTest {
 
     @After
     public void afterTest(){
@@ -32,9 +20,10 @@ public class RequestQueryParams {
     @Test
     public void queryParamTest(){
         Request.set("https://reqres.in/api/users");
+        Request.setHeader("hello", "world");
         Request.setQueryParams("page", "2");
         Request.send(ReqType.GET);
-        Assert.verify("", JsonReader.readValue("page", Request.getResponseString()).toString()).isEqualTo("2");
+        verify("", JsonReader.readValue("page", Request.getResponseString()).toString()).isEqualTo("2");
     }
 
     @Test
@@ -62,10 +51,10 @@ public class RequestQueryParams {
 
     @Test
     public void patchTest(){
-        Request.set("https://reqres.in/api/users");
+        Request.set("https://reqres.in/api/users/2");
         Request.setPayload(FileReader.readFileToString("reqrespost.json"));
         Request.send(ReqType.PATCH);
-//        Request.logResponse();
+        System.out.println(Request.getResponseString());
         verify("", JsonReader.readValue("name", Request.getResponseString()).toString()).isEqualTo("morpheus");
     }
 
@@ -75,11 +64,6 @@ public class RequestQueryParams {
         Request.setPayload(FileReader.readFileToString("reqrespost.json"));
         Request.send(ReqType.DELETE);
         verify("", Request.getResponseString()).isEqualTo("");
-//        verify("", Request.getStatusCode()).isEqualTo(204);
-    }
-
-    @Test
-    public void bobProvisionTest(){
-//        Request.set("")
+        verify("", Request.getStatusCode()).isEqualTo(204);
     }
 }

@@ -25,7 +25,7 @@ public class Driver {
 
     public void close() {
         logger.info("Quitting Driver");
-        Objects.requireNonNull(driverCommand, "Attempting to close a browser which was not initiated");
+        Objects.requireNonNull(driverCommand, "Attempting to close a browser which was not initiated or already closed");
         driverCommand.closeDriver();
     }
 

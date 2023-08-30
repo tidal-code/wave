@@ -3,12 +3,14 @@ package com.tidal.wave.webelement;
 
 import com.tidal.utils.data.DataEnum;
 import com.tidal.utils.data.GlobalData;
+import com.tidal.wave.actions.Interactions;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.*;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
+import com.tidal.wave.retry.TryUntil;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.conditions.TestVerification;
@@ -637,6 +639,11 @@ public class UIActions implements UIElement {
         Retry.retry(visibility, isMultiple, locators, retryCondition, numberOfTimes);
     }
 
+    @Override
+    public void retryIf(RetryCondition retryCondition, TryUntil retryDuration) {
+        Retry.retry(visibility, isMultiple, locators, retryCondition, retryDuration);
+    }
+
     /**
      * Expectations are soft assertions. They will wait for the condition to satisfy but won't fail unless specifically called by orElseFail() method
      * They are similar to Selenium expected conditions.
@@ -801,6 +808,11 @@ public class UIActions implements UIElement {
     public UIActions pause(int seconds) {
         ThreadSleep.forSeconds(seconds);
         return this;
+    }
+
+    @Override
+    public void performActions(Interactions interactions) {
+        interactions.build();
     }
 
     protected List<String> getLocators() {
