@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tidal-Wave Testing For Text Input</title>
+    <style>
+        <style>
+       .test_button_class {
+  background-color: #fc912d;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-family:arial, verdana, helvetica;
+  border-radius:8px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<h2>Tidal-Wave Test Disappearing and Appearing Elements</h2>
+
+<div>
+    <p style="color:red">This text input will disappear in six seconds and retry will be stopped</p>
+</div>
+
+<div>
+    <p style="color:red">An element will appear in six seconds</p>
+    <div id="appearingElm">
+        <label for="textInput">Name:</label><input id="textInput" type="text" value="QA"/><br>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+        // Create a new element
+        var newElement = document.createElement("p");
+        newElement.textContent = "This is the newly added element.";
+        newElement.setAttribute("id", "newElement");
+
+        var container = document.getElementById("appearingElm");
+
+        function addElement() {
+            container.appendChild(newElement);
+        }
+
+        window.setTimeout(addElement, 6000);
+
+</script>
+</body>
+</html>

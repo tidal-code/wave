@@ -52,8 +52,7 @@ public final class Hover extends CommandAction implements Command<Void> {
     }
 
     public void hoverAction() {
-        WebElement element = webElement.getElement(context);
-        new Actions(((RemoteWebElement) element).getWrappedDriver()).moveToElement(element).pause(secondsToHover).perform();
+        function.apply(context);
     }
 
     public void hover() {

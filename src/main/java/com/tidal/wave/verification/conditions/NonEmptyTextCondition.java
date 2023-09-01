@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TestAssertionError;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
@@ -14,7 +13,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class NonEmptyTextCondition extends Condition {
 
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
 
     @Override

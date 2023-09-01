@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetAttribute;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TestAssertionError;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -16,7 +15,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 public class AttributeOnlyCondition extends Condition{
 
     private final String attribute;
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
     public AttributeOnlyCondition(String attribute) {
         this.attribute = attribute;

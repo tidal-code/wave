@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Store {
     private static final ThreadLocal<Map<String, Object>> data = ThreadLocal.withInitial(ConcurrentHashMap::new);
+
     private static final String testDataKey = "FrTWXyBbXyA";
 
 

@@ -69,4 +69,8 @@ public class ObjectSupplier {
         objectMap.get().forEach((k, v) -> v = null);
         objectMap.remove();
     }
+
+    public static void flushInstance(Object object) {
+        objectMap.get().remove(object.getClass().getSimpleName());
+    }
 }

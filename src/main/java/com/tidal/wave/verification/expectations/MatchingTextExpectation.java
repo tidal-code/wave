@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -17,7 +16,7 @@ public class MatchingTextExpectation extends Expectation {
 
     private static final String FIND_TEXT_DATA = "findTextData";
     private final String value;
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
     private boolean isMultiple;
     private boolean isVisible;
     private List<String> locators;

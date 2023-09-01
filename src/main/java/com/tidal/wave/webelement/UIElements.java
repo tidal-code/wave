@@ -18,13 +18,12 @@ import java.util.List;
 import static com.tidal.wave.verification.conditions.TestVerification.verification;
 
 
-@SuppressWarnings({"unchecked", "parameterized"})
+@SuppressWarnings("parameterized")
 public class UIElements extends AbstractCollection<UIElement> {
 
     private UIActions uiActions;
     private boolean visibility;
 
-    private String byLocator;
     private int currentIndex = 0;
     private int size = -1;
     private final LinkedList<UIElement> dimensions;
@@ -40,7 +39,6 @@ public class UIElements extends AbstractCollection<UIElement> {
 
     protected UIElements setProperties(String byLocator) {
         visibility = false;
-        this.byLocator = byLocator;
         uiActions = new UIActions();
         uiActions.setProperties(byLocator);
         uiActions.setMultiple();
@@ -48,10 +46,9 @@ public class UIElements extends AbstractCollection<UIElement> {
     }
 
     //For thenFindAll in UIElement
-    protected void setElementProperties(UIActions uiActions, String newLocator, boolean visibility) {
-        this.byLocator = newLocator;
+    protected void setElementProperties(UIActions uiActions) {
         this.uiActions = uiActions;
-        this.visibility = visibility;
+        this.visibility = false;
         uiActions.setMultiple();
     }
 
@@ -78,7 +75,6 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @return UIElement instance
      */
     public UIElement get(int index) {
-        visibility = false;
         uiActions.setElementIndex(index);
         return uiActions;
     }
@@ -131,7 +127,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @return List of text from all similar elements
      */
     public List<String> getAllText() {
-        return (List<String>) new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(FindAllTextData.class);
+        return new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(FindAllTextData.class);
     }
 
     /**
@@ -141,7 +137,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      */
     @Override
     public int size() {
-        size = (int) new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
+        size =  new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
         if(dimensions.isEmpty()) {
             for (int i = 0; i < size; i++) {
                 dimensions.add(get(i));

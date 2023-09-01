@@ -16,7 +16,7 @@ public class EcommerceAppTest {
     @Test
     public void completePurchaseProcess(){
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.addArguments("--headless=new");
         options.addArguments("window-size=1920,1080");
 
         Browser
@@ -29,7 +29,7 @@ public class EcommerceAppTest {
         find(String.format("//span[text()='%s']", "Men")).getAllAttributes();
         find(String.format("//span[text()='%s']", "Tops")).hover(1);
         find(String.format("//span[text()='%s']", "Jackets")).click();
-        find("partialLinkText:Beaumont Summit Kit").hover(2);
+        find("partialLinkText:Beaumont Summit Kit").hover(1);
         String addToCart = find("Add to Cart").getText();
         System.out.println(addToCart);
         find("Add to Cart").click();

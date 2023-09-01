@@ -1,44 +1,50 @@
 package com.tidal.wave.command;
 
+import com.tidal.wave.data.CommandStore;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
-import com.tidal.wave.supplier.ObjectSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.beans.Introspector;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static com.tidal.utils.data.GlobalData.addData;
-import static com.tidal.utils.data.GlobalData.getData;
 
 
 @SuppressWarnings("rawtypes")
 public class Executor implements ExecutorCommands {
 
-    private static final Logger logger = LoggerFactory.getLogger(Executor.class);
-    Map<String, Command> commandCollection = new ConcurrentHashMap<>(200);
-    CommandContext context = (CommandContext) ObjectSupplier.instanceOf(CommandContext.class);
-    List<Class<? extends Command>> commands = new LinkedList<>();
+    private final int[] xyCordsArray = new int[2];
+    private boolean isMultiple = false;
+    private boolean isVisible = true;
+    private String textInput;
+    private String attributeName;
+    private int selectIndex;
+    private int tabIndex;
+    private int hoverWaitTime;
+    private double zoomLevel;
+    private CharSequence[] sequence;
+    private List<String> locators = new LinkedList<>();
+    private boolean shadowDomPresence;
+    private int elementIndex;
+    private boolean debugMode;
+    private MaxTime maxTime;
+    private IntervalTime intervalTime;
 
-    private List<String> locators;
+    private static final Logger logger = LoggerFactory.getLogger(Executor.class);
+    List<Command> commands = new LinkedList<>();
+
 
     Command getInstance(Class<? extends Command> inputClass) {
         String className = inputClass.getSimpleName();
+        Command classInstance = null;
         try {
-            if (commandCollection.get(className) == null) {
-                logger.debug(String.format("No instance found for class %s, creating a new one", className));
-                Command classInstance = inputClass.getDeclaredConstructor().newInstance();
-                commandCollection.put(className, classInstance);
-            }
+            classInstance = inputClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             logger.error(String.format("Exception thrown with class initiation for %s", className));
             logger.error(e.getMessage());
         }
-        return commandCollection.get(className);
+        return classInstance;
     }
 
     /**
@@ -47,15 +53,17 @@ public class Executor implements ExecutorCommands {
      * Retry methods use this method to invoke the command.
      *
      * @param commandClass The class of the command to be invoked
-     * @param method      The method to be invoked
-     * @param <U>        The return type of the method
+     * @param method       The method to be invoked
+     * @param <U>          The return type of the method
      * @return The return type of the method
      */
     @Override
     @SuppressWarnings("unchecked")
     public <U> U invokeCommand(Class<? extends Command> commandClass, String method) {
-        getInstance(commandClass).contextSetter(context);
-        return (U) getInstance(commandClass).execute(method);
+        CommandContext context = setCommandContext();
+        Command command = getInstance(commandClass);
+        command.contextSetter(context);
+        return (U) command.execute(method);
     }
 
     /**
@@ -65,23 +73,24 @@ public class Executor implements ExecutorCommands {
      * The reason is that the retry methods may overwrite the locator in the CommandContext class.
      *
      * @param commandClass The class of the command to be invoked
+     * @param <U>          The return type of the method
      * @return The return type of the method
-     * @param <U>     The return type of the method
      */
     @Override
     @SuppressWarnings("unchecked")
     public <U> U invokeCommand(Class<? extends Command> commandClass) {
-        getInstance(commandClass).contextSetter(context);
-        commands.add(commandClass);
+        CommandContext context = setCommandContext();
+        Command command = getInstance(commandClass);
+        command.contextSetter(context);
+        CommandStore.storeCommand(command);
         locators = context.getLocators();
-        return (U) getInstance(commandClass).execute(Introspector.decapitalize(commandClass.getSimpleName()));
+        return (U) command.execute(Introspector.decapitalize(command.getClass().getSimpleName()));
     }
 
 
     @Override
     public void invokeCommand() {
-        context.setLocatorSet(locators);
-        commands.forEach(c -> getInstance(c).execute(Introspector.decapitalize(c.getSimpleName())));
+        CommandStore.getCommands().forEach(c -> c.execute(Introspector.decapitalize(c.getClass().getSimpleName())));
     }
 
     @Override
@@ -91,92 +100,113 @@ public class Executor implements ExecutorCommands {
 
     @Override
     public Executor withMultipleElements(boolean isTrue) {
-        context.setMultiple(isTrue);
+        isMultiple = isTrue;
         return this;
     }
 
     @Override
     public Executor withText(String text) {
-        context.setTextInput(text);
+        textInput = text;
         return this;
     }
 
     @Override
     public Executor withTabIndex(int index) {
-        context.setTabIndex(index);
+        tabIndex = index;
         return this;
     }
 
     @Override
     public Executor withTimeToWait(int seconds) {
-        context.setHoverWaitTime(seconds);
+        hoverWaitTime = seconds;
         return this;
     }
 
     @Override
     public Executor withAttribute(String attributeName) {
-        context.setAttributeName(attributeName);
+        this.attributeName = attributeName;
         return this;
     }
 
     @Override
     public Executor withCharSequence(CharSequence... sequence) {
-        context.setSequence(sequence);
+        this.sequence = sequence;
         return this;
     }
 
     @Override
     public Executor withSelectIndex(int index) {
-        context.setSelectIndex(index);
+        selectIndex = index;
         return this;
     }
 
     @Override
     public Executor isVisible(boolean visible) {
-        context.setVisibility(visible);
+        isVisible = visible;
         return this;
     }
 
     @Override
     public Executor presenceOfShadowDom() {
-        context.setShadowDomPresence();
+        shadowDomPresence = true;
         return this;
     }
 
     @Override
     public Executor usingLocator(List<String> locators) {
-        context.setLocatorSet(locators);
+        this.locators = locators;
         return this;
     }
 
     @Override
     public Executor withXYCords(int xCords, int yCords) {
-        context.setXYCords(xCords, yCords);
+        xyCordsArray[0] = xCords;
+        xyCordsArray[1] = yCords;
         return this;
     }
 
     @Override
     public Executor withZoomLevel(double zoomLevel) {
-        context.setZoomLevel(zoomLevel);
+        this.zoomLevel = zoomLevel;
         return this;
     }
 
     @Override
     public Executor withElementIndex(int index) {
-        context.setElementIndex(index);
+        this.elementIndex = index;
         return this;
     }
 
     @Override
     public Executor pageRefreshData(MaxTime maxTime, IntervalTime intervalTime) {
-        context.setMaxRefreshTime(maxTime);
-        context.setIntervalTime(intervalTime);
+        this.maxTime = maxTime;
+        this.intervalTime = intervalTime;
         return this;
     }
 
-
     public Executor debugMode(boolean debugMode) {
-        context.setDebugMode(debugMode);
+        this.debugMode = debugMode;
         return this;
+    }
+
+    private CommandContext setCommandContext() {
+        CommandContext context = new CommandContext();
+        context.setIntervalTime(intervalTime);
+        context.setLocatorSet(locators);
+        context.setDebugMode(debugMode);
+        context.setAttributeName(attributeName);
+        context.setMultiple(isMultiple);
+        context.setVisibility(isVisible);
+        context.setSequence(sequence);
+        context.setElementIndex(elementIndex);
+        context.setIntervalTime(intervalTime);
+        context.setHoverWaitTime(hoverWaitTime);
+        context.setShadowDomPresence(shadowDomPresence);
+        context.setTabIndex(tabIndex);
+        context.setZoomLevel(zoomLevel);
+        context.setMaxRefreshTime(maxTime);
+        context.setSelectIndex(selectIndex);
+        context.setTextInput(textInput);
+        return context;
     }
 }

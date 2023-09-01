@@ -3,7 +3,6 @@ package com.tidal.wave.verification.criteria;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.IsVisible;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
@@ -13,7 +12,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class VisibleCriteria extends Criteria {
 
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
     @Override
     public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {

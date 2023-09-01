@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -16,7 +15,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class TextNotEmptyExpectation extends Expectation {
 
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
     @Override
     public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {

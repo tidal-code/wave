@@ -13,7 +13,6 @@ import com.tidal.wave.wait.Wait;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
@@ -29,7 +28,6 @@ public class FindWebElement extends IframeIterator {
     private WebDriver driver;
     private WebDriverWait wait;
     private WebDriverWait backgroundActivityWait;
-    private TimeCounter timeCounter;
 
     public WebElement webElement(By locator) {
         return webElement(locator, true);
@@ -49,7 +47,7 @@ public class FindWebElement extends IframeIterator {
         findFrameOfElement(locator, ensureVisibilityOfElement);
 
         log.elementsLog("Found Element " + locator);
-        return foundElement(driver, locator);
+        return foundElement(driver);
     }
 
     public WebElement webElements(By locator, int index, boolean visibility) {
@@ -157,7 +155,7 @@ public class FindWebElement extends IframeIterator {
         }
     }
 
-    private WebElement foundElement(WebDriver driver, By locator) {
+    private WebElement foundElement(WebDriver driver) {
         WebElement element = contextElement;
 
         if (element.isDisplayed()) {

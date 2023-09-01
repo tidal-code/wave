@@ -5,7 +5,6 @@ import com.tidal.wave.commands.IsEnabled;
 import com.tidal.wave.commands.IsVisible;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class ClickableExpectation extends Expectation {
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
     private boolean isVisibleResult;
     private boolean isEnabledResult;
     private String byLocator;

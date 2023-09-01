@@ -5,6 +5,7 @@ import com.tidal.utils.data.DataEnum;
 import com.tidal.utils.data.GlobalData;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.*;
+import com.tidal.wave.data.CommandStore;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.Retry;
@@ -32,23 +33,21 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class UIActions implements UIElement {
-
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
-
-    private List<String> locators;
+    private final Executor executor;
+    private final List<String> locators = new LinkedList<>();
     private boolean visibility = true;
     private boolean isMultiple = false;
-    private boolean debugMode;
-    private int elementIndex;
+    private boolean debugMode = false;
+
+    public UIActions(){
+        ObjectSupplier.flushInstance(this.getClass().getSimpleName());
+        CommandStore.clearCommands();
+        executor = new Executor();
+        ObjectSupplier.addInstance(executor);
+    }
 
     protected UIActions setProperties(String byLocator) {
-        isMultiple = false;
-        debugMode = false;
-        visibility = true;
-        elementIndex = 0;
-        locators = new LinkedList<>();
         locators.add(byLocator);
-        executor.isVisible(true).withMultipleElements(false).clearCommands();
         return this;
     }
 
@@ -184,7 +183,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAttribute(String value) {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
+        return executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
     }
 
     /**
@@ -195,7 +194,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getCSSAttribute(String value) {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
+        return executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
     }
 
     /**
@@ -205,7 +204,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAllCSSAttributes() {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
     }
 
     /**
@@ -215,7 +214,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Map<String, String> getAllAttributes() {
-        return (Map<String, String>) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllAttributes.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllAttributes.class);
     }
 
     /**
@@ -225,7 +224,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getTagName() {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetTagName.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetTagName.class);
     }
 
     /**
@@ -235,7 +234,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Point getLocation() {
-        return (Point) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetLocation.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetLocation.class);
     }
 
     /**
@@ -245,7 +244,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Rectangle getRect() {
-        return (Rectangle) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetRect.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetRect.class);
     }
 
     /**
@@ -255,7 +254,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Dimension getDimension() {
-        return (Dimension) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetDimension.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetDimension.class);
     }
 
 
@@ -267,7 +266,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isDisplayed() {
-        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsVisible.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsVisible.class);
     }
 
     /**
@@ -278,7 +277,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isEnabled() {
-        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsEnabled.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsEnabled.class);
     }
 
     /**
@@ -288,7 +287,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public boolean isSelected() {
-        return (boolean) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsSelected.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(IsSelected.class);
     }
 
     /**
@@ -299,7 +298,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getText() {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class);
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(FindTextData.class);
     }
 
     /**
@@ -346,7 +345,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(String selectValue) {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
+        return executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByText.class);
     }
 
     /**
@@ -357,7 +356,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String selectByValue(String selectValue) {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
+        return executor.debugMode(debugMode).usingLocator(locators).withText(selectValue).invokeCommand(SelectByValue.class);
     }
 
     /**
@@ -368,7 +367,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String select(int index) {
-        return (String) executor.debugMode(debugMode).usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
+        return executor.debugMode(debugMode).usingLocator(locators).withSelectIndex(index).invokeCommand(SelectByIndex.class);
     }
 
     /**
@@ -572,7 +571,7 @@ public class UIActions implements UIElement {
     public UIElements thenFindAll(String newLocator) {
         locators.add(newLocator);
         UIElements uiElements = new UIElements();
-        uiElements.setElementProperties(this, newLocator, visibility);
+        uiElements.setElementProperties(this);
         return uiElements;
     }
 

@@ -26,39 +26,20 @@
 <h2>Tidal-Wave Test Disappearing and Appearing Elements</h2>
 
 <div>
-    <p style="color:red">This text input will disappear in six seconds and retry will be stopped</p>
-</div>
-
-<div id="disappearingElm" style="display:block">
-    Name: <input id="textInput" type="text" placeholder="This will disappear"/><br>
+    <p style="color:red">A new element will appear in six seconds and retry will be stopped</p>
 </div>
 
 <div>
     <p style="color:red">An element will appear in six seconds</p>
-    Name: <input id="textInput2" type="text" value="QA"/><br>
+    <label for="textInput2">Name:</label>
+    <input id="textInput2" type="text" value="QA"/><br>
     <div id="appearingElm">
         <input class="test_button_class" id="buttonId" style="display:none" type="button" value="Invisible Button"/><br>
     </div>
 </div>
 
 
-
-<div id="removingElm">
-    <input class="test_button_class" id="buttonId2" type="button" value="Removing Button"/><br>
-</div>
-
 <script type="text/javascript">
-        function closeDiv() {
-            document.getElementById("disappearingElm").style.display="none";
-        }
-        window.setTimeout(closeDiv, 6000);
-
-        function removeDiv(){
-            document.getElementById("removingElm").remove();
-        }
-
-        window.setTimeout(removeDiv, 8000);
-
         function appearDiv(){
             document.getElementById("buttonId").style.display="block";
         }

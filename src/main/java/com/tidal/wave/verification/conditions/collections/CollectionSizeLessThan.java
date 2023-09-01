@@ -2,7 +2,6 @@ package com.tidal.wave.verification.conditions.collections;
 
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetSize;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public class CollectionSizeLessThan extends CollectionsCondition {
     private final int value;
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
     public CollectionSizeLessThan(int value) {
         this.value = value;

@@ -5,7 +5,6 @@ import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.ExpectationFailure;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -16,7 +15,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 @SuppressWarnings("all")
 public class SizeLessThan implements Expectations {
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
     private final int size;
     private boolean result;
 

@@ -2,15 +2,18 @@ package com.tidal.wave.retry;
 
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.IsVisible;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.ThreadSleep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class NotVisible extends RetryCondition {
 
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
+
+    private final Executor executor = new Executor();
     private final List<String> newElementLocatorSet;
 
     public NotVisible(String locator) {
@@ -29,8 +32,8 @@ public class NotVisible extends RetryCondition {
 
 
         if (!result) {
+            executeCommandsIgnoringExceptions();
             ThreadSleep.forMilliS(500);
-            executor.invokeCommand();
         } else {
             return true;
         }
@@ -42,5 +45,14 @@ public class NotVisible extends RetryCondition {
                 .invokeCommand(IsVisible.class, "isVisible");
 
         return result;
+    }
+
+    public void executeCommandsIgnoringExceptions() {
+        try {
+            executor.withTimeToWait(2).invokeCommand();
+        } catch (Exception e) {
+            logger.info("Retry exceptions ignored: " + e.getMessage());
+        }
+
     }
 }
