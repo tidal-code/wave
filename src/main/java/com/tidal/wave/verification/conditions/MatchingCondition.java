@@ -7,7 +7,6 @@ import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 

@@ -5,7 +5,6 @@ import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
-import java.util.List;
 
 /*
  * Wait duration is hard coded as not to double up the wait time because find.elements will wait for the explicit wait time

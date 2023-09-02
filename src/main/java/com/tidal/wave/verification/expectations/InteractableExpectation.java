@@ -9,7 +9,6 @@ import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
@@ -38,7 +37,7 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
                 .until(e -> e.invokeCommand(IsVisible.class, "isVisible"));
 
         isEnabledResult = newFluentWait
@@ -46,7 +45,7 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
                 .until(e -> e.withMultipleElements(false)
                         .invokeCommand(IsEnabled.class, "isEnabled"));
     }
@@ -54,6 +53,6 @@ public class InteractableExpectation extends Expectation {
     @Override
     public void orElseFail() {
         result = isVisibleResult && isEnabledResult;
-        super.orElseFail(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getElementIndex())));
+        super.orElseFail(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)));
     }
 }

@@ -3,8 +3,6 @@ package com.tidal.wave.retry;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.wait.ThreadSleep;
 
-import java.util.List;
-
 public class Retry {
 
     private Retry() {

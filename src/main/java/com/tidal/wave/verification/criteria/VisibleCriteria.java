@@ -6,7 +6,6 @@ import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
@@ -23,7 +22,7 @@ public class VisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' should have to be visible but was not", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .withMessage(String.format("Element ' %s ' should have to be visible but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
                 .until(e -> e.invokeCommand(IsVisible.class, "isVisible"));
     }
 }

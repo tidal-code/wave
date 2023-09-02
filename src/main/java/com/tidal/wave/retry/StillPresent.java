@@ -6,8 +6,6 @@ import com.tidal.wave.wait.ThreadSleep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 public class StillPresent extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
@@ -15,7 +13,6 @@ public class StillPresent extends RetryCondition {
 
     @Override
     public boolean retry(Executor executor) {
-
         boolean result = (int)executor.invokeCommand(GetSize.class, "getSize") == 0;
 
         if (!result) {

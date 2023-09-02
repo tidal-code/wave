@@ -6,7 +6,6 @@ import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
@@ -23,7 +22,7 @@ public class NotPresentCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is still present in the DOM", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .withMessage(String.format("Element %s is still present in the DOM", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
                 .until(e -> (int) e.invokeCommand(GetSize.class, "getSize") == 0);
     }
 

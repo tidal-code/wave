@@ -9,19 +9,17 @@ import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class ClickableExpectation extends Expectation {
-    private Executor executor;
     private boolean isVisibleResult;
     private boolean isEnabledResult;
     private String byLocator;
 
     @Override
     public void assertion(Executor executor) {
-        byLocator = executor.getContext().getLocators().get(executor.getContext().getElementIndex());
+        byLocator = executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1);
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)

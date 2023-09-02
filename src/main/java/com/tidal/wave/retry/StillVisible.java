@@ -6,8 +6,6 @@ import com.tidal.wave.wait.ThreadSleep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 public class StillVisible extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);

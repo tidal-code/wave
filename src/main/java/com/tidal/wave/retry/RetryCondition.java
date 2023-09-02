@@ -2,7 +2,6 @@ package com.tidal.wave.retry;
 
 import com.tidal.wave.command.Executor;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class RetryCondition {

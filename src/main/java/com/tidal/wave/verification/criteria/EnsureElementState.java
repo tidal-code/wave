@@ -3,7 +3,6 @@ package com.tidal.wave.verification.criteria;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.verification.conditions.Verification;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 

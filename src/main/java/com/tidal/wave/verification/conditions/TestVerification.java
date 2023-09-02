@@ -2,8 +2,6 @@ package com.tidal.wave.verification.conditions;
 
 import com.tidal.wave.command.Executor;
 
-import java.util.List;
-
 
 public class TestVerification {
 

@@ -1,6 +1,5 @@
 package com.tidal.wave.webelement;
 
-import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.loggers.LoggerUtil;
 import com.tidal.wave.browser.Driver;
 import com.tidal.wave.data.WaitTime;
