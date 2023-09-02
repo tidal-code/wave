@@ -14,6 +14,7 @@ import java.util.List;
 @SuppressWarnings("rawtypes")
 public class Executor implements ExecutorCommands {
 
+    private CommandContext context;
     private final int[] xyCordsArray = new int[2];
     private boolean isMultiple = false;
     private boolean isVisible = true;
@@ -60,7 +61,8 @@ public class Executor implements ExecutorCommands {
     @Override
     @SuppressWarnings("unchecked")
     public <U> U invokeCommand(Class<? extends Command> commandClass, String method) {
-        CommandContext context = setCommandContext();
+        setCommandContext();
+        CommandContext context = getContext();
         Command command = getInstance(commandClass);
         command.contextSetter(context);
         return (U) command.execute(method);
@@ -79,7 +81,8 @@ public class Executor implements ExecutorCommands {
     @Override
     @SuppressWarnings("unchecked")
     public <U> U invokeCommand(Class<? extends Command> commandClass) {
-        CommandContext context = setCommandContext();
+        setCommandContext();
+        CommandContext context = getContext();
         Command command = getInstance(commandClass);
         command.contextSetter(context);
         CommandStore.storeCommand(command);
@@ -189,8 +192,8 @@ public class Executor implements ExecutorCommands {
         return this;
     }
 
-    private CommandContext setCommandContext() {
-        CommandContext context = new CommandContext();
+    private void setCommandContext() {
+        context = new CommandContext();
         context.setIntervalTime(intervalTime);
         context.setLocatorSet(locators);
         context.setDebugMode(debugMode);
@@ -207,6 +210,12 @@ public class Executor implements ExecutorCommands {
         context.setMaxRefreshTime(maxTime);
         context.setSelectIndex(selectIndex);
         context.setTextInput(textInput);
+    }
+
+    public CommandContext getContext(){
+        if(context == null){
+            setCommandContext();
+        }
         return context;
     }
 }

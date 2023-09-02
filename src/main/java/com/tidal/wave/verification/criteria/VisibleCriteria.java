@@ -12,10 +12,8 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class VisibleCriteria extends Criteria {
 
-    private final Executor executor = new Executor();
-
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -25,11 +23,7 @@ public class VisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' should have to be visible but was not", locators.get(0)))
-                .until(e -> e
-                        .withMultipleElements(false)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(IsVisible.class, "isVisible"));
+                .withMessage(String.format("Element ' %s ' should have to be visible but was not", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .until(e -> e.invokeCommand(IsVisible.class, "isVisible"));
     }
 }

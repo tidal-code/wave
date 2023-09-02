@@ -12,34 +12,25 @@ public class StillPresent extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
 
-    private final Executor executor = new Executor();
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public boolean retry(Executor executor) {
 
-        boolean result = (int) executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
-                .usingLocator(locators)
-                .invokeCommand(GetSize.class, "getSize") == 0;
+        boolean result = (int)executor.invokeCommand(GetSize.class, "getSize") == 0;
 
         if (!result) {
-            executeCommandsIgnoringExceptions();
+            executeCommandsIgnoringExceptions(executor);
             ThreadSleep.forMilliS(500);
         } else {
             return true;
         }
 
-        result = (int) executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
-                .usingLocator(locators)
-                .invokeCommand(GetSize.class, "getSize") == 0;
+        result = (int) executor.invokeCommand(GetSize.class, "getSize") == 0;
 
         return result;
     }
 
-    public void executeCommandsIgnoringExceptions(){
+    public void executeCommandsIgnoringExceptions(Executor executor){
         try{
             executor.invokeCommand();
         } catch(Exception e){

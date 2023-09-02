@@ -1,5 +1,7 @@
 package com.tidal.wave.retry;
 
+import com.tidal.wave.command.Executor;
+
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -47,5 +49,5 @@ public abstract class RetryCondition {
         return new StillVisible();
     }
 
-    public abstract boolean retry(boolean isVisible, boolean isMultiple, List<String> locators);
+    public abstract boolean retry(Executor executor);
 }

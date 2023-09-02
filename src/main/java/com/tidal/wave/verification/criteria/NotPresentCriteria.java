@@ -12,10 +12,8 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class NotPresentCriteria extends Criteria {
 
-    private final Executor executor = new Executor();
-
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -25,12 +23,8 @@ public class NotPresentCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is still present in the DOM", locators.get(0)))
-                .until(e -> (int) e
-                        .usingLocator(locators)
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .invokeCommand(GetSize.class, "getSize") == 0);
+                .withMessage(String.format("Element %s is still present in the DOM", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .until(e -> (int) e.invokeCommand(GetSize.class, "getSize") == 0);
     }
 
 }

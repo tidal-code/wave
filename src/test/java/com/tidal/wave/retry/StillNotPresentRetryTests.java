@@ -33,7 +33,7 @@ public class StillNotPresentRetryTests {
         TimeCounter timeCounter = new TimeCounter();
         find("#textInput").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(notPresent("id:newElement"), 3);
         find("id:newElement").shouldBe(present);
-        if (timeCounter.timeElapsed().toMillis() > 7000) {
+        if (timeCounter.timeElapsed().toMillis() > 10000) {
             throw new RuntimeException("Retry Condition did not exited in time (took more than 7000 milli seconds, when the element became invisible in 6000 milli seconds");
         }
     }

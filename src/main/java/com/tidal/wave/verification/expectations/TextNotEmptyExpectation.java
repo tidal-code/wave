@@ -15,10 +15,8 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class TextNotEmptyExpectation extends Expectation {
 
-    private final Executor executor = new Executor();
-
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void assertion(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -31,11 +29,7 @@ public class TextNotEmptyExpectation extends Expectation {
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
                 .withMessage("Expected that element[s] have non empty text values")
-                .until(e -> !isNullOrEmpty(e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(FindTextData.class, "findTextData")));
+                .until(e -> !isNullOrEmpty(e.invokeCommand(FindTextData.class, "findTextData")));
     }
 
     @Override

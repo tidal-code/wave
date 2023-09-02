@@ -1,5 +1,7 @@
 package com.tidal.wave.verification.expectations;
 
+import com.tidal.wave.command.Executor;
+
 import java.util.List;
 
 public class SoftAssertion {
@@ -7,8 +9,8 @@ public class SoftAssertion {
     private SoftAssertion() {
     }
 
-    public static Expectation softAssert(boolean isVisible, boolean isMultiple, List<String> locators, Expectation expectation) {
-        expectation.assertion(isVisible, isMultiple, locators);
+    public static Expectation softAssert(Executor executor, Expectation expectation) {
+        expectation.assertion(executor);
         return expectation;
     }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 public class NotPresent extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
-    private final Executor executor = new Executor();
     private final List<String> newElementLocatorSet;
 
     public NotPresent(String locator) {
@@ -21,31 +20,27 @@ public class NotPresent extends RetryCondition {
     }
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public boolean retry(Executor executor) {
 
         boolean result = (int) executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
                 .usingLocator(newElementLocatorSet)
                 .invokeCommand(GetSize.class, "getSize") > 0;
 
         if (!result) {
-            executeCommandsIgnoringExceptions();
+            executeCommandsIgnoringExceptions(executor);
             ThreadSleep.forMilliS(500);
         } else {
             return true;
         }
 
         result = (int) executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
                 .usingLocator(newElementLocatorSet)
                 .invokeCommand(GetSize.class) > 0;
 
         return result;
     }
 
-    public void executeCommandsIgnoringExceptions() {
+    public void executeCommandsIgnoringExceptions(Executor executor) {
         try {
             executor.withTimeToWait(2).invokeCommand();
         } catch (Exception e) {

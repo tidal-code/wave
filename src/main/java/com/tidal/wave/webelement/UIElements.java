@@ -173,7 +173,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @param condition Collections conditions
      */
     public void shouldHave(CollectionsCondition... condition) {
-        verification(visibility, true, uiActions.getLocators(), condition);
+        verification(uiActions.getExecutor(), condition);
     }
 
     /**

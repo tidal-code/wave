@@ -13,7 +13,6 @@ public class NotVisible extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
 
-    private final Executor executor = new Executor();
     private final List<String> newElementLocatorSet;
 
     public NotVisible(String locator) {
@@ -22,32 +21,28 @@ public class NotVisible extends RetryCondition {
     }
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public boolean retry(Executor executor) {
 
         boolean result = executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
                 .usingLocator(newElementLocatorSet)
                 .invokeCommand(IsVisible.class, "isVisible");
 
 
         if (!result) {
-            executeCommandsIgnoringExceptions();
+            executeCommandsIgnoringExceptions(executor);
             ThreadSleep.forMilliS(500);
         } else {
             return true;
         }
 
         result = executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
                 .usingLocator(newElementLocatorSet)
                 .invokeCommand(IsVisible.class, "isVisible");
 
         return result;
     }
 
-    public void executeCommandsIgnoringExceptions() {
+    public void executeCommandsIgnoringExceptions(Executor executor) {
         try {
             executor.withTimeToWait(2).invokeCommand();
         } catch (Exception e) {

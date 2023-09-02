@@ -11,35 +11,27 @@ import java.util.List;
 public class StillVisible extends RetryCondition {
 
     public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
-    private final Executor executor = new Executor();
 
     @Override
-    public boolean retry(boolean isVisible, boolean isMultiple, List<String> locators) {
-
+    public boolean retry(Executor executor) {
 
         boolean result = (executor
-                .withMultipleElements(isMultiple)
-                .usingLocator(locators)
-                .isVisible(isVisible)
                 .invokeCommand(IsVisible.class, "isVisible"));
 
         if (result) {
-            executeCommandsIgnoringExceptions();
+            executeCommandsIgnoringExceptions(executor);
             ThreadSleep.forMilliS(500);
         } else {
             return true;
         }
 
         result = !(boolean) (executor
-                .withMultipleElements(isMultiple)
-                .isVisible(isVisible)
-                .usingLocator(locators)
                 .invokeCommand(IsVisible.class, "isVisible"));
 
         return result;
     }
 
-    public void executeCommandsIgnoringExceptions() {
+    public void executeCommandsIgnoringExceptions(Executor executor) {
         try {
             executor.withTimeToWait(2).invokeCommand();
         } catch (Exception e) {

@@ -16,7 +16,6 @@ public class AttributeCondition extends Condition{
 
     private final String attributeType;
     private final String value;
-    private final Executor executor = new Executor();
 
     public AttributeCondition(String attributeType, String value) {
         this.attributeType = attributeType;
@@ -24,7 +23,7 @@ public class AttributeCondition extends Condition{
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -39,11 +38,6 @@ public class AttributeCondition extends Condition{
                 .throwing(TestAssertionError.class)
                 .withMessage(String.format("Failed to find attribute '%s' with value '%s'",
                         attributeType, value))
-                .until(e -> e
-                        .withMultipleElements(isMultiple)
-                        .withAttribute(attributeType)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(GetAttribute.class).equals(value));
+                .until(e -> e.withAttribute(attributeType).invokeCommand(GetAttribute.class).equals(value));
     }
 }

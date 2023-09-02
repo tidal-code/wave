@@ -17,19 +17,13 @@ public class MatchingTextExpectation extends Expectation {
     private static final String FIND_TEXT_DATA = "findTextData";
     private final String value;
     private final Executor executor = new Executor();
-    private boolean isMultiple;
-    private boolean isVisible;
-    private List<String> locators;
 
     public MatchingTextExpectation(String value) {
         this.value = value;
     }
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
-        this.isMultiple = isMultiple;
-        this.isVisible = isVisible;
-        this.locators = locators;
+    public void assertion(Executor executor) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -42,16 +36,12 @@ public class MatchingTextExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected value '%s' is not contained in the actual value %s", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, FIND_TEXT_DATA)))
-                .until(e -> e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(FindTextData.class, FIND_TEXT_DATA).toString().contains(value));
+                .withMessage(String.format("Expected value '%s' is not contained in the actual value %s", value, executor.invokeCommand(FindTextData.class, FIND_TEXT_DATA)))
+                .until(e -> e.invokeCommand(FindTextData.class, FIND_TEXT_DATA).toString().contains(value));
     }
 
     @Override
     public void orElseFail() {
-        super.orElseFail(String.format("Expected value '%s' is not contained in the actual value %s", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, FIND_TEXT_DATA)));
+        super.orElseFail(String.format("Expected value '%s' is not contained in the actual value %s", value, executor.invokeCommand(FindTextData.class, FIND_TEXT_DATA)));
     }
 }

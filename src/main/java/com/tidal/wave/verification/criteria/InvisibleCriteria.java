@@ -12,10 +12,9 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 
 public class InvisibleCriteria extends Criteria {
-    private final Executor executor = new Executor();
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -25,11 +24,7 @@ public class InvisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", locators.get(0)))
-                .until(e -> !(boolean) (e
-                        .withMultipleElements(false)
-                        .usingLocator(locators)
-                        .isVisible(isVisible)
-                        .invokeCommand(IsVisible.class, "isVisible")));
+                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .until(e -> !(boolean) (e.invokeCommand(IsVisible.class, "isVisible")));
     }
 }

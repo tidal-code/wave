@@ -11,10 +11,9 @@ import java.util.List;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class ElementEnabled extends Criteria {
-    private final Executor executor = new Executor();
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -24,11 +23,7 @@ public class ElementEnabled extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is not enabled", locators.get(0)))
-                .until(e -> e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(IsEnabled.class, "isEnabled"));
+                .withMessage(String.format("Element %s is not enabled", executor.getContext().getLocators().get(executor.getContext().getElementIndex())))
+                .until(e -> e.invokeCommand(IsEnabled.class, "isEnabled"));
     }
 }

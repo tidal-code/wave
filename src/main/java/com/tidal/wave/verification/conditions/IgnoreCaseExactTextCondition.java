@@ -14,14 +14,13 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class IgnoreCaseExactTextCondition extends Condition {
     private final String value;
-    private final Executor executor = new Executor();
 
     public IgnoreCaseExactTextCondition(String value) {
         this.value = value;
     }
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -34,13 +33,8 @@ public class IgnoreCaseExactTextCondition extends Condition {
                 .forDuration(waitDuration)
                 .ignoring(StaleElementReferenceException.class)
                 .throwing(TestAssertionError.class)
-                .withMessage(String.format("Expected value '%s' is not same as actual value '%s'", value, executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(FindTextData.class, "findTextData")))
-                .until(e -> e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(FindTextData.class, "findTextData")
-                        .toString().equalsIgnoreCase(value));
+                .withMessage(String.format("Expected value '%s' is not same as actual value '%s'", value, executor.invokeCommand(FindTextData.class, "findTextData")))
+                .until(e -> e.invokeCommand(FindTextData.class, "findTextData").toString().equalsIgnoreCase(value));
     }
 
 }

@@ -38,6 +38,7 @@ public class UIActions implements UIElement {
     private boolean visibility = true;
     private boolean isMultiple = false;
     private boolean debugMode = false;
+    private int elementIndex = 0;
 
     public UIActions(){
         ObjectSupplier.flushInstance(this.getClass().getSimpleName());
@@ -48,6 +49,7 @@ public class UIActions implements UIElement {
 
     protected UIActions setProperties(String byLocator) {
         locators.add(byLocator);
+        executor.usingLocator(locators);
         return this;
     }
 
@@ -92,7 +94,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions click() {
-        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(Click.class);
+        executor.debugMode(debugMode).invokeCommand(Click.class);
         return this;
     }
 
@@ -598,7 +600,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void retryIf(Supplier<RetryCondition> retryCondition) {
-        Retry.retry(visibility, isMultiple, locators, retryCondition.get(), 1);
+        Retry.retry(executor, retryCondition.get(), 1);
     }
 
     /**
@@ -609,7 +611,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void retryIf(RetryCondition retryCondition) {
-        Retry.retry(visibility, isMultiple, locators, retryCondition, 1);
+        Retry.retry(executor, retryCondition, 1);
     }
 
     /**
@@ -621,7 +623,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void retryIf(Supplier<RetryCondition> retryCondition, int numberOfTimes) {
-        Retry.retry(visibility, isMultiple, locators, retryCondition.get(), numberOfTimes);
+        Retry.retry(executor, retryCondition.get(), numberOfTimes);
     }
 
     /**
@@ -633,7 +635,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void retryIf(RetryCondition retryCondition, int numberOfTimes) {
-        Retry.retry(visibility, isMultiple, locators, retryCondition, numberOfTimes);
+        Retry.retry(executor, retryCondition, numberOfTimes);
     }
 
     /**
@@ -645,7 +647,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Expectation expecting(Expectation expectation) {
-        return SoftAssertion.softAssert(visibility, isMultiple, locators, expectation);
+        return SoftAssertion.softAssert(executor, expectation);
     }
 
     /**
@@ -657,7 +659,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Expectation expecting(Supplier<Expectation> expectation) {
-        return SoftAssertion.softAssert(visibility, isMultiple, locators, expectation.get());
+        return SoftAssertion.softAssert(executor, expectation.get());
     }
 
     /**
@@ -668,7 +670,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void shouldHave(Condition... condition) {
-        TestVerification.verification(visibility, isMultiple, locators, condition);
+        TestVerification.verification(executor, condition);
     }
 
 
@@ -681,7 +683,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public final UIActions shouldBe(Criteria... criteria) {
-        EnsureElementState.affirmation(visibility, isMultiple, locators, criteria);
+        EnsureElementState.affirmation(executor, criteria);
         return this;
     }
 
@@ -695,14 +697,14 @@ public class UIActions implements UIElement {
     @Override
     public final UIActions shouldBe(Supplier<Criteria> criteria) {
         Supplier<Criteria>[] criterion = new Supplier[]{criteria};
-        EnsureElementState.affirmation(visibility, isMultiple, locators, criterion);
+        EnsureElementState.affirmation(executor, criterion);
         return this;
     }
 
     @Override
     public final UIActions shouldBe(Supplier<Criteria> criteria1, Supplier<Criteria> criteria2) {
         Supplier<Criteria>[] criterion = new Supplier[]{criteria1, criteria2};
-        EnsureElementState.affirmation(visibility, isMultiple, locators, criterion);
+        EnsureElementState.affirmation(executor);
         return this;
     }
 
@@ -804,5 +806,9 @@ public class UIActions implements UIElement {
 
     protected List<String> getLocators() {
         return locators;
+    }
+
+    public Executor getExecutor(){
+        return executor;
     }
 }

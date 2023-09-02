@@ -14,12 +14,12 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class StaleExpectation extends Expectation {
 
-    private final Executor executor = new Executor();
     private String byLocator;
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
-        byLocator = locators.get(0);
+    public void assertion(Executor executor) {
+
+        byLocator = executor.getContext().getLocators().get(executor.getContext().getElementIndex());
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -34,12 +34,8 @@ public class StaleExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to stale but was not", locators.get(0)))
-                .until(e -> !(boolean) (e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(IsEnabled.class, "isEnabled"))); //Expecting element not enabled
+                .withMessage(String.format("Expected condition failed : Element %s expected to stale but was not", byLocator))
+                .until(e -> !(boolean) (e.invokeCommand(IsEnabled.class, "isEnabled"))); //Expecting element not enabled
     }
 
     @Override

@@ -16,7 +16,7 @@ public class EcommerceAppTest {
     @Test
     public void completePurchaseProcess(){
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+//        options.addArguments("--headless=new");
         options.addArguments("window-size=1920,1080");
 
         Browser

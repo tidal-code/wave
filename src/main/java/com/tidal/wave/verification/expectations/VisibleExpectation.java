@@ -13,13 +13,11 @@ import java.util.List;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class VisibleExpectation extends Expectation {
-
-    private final Executor executor = new Executor();
     private String byLocator;
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
-        byLocator = locators.get(0);
+    public void assertion(Executor executor) {
+        byLocator = executor.getContext().getLocators().get(executor.getContext().getElementIndex());
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -32,12 +30,8 @@ public class VisibleExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Element %s expected to be visible but was not", locators.get(0)))
-                .until(e -> e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(IsVisible.class, "isVisible"));
+                .withMessage(String.format("Element %s expected to be visible but was not", byLocator))
+                .until(e -> e.invokeCommand(IsVisible.class, "isVisible"));
     }
 
     @Override
