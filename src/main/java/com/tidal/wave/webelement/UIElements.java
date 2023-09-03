@@ -184,7 +184,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @return Instance of the Expected condition
      */
     public Expectations expecting(Expectations expectations) {
-        return CollectionsSoftAssertion.softAssert(true, uiActions.getLocators(), expectations);
+        return new $().expecting(expectations);
     }
 
     @Override
