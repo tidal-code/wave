@@ -2,7 +2,6 @@ package com.tidal.wave.elementfinder;
 
 import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.exceptions.TestAssertionError;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.conditions.collections.CollectionsCondition;

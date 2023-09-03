@@ -2,8 +2,6 @@ package com.tidal.wave.verification.expectations;
 
 import com.tidal.wave.command.Executor;
 
-import java.util.List;
-
 public class SoftAssertion {
 
     private SoftAssertion() {

@@ -2,7 +2,10 @@ package com.tidal.wave.commands;
 
 import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.browser.Browser;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;

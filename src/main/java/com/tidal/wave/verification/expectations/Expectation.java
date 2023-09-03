@@ -3,7 +3,6 @@ package com.tidal.wave.verification.expectations;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.exceptions.ExpectationFailure;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class Expectation {
