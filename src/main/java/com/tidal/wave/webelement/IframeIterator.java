@@ -27,7 +27,7 @@ public class IframeIterator {
     private boolean findElementsIframe(By locator, boolean visibility) throws IterationStopper{
         WebDriver driver = Driver.getDriver();
 
-        List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
+        List<WebElement> iframes = driver.findElements(By.xpath("//iframe | //frame"));
         for (WebElement iframe : iframes) {
             driver.switchTo().frame(iframe);
             List<WebElement> elements = driver.findElements(locator);

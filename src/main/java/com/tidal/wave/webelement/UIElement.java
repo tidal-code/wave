@@ -1,9 +1,11 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.data.DataEnum;
+import com.tidal.wave.actions.Interactions;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.RetryCondition;
+import com.tidal.wave.retry.TryUntil;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.verification.expectations.Expectation;
@@ -120,6 +122,8 @@ public interface UIElement {
 
     void retryIf(RetryCondition retryCondition, int numberOfTimes);
 
+    void retryIf(RetryCondition retryCondition, TryUntil retryDuration);
+
     Expectation expecting(Expectation expectation);
 
     Expectation expecting(Supplier<Expectation> expectation);
@@ -147,4 +151,5 @@ public interface UIElement {
     UIElement pause(int seconds);
 
 
+    void performActions(Interactions interactions);
 }

@@ -162,6 +162,4 @@ public class Element {
         timeCounter = null;
         return elements;
     }
-
-
 }

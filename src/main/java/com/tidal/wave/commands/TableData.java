@@ -5,17 +5,16 @@ import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
+import com.tidal.wave.components.Table;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
-import org.openqa.selenium.WebElement;
 
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
-public final class Clear extends CommandAction implements Command<Void> {
+public class TableData extends CommandAction implements Command<Table> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
@@ -31,28 +30,27 @@ public final class Clear extends CommandAction implements Command<Void> {
         return context;
     }
 
-    Function<CommandContext, Void> function = e -> {
-        WebElement element = webElement.getElement(context);
-        element.clear();
-        return null;
+    Function<CommandContext, Table> function = e -> {
+        return new Table();
+//        webElement.getElements(context).size();
     };
 
     @Override
-    public Function<CommandContext, Void> getFunction() {
+    public Function<CommandContext, Table> getFunction() {
         return function;
     }
 
     @Override
-    public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-        return CommandExceptions.Of.clear();
+    protected Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
+        return CommandExceptions.TypeOf.stale();
     }
 
-    public void clearAction() {
-        function.apply(context);
+    public int getSizeAction() {
+        return webElement.getElements(context).size();
     }
 
-    public void clear() {
+    public int getSize() {
         timeCounter.restart();
-        super.execute(Commands.ClickCommands.CLEAR.toString(), ignoredExceptions, timeCounter);
+        return super.execute(Commands.GetCommands.GET_SIZE.toString(), ignoredExceptions, timeCounter);
     }
 }
