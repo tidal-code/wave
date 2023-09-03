@@ -11,7 +11,6 @@ import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
-import com.tidal.wave.retry.TryUntil;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.conditions.TestVerification;
@@ -37,12 +36,9 @@ import java.util.function.Supplier;
 public class UIActions implements UIElement {
     private final Executor executor;
     private final List<String> locators = new LinkedList<>();
-    private boolean visibility = true;
-    private boolean isMultiple = false;
     private boolean debugMode = false;
-    private int elementIndex = 0;
 
-    public UIActions(){
+    public UIActions() {
         ObjectSupplier.flushInstance(this.getClass().getSimpleName());
         CommandStore.clearCommands();
         executor = new Executor();
@@ -57,7 +53,7 @@ public class UIActions implements UIElement {
 
 
     public void setMultiple() {
-        isMultiple = true;
+        boolean isMultiple = true;
         executor.withMultipleElements(true);
     }
 
@@ -77,7 +73,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions invisibleElement() {
-        visibility = false;
+        boolean visibility = false;
         executor.isVisible(false);
         return this;
     }
@@ -85,6 +81,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions debugMode() {
         this.debugMode = true;
+        executor.debugMode(true).invokeCommand(Property.class);
         return this;
     }
 
@@ -640,11 +637,6 @@ public class UIActions implements UIElement {
         Retry.retry(executor, retryCondition, numberOfTimes);
     }
 
-    @Override
-    public void retryIf(RetryCondition retryCondition, TryUntil retryDuration) {
-        Retry.retry(visibility, isMultiple, locators, retryCondition, retryDuration);
-    }
-
     /**
      * Expectations are soft assertions. They will wait for the condition to satisfy but won't fail unless specifically called by orElseFail() method
      * They are similar to Selenium expected conditions.
@@ -820,7 +812,7 @@ public class UIActions implements UIElement {
         return locators;
     }
 
-    public Executor getExecutor(){
+    public Executor getExecutor() {
         return executor;
     }
 }

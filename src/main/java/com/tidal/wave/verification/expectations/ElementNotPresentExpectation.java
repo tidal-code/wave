@@ -17,7 +17,7 @@ public class ElementNotPresentExpectation extends Expectation {
     @Override
     public void assertion(Executor executor) {
 
-        byLocator = executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1);
+        byLocator = executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1);
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
 

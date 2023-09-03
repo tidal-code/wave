@@ -18,7 +18,7 @@ public class IframesTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
         Browser.withWaitTime(Duration.ofSeconds(6))
@@ -32,12 +32,12 @@ public class IframesTest {
     }
 
     @Test
-    public void findingElementOutsideFrame(){
+    public void findingElementOutsideFrame() {
         findAll("id:default_content_text_2").get(0).shouldHave(exactText("Text From Default Content 2"));
     }
 
     @Test
-    public void findingOuterFrameElementTest(){
+    public void findingOuterFrameElementTest() {
         findAll("#fist_innerframe_text").get(0).shouldHave(exactText("Text from First Inner Frame"));
         find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
         find("id:outerframetext").shouldHave(exactText("Text from OuterIframe"));
@@ -50,23 +50,23 @@ public class IframesTest {
     }
 
     @Test
-    public void testInnerParallelElement(){
+    public void testInnerParallelElement() {
         find("id:inner_parallel").shouldHave(exactText("Inner Innerframe Parallel"));
     }
 
     @Test
-    public void testNestedParallelInnerFrameElement(){
+    public void testNestedParallelInnerFrameElement() {
         find("id:inner_parallel").shouldHave(exactText("Inner Innerframe Parallel"));
     }
 
     @Test
-    public void testNestedParallelInnerFrameHiddenElement(){
+    public void testNestedParallelInnerFrameHiddenElement() {
         Assert.assertFalse("Element is displayed", find("id:inner_parallel_hidden").isDisplayed());
         find("id:inner_parallel_hidden").invisibleElement().shouldHave(exactText("Inner Innerframe Parallel Hidden"));
     }
 
     @Test
-    public void sixthParallelInnerFrameTest(){
+    public void sixthParallelInnerFrameTest() {
         find("id:sixth_parallel_inner_frame_text_2").shouldHave(exactText("Sixth Parallel Inner Frame Text 2"));
     }
 
@@ -79,7 +79,7 @@ public class IframesTest {
     }
 
     @Test
-    public void findSeventhIframeElement(){
+    public void findSeventhIframeElement() {
         find("id:seventh_inner_frame_text_2").shouldHave(exactText("Seventh Inner Frame Text 2"));
         find("id:seventh_inner_frame_text_2").shouldHave(exactText("Seventh Inner Frame Text 2"));
 
@@ -99,7 +99,7 @@ public class IframesTest {
     }
 
     @Test
-    public void secondInnerFrameSecondElementTest(){
+    public void secondInnerFrameSecondElementTest() {
         find("#second_inner_frame_text").shouldHave(exactText("Second Inner Frame"));
         find("#second_inner_frame_text_2").shouldHave(exactText("Second Inner Frame Text 2"));
         find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));

@@ -22,7 +22,7 @@ public class ElementDisabled extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is enabled", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("Element %s is enabled", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> !(Boolean) e.invokeCommand(IsEnabled.class, "isEnabled"));
     }
 }

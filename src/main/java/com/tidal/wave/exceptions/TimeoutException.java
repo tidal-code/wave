@@ -1,6 +1,8 @@
 package com.tidal.wave.exceptions;
 
 public class TimeoutException extends RuntimeException {
+    private static final long serialVersionUID = 3544132423L;
+
     public TimeoutException(String message) {
         super(message);
     }

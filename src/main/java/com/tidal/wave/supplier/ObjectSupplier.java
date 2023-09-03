@@ -40,7 +40,8 @@ public class ObjectSupplier {
                 Object newObject = constructor.newInstance();
                 objectMap.get().put(className, newObject);
                 return newObject;
-            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+                     InvocationTargetException e) {
                 logger.error(e.getMessage());
             }
         }

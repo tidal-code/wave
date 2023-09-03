@@ -14,10 +14,10 @@ public class ClickByJSTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
-        
+
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/button/button.html"));
     }
 
@@ -29,7 +29,7 @@ public class ClickByJSTest {
     @Test
     public void testClickByJS() {
         find("#test_button_id").clickByJS();
-        assertThat("Automation did not work, button cannot be clicked",  find("#test_button_id").getText(), equalTo("Button Clicked"));
+        assertThat("Automation did not work, button cannot be clicked", find("#test_button_id").getText(), equalTo("Button Clicked"));
     }
 
     @Test(expected = ComparisonFailure.class)

@@ -13,7 +13,7 @@ public class StillPresent extends RetryCondition {
 
     @Override
     public boolean retry(Executor executor) {
-        boolean result = (int)executor.invokeCommand(GetSize.class, "getSize") == 0;
+        boolean result = (int) executor.invokeCommand(GetSize.class, "getSize") == 0;
 
         if (!result) {
             executeCommandsIgnoringExceptions(executor);
@@ -27,10 +27,10 @@ public class StillPresent extends RetryCondition {
         return result;
     }
 
-    public void executeCommandsIgnoringExceptions(Executor executor){
-        try{
+    public void executeCommandsIgnoringExceptions(Executor executor) {
+        try {
             executor.invokeCommand();
-        } catch(Exception e){
+        } catch (Exception e) {
             logger.info("Retry exceptions ignored");
         }
     }

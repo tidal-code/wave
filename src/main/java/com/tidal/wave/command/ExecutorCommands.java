@@ -5,6 +5,7 @@ import com.tidal.wave.data.MaxTime;
 
 import java.util.List;
 
+@SuppressWarnings("rawtypes")
 public interface ExecutorCommands {
     <T> T invokeCommand(Class<? extends Command> commandClass, String method);
 
@@ -37,6 +38,7 @@ public interface ExecutorCommands {
     Executor withXYCords(int xCords, int yCords);
 
     Executor withZoomLevel(double zoomLevel);
+
     Executor withElementIndex(int index);
 
     Executor pageRefreshData(MaxTime maxTime, IntervalTime intervalTime);

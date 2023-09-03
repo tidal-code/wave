@@ -61,7 +61,7 @@ public final class SetInnerHtml extends CommandAction implements Command<Void> {
     }
 
     public void setInnerHtmlAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void setInnerHtml() {

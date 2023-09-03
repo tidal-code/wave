@@ -11,7 +11,7 @@ import org.junit.Test;
 public class FluentRequestTest {
 
     @Test
-    public void queryParamTest(){
+    public void queryParamTest() {
         FluentRequest fluentRequest = new FluentRequest();
 
         Response page = fluentRequest

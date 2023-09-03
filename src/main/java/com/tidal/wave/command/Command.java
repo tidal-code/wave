@@ -19,8 +19,11 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 public interface Command<T> {
 
     Logger logger = LoggerFactory.getLogger(Command.class);
+
     void contextSetter(CommandContext context);
+
     CommandContext getCommandContext();
+
     Function<CommandContext, T> getFunction();
 
     @SuppressWarnings("unchecked")

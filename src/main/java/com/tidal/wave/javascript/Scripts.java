@@ -30,7 +30,7 @@ public class Scripts {
                 "    );";
     }
 
-    public static String findElementInShadowRoot(){
+    public static String findElementInShadowRoot() {
         return "function findElementById(id, element) {\n" +
                 "  // If the element has a shadowRoot property, search for the element inside the shadow DOM\n" +
                 "  if (element.shadowRoot) {\n" +
@@ -50,7 +50,7 @@ public class Scripts {
     }
 
 
-    public static String dragAndDropFileUpload(){
+    public static String dragAndDropFileUpload() {
         return "var target = arguments[0]," +
                 "    offsetX = 0," +
                 "    offsetY = 0," +

@@ -14,10 +14,10 @@ public class SelectParallelTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
-        
+
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/select/select.html"));
     }
 

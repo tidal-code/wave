@@ -14,7 +14,7 @@ import static com.tidal.wave.webelement.ElementFinder.find;
 public class EcommerceAppTest {
 
     @Test
-    public void completePurchaseProcess(){
+    public void completePurchaseProcess() {
         ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless=new");
         options.addArguments("window-size=1920,1080");
@@ -58,7 +58,7 @@ public class EcommerceAppTest {
     }
 
     @After
-    public void TestCleanup(){
+    public void TestCleanup() {
         Browser.close();
     }
 }

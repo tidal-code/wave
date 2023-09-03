@@ -47,7 +47,7 @@ public final class Click extends CommandAction implements Command<Void> {
     }
 
     public void clickAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void click() {

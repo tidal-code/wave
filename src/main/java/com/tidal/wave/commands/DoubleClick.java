@@ -51,7 +51,7 @@ public final class DoubleClick extends CommandAction implements Command<Void> {
     }
 
     public void doubleClickAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void doubleClick() {

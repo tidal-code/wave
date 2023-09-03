@@ -37,7 +37,7 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("Expected condition failed : Element %s expected to interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> e.invokeCommand(IsVisible.class, "isVisible"));
 
         isEnabledResult = newFluentWait
@@ -45,7 +45,7 @@ public class InteractableExpectation extends Expectation {
                 .forDuration(waitDuration)
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
-                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> e.withMultipleElements(false)
                         .invokeCommand(IsEnabled.class, "isEnabled"));
     }
@@ -53,6 +53,6 @@ public class InteractableExpectation extends Expectation {
     @Override
     public void orElseFail() {
         result = isVisibleResult && isEnabledResult;
-        super.orElseFail(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)));
+        super.orElseFail(String.format("Expected condition failed : Element %s expected to be interactable but was not", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)));
     }
 }

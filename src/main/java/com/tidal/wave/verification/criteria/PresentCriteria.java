@@ -23,7 +23,7 @@ public class PresentCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("No element is found with %s", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("No element is found with %s", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> (int) e.invokeCommand(GetSize.class, "getSize") > 0);
     }
 }

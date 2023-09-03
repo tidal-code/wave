@@ -26,7 +26,7 @@ public class Page {
     private Page() {
     }
 
-    public static void navigateTo(String url){
+    public static void navigateTo(String url) {
         Driver.getDriver().navigate().to(url);
     }
 

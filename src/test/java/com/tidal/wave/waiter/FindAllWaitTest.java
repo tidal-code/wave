@@ -20,7 +20,7 @@ public class FindAllWaitTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
@@ -120,7 +120,7 @@ public class FindAllWaitTest {
     }
 
     @Test
-    public void testExplicitWaitCustomWait(){
+    public void testExplicitWaitCustomWait() {
         findAll("#testid1000").waitFor(3).expecting(Expectations.sizeGreaterThan(2));
     }
 }

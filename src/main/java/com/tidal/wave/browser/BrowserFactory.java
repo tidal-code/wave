@@ -14,7 +14,7 @@ import java.util.Locale;
 public class BrowserFactory {
 
     public WebDriver getBrowser(String browser, AbstractDriverOptions<?> options) {
-        if(CheckString.isNullOrEmpty(browser)){
+        if (CheckString.isNullOrEmpty(browser)) {
             return new Chrome().getDriver((ChromeOptions) options);
         }
         switch (browser.toUpperCase(Locale.ROOT)) {

@@ -23,7 +23,7 @@ public class InvisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> !(boolean) (e.invokeCommand(IsVisible.class, "isVisible")));
     }
 }

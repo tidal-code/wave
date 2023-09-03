@@ -113,7 +113,8 @@ public class FluentWait<T> {
                 try {
                     Constructor<? extends Throwable> constructor = throwingException.getConstructor(String.class, Throwable.class);
                     ex = (RuntimeException) constructor.newInstance(timeOutMessage, lastException);
-                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+                         InvocationTargetException e) {
                     logger.error(e.getMessage());
                 }
 

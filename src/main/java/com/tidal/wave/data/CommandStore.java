@@ -11,15 +11,15 @@ public class CommandStore<T> {
 
     private static final ThreadLocal<List<Command>> commands = ThreadLocal.withInitial(LinkedList::new);
 
-    public static void storeCommand(Command command){
+    public static void storeCommand(Command command) {
         commands.get().add(command);
     }
 
-    public static List<Command> getCommands(){
+    public static List<Command> getCommands() {
         return commands.get();
     }
 
-    public static void clearCommands(){
+    public static void clearCommands() {
         commands.remove();
     }
 

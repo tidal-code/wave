@@ -136,9 +136,10 @@ public class CommandContext {
         this.elementIndex = elementIndex;
     }
 
-    public boolean getDebugMode(){
+    public boolean getDebugMode() {
         return debugMode;
     }
+
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
     }
@@ -179,7 +180,7 @@ public class CommandContext {
                 ", \n Locators:" + String.join(",", locators) +
                 ", \n Shadow DOM Check:" + shadowDomPresence +
                 ", \n Element Index:" + elementIndex +
-                ", \n Debug Mode:" + ((debugMode|| Config.DEBUG)? "true" : "false")  +
+                ", \n Debug Mode:" + ((debugMode || Config.DEBUG) ? "true" : "false") +
                 '}';
     }
 

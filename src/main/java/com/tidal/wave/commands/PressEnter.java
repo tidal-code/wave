@@ -57,7 +57,7 @@ public final class PressEnter extends CommandAction implements Command<Void> {
     }
 
     public void pressEnterAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void pressEnter() {

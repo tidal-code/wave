@@ -21,6 +21,7 @@ public final class UnCheck extends CommandAction implements Command<Void> {
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
+
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
@@ -50,7 +51,7 @@ public final class UnCheck extends CommandAction implements Command<Void> {
     }
 
     public void unCheckAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void unCheck() {

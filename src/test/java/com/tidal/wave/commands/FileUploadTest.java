@@ -22,19 +22,20 @@ public class FileUploadTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
-        Browser.withOptions(options).open("file://" + Finder.findFilePath("components"+ File.separator+"fileUpload"+File.separator+"fileUpload.html"));
+        Browser.withOptions(options).open("file://" + Finder.findFilePath("components" + File.separator + "fileUpload" + File.separator + "fileUpload.html"));
     }
 
     @After
     public void testCleanup() {
         close();
     }
+
     @Test
     public void fileUploadDragAndDropTest() {
-        String fileName="TestCSVFile.csv";
+        String fileName = "TestCSVFile.csv";
         find("id:dropzone").uploadFileByDragAndDrop(fileName);
         String alertText = getAlertText();
-        Assert.assertTrue("File upload failed, Alert do not contain the file name "+fileName+" alert text "+alertText, alertText.contains(fileName));
+        Assert.assertTrue("File upload failed, Alert do not contain the file name " + fileName + " alert text " + alertText, alertText.contains(fileName));
         dismissAlert();
     }
 }

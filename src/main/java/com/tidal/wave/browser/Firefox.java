@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 
 class Firefox {
     private static final Logger logger = LoggerFactory.getLogger(Firefox.class);
+
     public WebDriver getDriver(FirefoxOptions options) {
         logger.info("Test Starting with Firefox Browser");
-        if(options == null){
+        if (options == null) {
             return new FirefoxDriver();
         }
         return new FirefoxDriver(options);

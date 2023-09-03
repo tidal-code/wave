@@ -22,7 +22,7 @@ public class NotPresentCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element %s is still present in the DOM", executor.getContext().getLocators().get(executor.getContext().getLocators().size()-1)))
+                .withMessage(String.format("Element %s is still present in the DOM", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
                 .until(e -> (int) e.invokeCommand(GetSize.class, "getSize") == 0);
     }
 

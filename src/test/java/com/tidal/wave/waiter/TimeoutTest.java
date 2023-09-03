@@ -23,7 +23,7 @@ public class TimeoutTest {
 
     @Before
     public void testSetUp() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 

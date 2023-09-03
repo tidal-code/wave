@@ -61,7 +61,7 @@ public final class ClearAndType extends CommandAction implements Command<Void> {
     }
 
     public void clearAndTypeAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void clearAndType() {

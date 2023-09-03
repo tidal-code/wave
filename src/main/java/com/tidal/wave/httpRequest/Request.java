@@ -28,7 +28,7 @@ public class Request {
      * @param baseUri the base uri for the request to be made
      */
     public static void set(String baseUri) {
-       FLUENT_REQUEST.get().set(baseUri);
+        FLUENT_REQUEST.get().set(baseUri);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Request {
     }
 
     public static <T> void setData(DataEnum data, T value) {
-       FLUENT_REQUEST.get().setData(data, value);
+        FLUENT_REQUEST.get().setData(data, value);
     }
 
     /**
@@ -122,14 +122,14 @@ public class Request {
     public static void send(ReqType reqType) {
         try {
             FLUENT_REQUEST.get().send(reqType);
-        } catch (Exception e){
+        } catch (Exception e) {
             Request.reset();
             throw new RuntimeException("IOException with request" + e.getMessage());
         }
     }
 
     public static Response response() {
-       return FLUENT_REQUEST.get().response();
+        return FLUENT_REQUEST.get().response();
     }
 
     public static int getStatusCode() {

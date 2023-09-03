@@ -20,7 +20,7 @@ public class Config {
     private static final Function<String, String> PROPERTY_FINDER = s -> {
         try {
             return PropertiesFinder.getProperty(s);
-        } catch (PropertyHandlerException e){
+        } catch (PropertyHandlerException e) {
             logger.info(e.getMessage());
         }
         return null;
@@ -57,14 +57,16 @@ public class Config {
     public static final boolean RETRY_FAILED_TESTS = PROPERTY_FINDER.apply("retry.failed.tests") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("retry.failed.tests"));
     public static final boolean DEBUG = PROPERTY_FINDER.apply("debug") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("debug"));
     public static final boolean DEBUG_SLOW = PROPERTY_FINDER.apply("debug.slow") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("debug.slow"));
-    public static final boolean SLOW_RUN = PROPERTY_FINDER.apply("slow.run") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("slow.run"));;
+    public static final boolean SLOW_RUN = PROPERTY_FINDER.apply("slow.run") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("slow.run"));
+    ;
 
 
     private Config() {
     }
 
     static {
-        if(!isNullOrEmpty(Config.DRIVER_EXECUTABLE_FOLDER)) System.setProperty("wdm.cachePath", Config.DRIVER_EXECUTABLE_FOLDER);
+        if (!isNullOrEmpty(Config.DRIVER_EXECUTABLE_FOLDER))
+            System.setProperty("wdm.cachePath", Config.DRIVER_EXECUTABLE_FOLDER);
     }
 
 }

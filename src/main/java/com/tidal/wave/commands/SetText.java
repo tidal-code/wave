@@ -73,7 +73,7 @@ public final class SetText extends CommandAction implements Command<Void> {
     }
 
     public void setTextAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void setText() {

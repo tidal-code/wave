@@ -37,7 +37,7 @@ public final class GetTagName extends CommandAction implements Command<String> {
     };
 
     @Override
-    public Function getFunction() {
+    public Function<CommandContext, String> getFunction() {
         return function;
     }
 

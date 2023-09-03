@@ -5,7 +5,6 @@ import com.tidal.wave.actions.Interactions;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.RetryCondition;
-import com.tidal.wave.retry.TryUntil;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.verification.expectations.Expectation;
@@ -121,8 +120,6 @@ public interface UIElement {
     void retryIf(Supplier<RetryCondition> retryCondition, int numberOfTimes);
 
     void retryIf(RetryCondition retryCondition, int numberOfTimes);
-
-    void retryIf(RetryCondition retryCondition, TryUntil retryDuration);
 
     Expectation expecting(Expectation expectation);
 

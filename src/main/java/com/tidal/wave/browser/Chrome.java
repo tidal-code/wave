@@ -14,7 +14,7 @@ class Chrome {
     public WebDriver getDriver(ChromeOptions options) {
         logger.info("Test Starting with Chrome Browser");
 
-        if(options == null){
+        if (options == null) {
             return new ChromeDriver();
         }
         return new ChromeDriver(options);

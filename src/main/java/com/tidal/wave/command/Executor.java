@@ -212,8 +212,8 @@ public class Executor implements ExecutorCommands {
         context.setTextInput(textInput);
     }
 
-    public CommandContext getContext(){
-        if(context == null){
+    public CommandContext getContext() {
+        if (context == null) {
             setCommandContext();
         }
         return context;

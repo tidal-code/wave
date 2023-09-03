@@ -12,7 +12,7 @@ public class WaitData {
         this.waitDuration = waitDuration;
     }
 
-    public void setDefaultWait(){
+    public void setDefaultWait() {
         this.waitDuration = 5;
     }
 }

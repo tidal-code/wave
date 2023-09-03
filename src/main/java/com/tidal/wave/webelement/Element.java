@@ -67,7 +67,7 @@ public class Element {
         return element;
     }
 
-    private boolean movementDetected(WebElement element){
+    private boolean movementDetected(WebElement element) {
         Point one = element.getLocation();
         ThreadSleep.forMilliS(100);
         Point two = element.getLocation();
@@ -78,7 +78,7 @@ public class Element {
         return xCordDiff != 0 || yCordDiff != 0;
     }
 
-    private WebElement getWebElement(CommandContext context){
+    private WebElement getWebElement(CommandContext context) {
         List<String> locators = context.getLocators();
         boolean visibility = context.getVisibility();
         boolean isMultiple = context.isMultiple();
@@ -104,7 +104,7 @@ public class Element {
      *
      * @return WebElement
      */
-    private WebElement getWebElementFromSet(CommandContext context){
+    private WebElement getWebElementFromSet(CommandContext context) {
 
         List<String> locators = context.getLocators();
         boolean visibility = context.getVisibility();

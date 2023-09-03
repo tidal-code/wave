@@ -61,7 +61,7 @@ public final class SetValue extends CommandAction implements Command<Void> {
     }
 
     public void setValueAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void setValue() {

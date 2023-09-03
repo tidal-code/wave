@@ -11,7 +11,7 @@ import java.time.Duration;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
-public class AttributeCondition extends Condition{
+public class AttributeCondition extends Condition {
 
     private final String attributeType;
     private final String value;

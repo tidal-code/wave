@@ -49,7 +49,7 @@ public final class GetCssAttribute extends CommandAction implements Command<Stri
     }
 
     public String getCssAttributeAction() {
-       return function.apply(context);
+        return function.apply(context);
     }
 
     public String getCssAttribute() {

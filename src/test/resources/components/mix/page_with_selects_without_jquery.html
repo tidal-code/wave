@@ -9,6 +9,7 @@
 
 
 
+
     </style>
     <script type="text/javascript">
       function scheduleFillTextArea() {
@@ -38,6 +39,7 @@
       function onDomainChanged(select) {
         document.getElementById('selectedDomain').innerHTML = select.options[select.selectedIndex].text;
       }
+
 
 
 
@@ -170,6 +172,7 @@
       setTimeout(function() {document.getElementById('container').innerHTML = '<div id="dynamic-content-container"></div>';}, commandDuration*3);
       setTimeout(function() {document.getElementById('dynamic-content-container').innerHTML = '<span id="dynamic-content">dynamic content</span>';}, commandDuration*4);
       setTimeout(function() {document.getElementById('dynamic-content-container').innerHTML += '<span id="dynamic-content2">dynamic content2</span>';}, commandDuration*5);
+
 
 
 

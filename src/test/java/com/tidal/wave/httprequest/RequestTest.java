@@ -13,12 +13,12 @@ import static com.tidal.flow.assertions.Assert.verify;
 public class RequestTest {
 
     @After
-    public void afterTest(){
+    public void afterTest() {
         Request.reset();
     }
 
     @Test
-    public void queryParamTest(){
+    public void queryParamTest() {
         Request.set("https://reqres.in/api/users");
         Request.setHeader("hello", "world");
         Request.setQueryParams("page", "2");
@@ -27,14 +27,14 @@ public class RequestTest {
     }
 
     @Test
-    public void getTest(){
+    public void getTest() {
         Request.set("https://reqres.in/api/users/2");
         Request.send(ReqType.GET);
         verify("", JsonReader.readValue("data.id", Request.getResponseString()).toString()).isEqualTo("2");
     }
 
     @Test
-    public void postTest(){
+    public void postTest() {
         Request.set("https://reqres.in/api/users");
         Request.setPayload(FileReader.readFileToString("reqrespost.json"));
         Request.send(ReqType.POST);
@@ -42,7 +42,7 @@ public class RequestTest {
     }
 
     @Test
-    public void putTest(){
+    public void putTest() {
         Request.set("https://reqres.in/api/users/2");
         Request.setPayload(FileReader.readFileToString("reqresput.json"));
         Request.send(ReqType.PUT);
@@ -50,7 +50,7 @@ public class RequestTest {
     }
 
     @Test
-    public void patchTest(){
+    public void patchTest() {
         Request.set("https://reqres.in/api/users/2");
         Request.setPayload(FileReader.readFileToString("reqrespost.json"));
         Request.send(ReqType.PATCH);
@@ -59,7 +59,7 @@ public class RequestTest {
     }
 
     @Test
-    public void deleteTest(){
+    public void deleteTest() {
         Request.set("https://reqres.in/api/users/2");
         Request.setPayload(FileReader.readFileToString("reqrespost.json"));
         Request.send(ReqType.DELETE);

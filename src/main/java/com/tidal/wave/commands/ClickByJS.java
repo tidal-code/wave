@@ -49,7 +49,7 @@ public final class ClickByJS extends CommandAction implements Command<Void> {
     }
 
     public void clickByJSAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void clickByJS() {

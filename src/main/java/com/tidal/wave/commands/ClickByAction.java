@@ -46,7 +46,7 @@ public final class ClickByAction extends CommandAction implements Command<Void> 
 
     @Override
     public Map<Class<? extends Throwable>, Supplier<String>> ignoredEx() {
-            return CommandExceptions.Of.click();
+        return CommandExceptions.Of.click();
     }
 
     public void clickAction() {

@@ -9,7 +9,7 @@ import java.util.Map;
 public final class EdgeBrowserOptions implements BrowserOptions {
 
     @Override
-    public EdgeOptions getLocalOptions(){
+    public EdgeOptions getLocalOptions() {
         EdgeOptions options = new EdgeOptions();
         options.addArguments(Config.LOCAL_SCREEN_SIZE);
         setCommonOptions(options);
@@ -18,7 +18,7 @@ public final class EdgeBrowserOptions implements BrowserOptions {
     }
 
     @Override
-    public EdgeOptions getRemoteOptions(){
+    public EdgeOptions getRemoteOptions() {
         EdgeOptions options = new EdgeOptions();
         options.addArguments(Config.REMOTE_SCREEN_SIZE);
         setCommonOptions(options);
@@ -30,7 +30,7 @@ public final class EdgeBrowserOptions implements BrowserOptions {
         return options;
     }
 
-    public void setCommonOptions(EdgeOptions options){
+    public void setCommonOptions(EdgeOptions options) {
         options.addArguments("--disable-notifications");
 
         //to remove the warning message

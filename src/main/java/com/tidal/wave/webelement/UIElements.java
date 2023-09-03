@@ -33,7 +33,7 @@ public class UIElements extends AbstractCollection<UIElement> {
     }
 
     @Override
-    public Iterator<UIElement> iterator(){
+    public Iterator<UIElement> iterator() {
         return new UIElementsIterator();
     }
 
@@ -79,19 +79,19 @@ public class UIElements extends AbstractCollection<UIElement> {
         return uiActions;
     }
 
-    public UIElement first(){
+    public UIElement first() {
         return get(0);
     }
 
-    public UIElement last(){
+    public UIElement last() {
         return get(size() - 1);
     }
 
-    public void skipFirst(){
+    public void skipFirst() {
         currentIndex = 1;
     }
 
-    public void skipLast(){
+    public void skipLast() {
         size = size() - 1;
     }
 
@@ -103,9 +103,9 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @param waitTime in seconds till the element is found or action is completed
      * @return A self reference
      */
-    public UIElements waitFor(int waitTime) {
+    public $ waitFor(int waitTime) {
         Wait.setExplicitWait(waitTime);
-        return this;
+        return new $();
     }
 
     @Override
@@ -137,8 +137,8 @@ public class UIElements extends AbstractCollection<UIElement> {
      */
     @Override
     public int size() {
-        size =  new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
-        if(dimensions.isEmpty()) {
+        size = new Executor().usingLocator(uiActions.getLocators()).isVisible(visibility).invokeCommand(GetSize.class);
+        if (dimensions.isEmpty()) {
             for (int i = 0; i < size; i++) {
                 dimensions.add(get(i));
             }
@@ -193,23 +193,29 @@ public class UIElements extends AbstractCollection<UIElement> {
     }
 
     private class UIElementsIterator implements Iterator<UIElement> {
-            public boolean hasNext() {
-                if(size < 0){
-                    size = size();
-                }
-                return currentIndex < size && get(currentIndex) != null;
+        public boolean hasNext() {
+            if (size < 0) {
+                size = size();
             }
+            return currentIndex < size && get(currentIndex) != null;
+        }
 
-            public UIElement next() {
-                System.out.println("returning index : "  + currentIndex);
-                return dimensions.get(currentIndex++);
-            }
+        public UIElement next() {
+            System.out.println("returning index : " + currentIndex);
+            return dimensions.get(currentIndex++);
+        }
 
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
 
+    }
+
+    public class $ {
+        public Expectations expecting(Expectations expectations) {
+            return CollectionsSoftAssertion.softAssert(true, uiActions.getLocators(), expectations);
+        }
     }
 
 }

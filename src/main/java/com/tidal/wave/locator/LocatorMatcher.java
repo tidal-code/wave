@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
  * Class to parse the string locator to Selenium 'By' locator type.
  * String locator de-couples test suites from direct Selenium dependency.
  * Follow framework guidelines to pass the locator string in the correct format
- *
+ * <p>
  * To ensure that the locators are parsed properly,
  * the order should be kept in the below order in the static block:  <br>
  * - {@link Parser.IdParser} <br>
@@ -17,11 +17,10 @@ import org.openqa.selenium.By;
  * - {@link Parser.CSSParser} <br>
  * - {@link Parser.ClassParser} <br>
  * - {@link Parser.TextParser} <br>
- *  <br>
+ * <br>
  * The order ensures that the text parser will be evaluated in the end as plain string.
  *
- *  <br>
- *
+ * <br>
  */
 public class LocatorMatcher {
 
@@ -41,7 +40,7 @@ public class LocatorMatcher {
 
 
     //The order should be kep exactly as per the class documentation.
-    static{
+    static {
         idParser.setNextParser(xpathParser);
         xpathParser.setNextParser(nameTagNameParser);
         nameTagNameParser.setNextParser(linkTextParser);

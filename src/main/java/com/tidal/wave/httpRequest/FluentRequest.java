@@ -31,12 +31,12 @@ public class FluentRequest {
     private final UnaryOperator<String> readTimeOut = s -> {
         try {
             return timeOut.apply(s) == null ? "10" : timeOut.apply(s);
-        } catch (PropertyHandlerException ignored){
+        } catch (PropertyHandlerException ignored) {
             return "10";
         }
     };
 
-    public FluentRequest(){
+    public FluentRequest() {
         createMap();
         CLIENT = getNewOkHttpClient();
     }
