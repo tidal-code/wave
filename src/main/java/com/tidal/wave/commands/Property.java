@@ -69,9 +69,7 @@ public final class Property extends CommandAction implements Command<Map<String,
     }
 
     public void propertyAction() {
-        function.apply(context).forEach((k, v) -> {
-            logger.info(k.toUpperCase() + " = " + v);
-        });
+        function.apply(context).forEach((k, v) -> logger.info(k.toUpperCase() + " = " + v));
     }
 
     public void property() {

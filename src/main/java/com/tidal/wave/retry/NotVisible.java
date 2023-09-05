@@ -11,7 +11,7 @@ import java.util.List;
 
 public class NotVisible extends RetryCondition {
 
-    public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
+    public static final Logger logger = LoggerFactory.getLogger(NotVisible.class);
 
     private final List<String> newElementLocatorSet;
 

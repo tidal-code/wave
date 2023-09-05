@@ -10,7 +10,6 @@ import java.time.Duration;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class ElementDisabled extends Criteria {
-
     @Override
     public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null

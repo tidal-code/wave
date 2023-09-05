@@ -46,7 +46,7 @@ public final class Check extends CommandAction implements Command<Void> {
         return context;
     }
 
-    Function<CommandContext, Void> function = e -> {
+    final Function<CommandContext, Void> function = e -> {
         WebElement element = webElement.getElement(context);
         if (!element.isSelected()) {
             ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("arguments[0].click();", element);

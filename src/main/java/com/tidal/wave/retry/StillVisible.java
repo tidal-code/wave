@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class StillVisible extends RetryCondition {
 
-    public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
+    public static final Logger logger = LoggerFactory.getLogger(StillVisible.class);
 
     @Override
     public boolean retry(Executor executor) {

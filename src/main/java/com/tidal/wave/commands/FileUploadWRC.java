@@ -25,7 +25,6 @@ public class FileUploadWRC extends CommandAction implements Command<Void> {
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
     private String fileName;
-    private String filePath;
 
     @Override
     public void contextSetter(CommandContext context) {
@@ -41,6 +40,7 @@ public class FileUploadWRC extends CommandAction implements Command<Void> {
     Function<CommandContext, Void> function = e -> {
         if (fileName.isEmpty()) throw new IllegalArgumentException("File name should not be null or empty");
 
+        String filePath;
         if (Finder.findFileIfExists(fileName).isPresent()) {
             filePath = Finder.findFilePath(fileName);
         } else {

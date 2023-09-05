@@ -107,7 +107,7 @@ public class UIActions implements UIElement {
     @Override
     public UIActions sendKeys(CharSequence... keysToSend) {
         Objects.requireNonNull(keysToSend, "The input value for 'SendKeys' should not be null");
-        executor.debugMode(debugMode).usingLocator(locators).withCharSequence(keysToSend).invokeCommand(SendKeys.class);
+        executor.debugMode(debugMode).withCharSequence(keysToSend).invokeCommand(SendKeys.class);
         return this;
     }
 
@@ -136,7 +136,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions setValue(String value) {
-        executor.debugMode(debugMode).usingLocator(locators).withText(value).invokeCommand(SetValue.class);
+        executor.debugMode(debugMode).withText(value).invokeCommand(SetValue.class);
         return this;
     }
 
@@ -149,7 +149,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions setInnerHtml(String value) {
-        executor.debugMode(debugMode).usingLocator(locators).withText(value).invokeCommand(SetInnerHtml.class);
+        executor.debugMode(debugMode).withText(value).invokeCommand(SetInnerHtml.class);
         return this;
     }
 
@@ -161,7 +161,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions clearAndType(CharSequence... charSequences) {
-        executor.debugMode(debugMode).usingLocator(locators).withCharSequence(charSequences).invokeCommand(ClearAndType.class);
+        executor.debugMode(debugMode).withCharSequence(charSequences).invokeCommand(ClearAndType.class);
         return this;
     }
 
@@ -172,7 +172,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public UIActions clear() {
-        executor.debugMode(debugMode).usingLocator(locators).invokeCommand(Clear.class);
+        executor.debugMode(debugMode).invokeCommand(Clear.class);
         return this;
     }
 
@@ -184,7 +184,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAttribute(String value) {
-        return executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetAttribute.class);
+        return executor.debugMode(debugMode).withAttribute(value).invokeCommand(GetAttribute.class);
     }
 
     /**
@@ -195,7 +195,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getCSSAttribute(String value) {
-        return executor.debugMode(debugMode).usingLocator(locators).withAttribute(value).invokeCommand(GetCssAttribute.class);
+        return executor.debugMode(debugMode).withAttribute(value).invokeCommand(GetCssAttribute.class);
     }
 
     /**
@@ -205,7 +205,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getAllCSSAttributes() {
-        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllCssAttributes.class);
+        return executor.debugMode(debugMode).invokeCommand(GetAllCssAttributes.class);
     }
 
     /**
@@ -215,7 +215,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Map<String, String> getAllAttributes() {
-        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetAllAttributes.class);
+        return executor.debugMode(debugMode).invokeCommand(GetAllAttributes.class);
     }
 
     /**
@@ -225,7 +225,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public String getTagName() {
-        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetTagName.class);
+        return executor.debugMode(debugMode).invokeCommand(GetTagName.class);
     }
 
     /**
@@ -235,7 +235,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Point getLocation() {
-        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetLocation.class);
+        return executor.debugMode(debugMode).invokeCommand(GetLocation.class);
     }
 
     /**
@@ -245,7 +245,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public Rectangle getRect() {
-        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(GetRect.class);
+        return executor.debugMode(debugMode).invokeCommand(GetRect.class);
     }
 
     /**

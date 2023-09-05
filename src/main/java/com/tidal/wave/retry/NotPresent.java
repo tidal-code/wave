@@ -11,7 +11,7 @@ import java.util.List;
 
 public class NotPresent extends RetryCondition {
 
-    public static final Logger logger = LoggerFactory.getLogger(StillPresent.class);
+    public static final Logger logger = LoggerFactory.getLogger(NotPresent.class);
     private final List<String> newElementLocatorSet;
 
     public NotPresent(String locator) {

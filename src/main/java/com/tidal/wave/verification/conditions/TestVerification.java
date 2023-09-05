@@ -4,7 +4,6 @@ import com.tidal.wave.command.Executor;
 
 
 public class TestVerification {
-
     private TestVerification() {
     }
 
