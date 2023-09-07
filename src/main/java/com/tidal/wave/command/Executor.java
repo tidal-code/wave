@@ -195,6 +195,7 @@ public class Executor implements ExecutorCommands {
     private void setCommandContext() {
         context = new CommandContext();
         context.setIntervalTime(intervalTime);
+        context.setMaxRefreshTime(maxTime);
         context.setLocatorSet(locators);
         context.setDebugMode(debugMode);
         context.setAttributeName(attributeName);
@@ -202,14 +203,13 @@ public class Executor implements ExecutorCommands {
         context.setVisibility(isVisible);
         context.setSequence(sequence);
         context.setElementIndex(elementIndex);
-        context.setIntervalTime(intervalTime);
         context.setHoverWaitTime(hoverWaitTime);
         context.setShadowDomPresence(shadowDomPresence);
         context.setTabIndex(tabIndex);
         context.setZoomLevel(zoomLevel);
-        context.setMaxRefreshTime(maxTime);
         context.setSelectIndex(selectIndex);
         context.setTextInput(textInput);
+        context.setXYCords(xyCordsArray[0], xyCordsArray[1]);
     }
 
     public CommandContext getContext() {
