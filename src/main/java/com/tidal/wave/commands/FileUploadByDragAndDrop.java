@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+
+@SuppressWarnings("unused")
 public class FileUploadByDragAndDrop extends CommandAction implements Command<Void> {
 
 

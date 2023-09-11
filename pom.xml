@@ -75,6 +75,7 @@
             <groupId>io.github.tidal-code</groupId>
             <artifactId>flow</artifactId>
             <version>1.0.2</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
