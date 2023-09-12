@@ -36,11 +36,7 @@ public interface Command<T> {
         }
 
         if (commandContext.getDebugMode() || Config.DEBUG) {
-            logger.info("---------------------");
             logger.info("Executing action '" + action.replace("Action", "").toUpperCase() + "'");
-            logger.info("Locators using: " + String.join(",", commandContext.getLocators()));
-            int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
-            logger.info("Wait duration: " + duration + " seconds");
             logger.info(commandContext.toString());
         }
 
@@ -53,7 +49,6 @@ public interface Command<T> {
         } catch (NoSuchMethodException e) {
             throw new MethodInvokerException(String.format("No such method with name '%s', in class '%s'", action, klass.getName()), e);
         } catch (InvocationTargetException e) {
-            //
             if (commandContext.getDebugMode() || Config.DEBUG) {
                 e.printStackTrace();
             }
@@ -65,7 +60,6 @@ public interface Command<T> {
         } catch (IllegalAccessException e) {
             throw new MethodInvokerException(String.format("Method '%s', in class '%s' has got private/protected access", action, klass.getName()), e);
         }
-
         return (X) value;
     }
 
@@ -78,5 +72,4 @@ public interface Command<T> {
             return function.apply(getCommandContext());
         }
     }
-
 }

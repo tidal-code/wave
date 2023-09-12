@@ -25,7 +25,8 @@ public final class IsPresent extends CommandAction implements Command<Boolean> {
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
-        this.context.setVisibility(false);
+        context.setVisibility(false);
+        context.setMultiple(true);
     }
 
     @Override

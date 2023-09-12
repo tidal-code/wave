@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Store {
     private static final ThreadLocal<Map<String, Object>> data = ThreadLocal.withInitial(ConcurrentHashMap::new);
+
     private static final String testDataKey = "FrTWXyBbXyA";
 
 
@@ -19,18 +20,18 @@ public class Store {
 
     @SuppressWarnings("unchecked")
     public static String getTestData(String key) {
-        return  ((Map<String, String>) data.get().get(testDataKey)).get(key);
+        return ((Map<String, String>) data.get().get(testDataKey)).get(key);
     }
 
-    public static void objectType(String key, Object object){
+    public static void objectType(String key, Object object) {
         data.get().put(key, object);
     }
 
-    public static Object getTypeObject(String key){
+    public static Object getTypeObject(String key) {
         return data.get().get(key);
     }
 
-    public static void clean(){
+    public static void clean() {
         data.remove();
     }
 

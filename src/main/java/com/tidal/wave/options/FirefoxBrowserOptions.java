@@ -4,13 +4,13 @@ import com.tidal.wave.config.Config;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class FirefoxBrowserOptions {
-    public FirefoxOptions getLocalOptions(){
+    public FirefoxOptions getLocalOptions() {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments(Config.LOCAL_SCREEN_SIZE);
         return options;
     }
 
-    public FirefoxOptions getRemoteOptions(){
+    public FirefoxOptions getRemoteOptions() {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments(Config.REMOTE_SCREEN_SIZE);
         options.addArguments("--headless");
@@ -18,7 +18,7 @@ public class FirefoxBrowserOptions {
         return options;
     }
 
-    public void commonOption(FirefoxOptions options){
+    public void commonOption(FirefoxOptions options) {
         //todo - complete the common options for firefox
     }
 }

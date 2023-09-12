@@ -4,20 +4,18 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.GetAllCssAttributes;
 import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class CSSChangeExpectation extends Expectation {
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
+    private final Executor executor = new Executor();
 
     @Override
-    public void assertion(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void assertion(Executor executor) {
 
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
@@ -25,7 +23,7 @@ public class CSSChangeExpectation extends Expectation {
 
         Duration waitDuration = Duration.ofSeconds(Integer.parseInt(duration));
 
-        String cssProperties = executor.isVisible(isVisible).withMultipleElements(isMultiple).usingLocator(locators).invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
+        String cssProperties = executor.invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString();
 
         result = new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
@@ -33,11 +31,7 @@ public class CSSChangeExpectation extends Expectation {
                 .ignoring(TimeoutException.class)
                 .ignoring(StaleElementReferenceException.class)
                 .withMessage("Expected a change of state of CSS properties but did not happen")
-                .until(e -> !e
-                        .withMultipleElements(isMultiple)
-                        .isVisible(isVisible)
-                        .usingLocator(locators)
-                        .invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString().equals(cssProperties));
+                .until(e -> !e.invokeCommand(GetAllCssAttributes.class, "getAllCssAttributes").toString().equals(cssProperties));
     }
 
     @Override

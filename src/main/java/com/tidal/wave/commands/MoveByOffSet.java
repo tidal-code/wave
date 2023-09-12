@@ -56,7 +56,7 @@ public final class MoveByOffSet extends CommandAction implements Command<Void> {
     }
 
     public void moveByOffSet() {
-       timeCounter.restart();
-       super.execute(Commands.MoveCommands.MOVE_BY_OFFSET.toString(), ignoredExceptions, timeCounter);
+        timeCounter.restart();
+        super.execute(Commands.MoveCommands.MOVE_BY_OFFSET.toString(), ignoredExceptions, timeCounter);
     }
 }

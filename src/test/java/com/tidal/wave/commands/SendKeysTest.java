@@ -15,7 +15,7 @@ public class SendKeysTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
@@ -35,9 +35,9 @@ public class SendKeysTest {
         Assert.assertEquals("", "Tidal-Wave QA Team", textAfter);
     }
 
-    @Test (expected = RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void inputUsingSetTextShouldFail() {
-        String textInputLocator ="id:myText1";
+        String textInputLocator = "id:myText1";
         find(textInputLocator).waitFor(6).click().clear().setText("Tidal-Wave" + Keys.TAB);
     }
 }

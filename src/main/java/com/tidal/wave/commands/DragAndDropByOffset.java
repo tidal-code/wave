@@ -39,6 +39,7 @@ public final class DragAndDropByOffset extends CommandAction implements Command<
     public CommandContext getCommandContext() {
         return context;
     }
+
     Function<CommandContext, Void> function = e -> {
         List<String> linkedListOne = new LinkedList<>();
         linkedListOne.add(locators.get(0));

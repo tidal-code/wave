@@ -25,7 +25,8 @@ public final class IsPresentAndVisible extends CommandAction implements Command<
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
-        this.context.setVisibility(false);
+        context.setVisibility(false);
+        context.setMultiple(true);
     }
 
     @Override

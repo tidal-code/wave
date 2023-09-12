@@ -1,6 +1,7 @@
 package com.tidal.wave.exceptions;
 
 public class DataResolverException extends RuntimeException {
+    private static final long serialVersionUID = 3467633435324L;
 
     /**
      * Constructs a new runtime exception with {@code null} as its

@@ -14,7 +14,7 @@ public class DebugModeTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
@@ -26,11 +26,12 @@ public class DebugModeTest {
         Browser.close();
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void withDebugModeTest() {
         try {
             find("id:myText1XX").debugMode().sendKeys("Tidal-Wave");
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

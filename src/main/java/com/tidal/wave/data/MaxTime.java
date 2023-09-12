@@ -22,11 +22,11 @@ public enum MaxTime {
 
     private final int maxTime;
 
-    MaxTime(int maxTime){
+    MaxTime(int maxTime) {
         this.maxTime = maxTime;
     }
 
-    public int getMaxTime(){
+    public int getMaxTime() {
         return maxTime;
     }
 

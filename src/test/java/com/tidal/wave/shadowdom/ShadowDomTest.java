@@ -26,7 +26,7 @@ public class ShadowDomTest {
     }
 
     @Test
-    public void testShadowDom(){
+    public void testShadowDom() {
         ThreadSleep.forSeconds(2);
         find("id:non_host").shouldBe(present);
         find("id:nested_shadow_content")

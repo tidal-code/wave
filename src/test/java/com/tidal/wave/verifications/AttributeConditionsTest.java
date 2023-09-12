@@ -30,32 +30,32 @@ public class AttributeConditionsTest {
     }
 
     @Test
-    public void testAttributeName(){
+    public void testAttributeName() {
         find("id:h2_title").shouldHave(attributeAndValue("name", "title"));
     }
 
     @Test(expected = TestAssertionError.class)
-    public void testAttributeNameFail(){
+    public void testAttributeNameFail() {
         find("id:h2_title").shouldHave(attributeAndValue("name", "x_y_z"));
     }
 
     @Test
-    public void testAttributeWithoutValue(){
+    public void testAttributeWithoutValue() {
         find("id:checked_checkbox").shouldHave(attribute("checked"));
     }
 
     @Test
-    public void testAttributeWithoutValueForDataModelTarget(){
+    public void testAttributeWithoutValueForDataModelTarget() {
         find("id:checked_checkbox").shouldHave(attribute("data-modal-target"));
     }
 
     @Test(expected = TestAssertionError.class)
-    public void testAttributeWithoutValueFail(){
+    public void testAttributeWithoutValueFail() {
         find("id:test_checkbox_id").shouldHave(attribute("checked"));
     }
 
     @Test(expected = TestAssertionError.class)
-    public void testAttributeWithoutValueForDataModelTargetFail(){
+    public void testAttributeWithoutValueForDataModelTargetFail() {
         find("id:test_checkbox_id").shouldHave(attribute("data-modal-target"));
     }
 }

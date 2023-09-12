@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public final class Browser {
     private static final Supplier<BrowserConfig> browserConfig = Browser::getBrowserConfig;
 
-    private static BrowserConfig getBrowserConfig(){
+    private static BrowserConfig getBrowserConfig() {
         return (BrowserConfig) ObjectSupplier.instanceOf(BrowserConfig.class);
     }
 
@@ -29,7 +29,7 @@ public final class Browser {
         return browserConfig.get();
     }
 
-    public static BrowserConfig pageBackGroundActivity(Activity activity, boolean enable){
+    public static BrowserConfig pageBackGroundActivity(Activity activity, boolean enable) {
         browserConfig.get().pageBackGroundActivity(activity, enable);
         return browserConfig.get();
     }

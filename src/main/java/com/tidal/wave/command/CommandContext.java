@@ -1,11 +1,15 @@
 package com.tidal.wave.command;
 
+import com.tidal.wave.config.Config;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
+import com.tidal.wave.data.WaitTime;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class CommandContext {
 
@@ -116,8 +120,8 @@ public class CommandContext {
         this.zoomLevel = zoomLevel;
     }
 
-    public void setShadowDomPresence() {
-        shadowDomPresence = true;
+    public void setShadowDomPresence(boolean shadowDomPresence) {
+        this.shadowDomPresence = shadowDomPresence;
     }
 
     public boolean getShadowDomPresence() {
@@ -132,9 +136,10 @@ public class CommandContext {
         this.elementIndex = elementIndex;
     }
 
-    public boolean getDebugMode(){
+    public boolean getDebugMode() {
         return debugMode;
     }
+
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
     }
@@ -157,10 +162,14 @@ public class CommandContext {
 
     @Override
     public String toString() {
+
+        int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+
         return "CommandContext{" +
                 "\n xyCordsArray: " + Arrays.toString(xyCordsArray) +
                 ", \n Finding Multiple Elements:" + isMultiple +
                 ", \n Looking for visible element:" + isVisible +
+                "  \n Wait duration: " + duration + " seconds" +
                 ", \n Text input:'" + textInput + '\'' +
                 ", \n Attribute Name:'" + attributeName + '\'' +
                 ", \n Select Index:" + selectIndex +
@@ -171,7 +180,7 @@ public class CommandContext {
                 ", \n Locators:" + String.join(",", locators) +
                 ", \n Shadow DOM Check:" + shadowDomPresence +
                 ", \n Element Index:" + elementIndex +
-                ", \n Debug Mode:" + debugMode +
+                ", \n Debug Mode:" + ((debugMode || Config.DEBUG) ? "true" : "false") +
                 '}';
     }
 

@@ -1,11 +1,14 @@
 package com.tidal.wave.waiter;
 
 import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.propertieshandler.PropertiesFinder;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.time.Duration;
 
 import static com.tidal.utils.data.GlobalData.getData;
 import static com.tidal.wave.browser.Browser.close;
@@ -20,11 +23,12 @@ public class TimeoutTest {
 
     @Before
     public void testSetUp() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
-        Browser.withOptions(options).open("http://www.google.com");
+        Browser.withWaitTime(Duration.ofSeconds(Integer.parseInt(PropertiesFinder.getProperty("local.timeout"))))
+                .withOptions(options).open("http://www.google.com");
     }
 
     @After
@@ -42,7 +46,7 @@ public class TimeoutTest {
         TimeCounter timeCounter = new TimeCounter();
         try {
             find("name:qXXX").click().clear();
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             long timeElapsed = timeCounter.timeElapsed().getSeconds();
 
             if (timeElapsed < 5) {

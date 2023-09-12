@@ -11,7 +11,7 @@ import java.util.Map;
 public final class ChromeBrowserOptions implements BrowserOptions {
 
     @Override
-    public ChromeOptions getLocalOptions(){
+    public ChromeOptions getLocalOptions() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Config.LOCAL_SCREEN_SIZE);
         setCommonOptions(options);
@@ -20,7 +20,7 @@ public final class ChromeBrowserOptions implements BrowserOptions {
     }
 
     @Override
-    public ChromeOptions getRemoteOptions(){
+    public ChromeOptions getRemoteOptions() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Config.REMOTE_SCREEN_SIZE);
         setCommonOptions(options);
@@ -32,7 +32,7 @@ public final class ChromeBrowserOptions implements BrowserOptions {
         return options;
     }
 
-    public void setCommonOptions(ChromeOptions options){
+    public void setCommonOptions(ChromeOptions options) {
         options.addArguments("--disable-notifications");
         options.addArguments("--remote-allow-origins=*");
 

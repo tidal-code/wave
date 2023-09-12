@@ -163,17 +163,17 @@ public class Commands {
         }
     }
 
-    public enum PageCommands{
+    public enum PageCommands {
         REFRESH_PAGE_ACTION("pageRefreshAction");
 
         private final String command;
 
-        PageCommands(String command){
+        PageCommands(String command) {
             this.command = command;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return command;
         }
     }

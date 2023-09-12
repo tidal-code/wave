@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+
+@SuppressWarnings("unused")
 public class FileUpload extends CommandAction implements Command<Void> {
 
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;

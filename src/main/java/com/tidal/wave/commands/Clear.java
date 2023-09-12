@@ -31,7 +31,7 @@ public final class Clear extends CommandAction implements Command<Void> {
         return context;
     }
 
-    public Function<CommandContext, Void> function = e -> {
+    Function<CommandContext, Void> function = e -> {
         WebElement element = webElement.getElement(context);
         element.clear();
         return null;

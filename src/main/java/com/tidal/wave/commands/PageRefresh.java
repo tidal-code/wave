@@ -44,15 +44,14 @@ public final class PageRefresh extends CommandAction implements Command<Boolean>
         int maxTime = context.getMaxRefreshTime().getMaxTime();
         int intervalTime = context.getRefreshIntervalTime().getIntervalTime();
 
-        while(elements.isEmpty()){
-            if(pageRefreshTimeCounter.timeElapsed(Duration.ofSeconds(maxTime))){
+        while (elements.isEmpty()) {
+            if (pageRefreshTimeCounter.timeElapsed(Duration.ofSeconds(maxTime))) {
                 String message = String.format("Element '%s' not found within the maximum time of %s seconds", context.getLocators().get(0), maxTime);
                 message = message + String.format("\nTotal time elapsed: %s seconds", pageRefreshTimeCounter.timeElapsed().getSeconds());
                 throw new RuntimeTestException(message);
             }
-
-            ThreadSleep.forSeconds(intervalTime);
             Page.refresh();
+            ThreadSleep.forSeconds(intervalTime);
             elements = webElement.getElements(context);
         }
         pageRefreshTimeCounter.restart();

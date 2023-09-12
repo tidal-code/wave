@@ -6,10 +6,13 @@ import com.tidal.wave.commands.*;
 import com.tidal.wave.config.ConfigPropertiesTest;
 import com.tidal.wave.config.PropertiesFinderTest;
 import com.tidal.wave.elementfinder.FindAllIterationTest;
-import com.tidal.wave.elementfinder.MultiElementDataFinderTest;
 import com.tidal.wave.elementfinder.TheFindAllTest;
 import com.tidal.wave.elementfinder.ThenFindAndThenFindAllTests;
 import com.tidal.wave.expectations.*;
+import com.tidal.wave.retry.StillNotPresentRetryTests;
+import com.tidal.wave.retry.StillNotVisibleRetryTests;
+import com.tidal.wave.retry.StillPresentRetryTests;
+import com.tidal.wave.retry.StillVisibleRetryTests;
 import com.tidal.wave.waiter.*;
 import com.tidal.wave.webelement.ElementFinderTest;
 import com.tidal.wave.webelement.IframesTest;
@@ -20,8 +23,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-        OpenTest.class
-        ,
+        OpenTest.class,
 
         // Commands Test
         CheckTest.class,
@@ -55,7 +57,13 @@ import org.junit.runners.Suite;
         TimeoutTest.class,
         WaitTest.class,
         IframesTest.class,
-        ElementFinderTest.class
+        ElementFinderTest.class,
+
+        //Retry Tests
+        StillPresentRetryTests.class,
+        StillNotVisibleRetryTests.class,
+        StillNotPresentRetryTests.class,
+        StillVisibleRetryTests.class
 
 })
 public class FunctionTestSuite {

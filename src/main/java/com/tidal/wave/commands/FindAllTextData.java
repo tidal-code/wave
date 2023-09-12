@@ -66,7 +66,7 @@ public final class FindAllTextData extends CommandAction implements Command<List
     }
 
     public List<String> findAllTextDataAction() {
-       return function.apply(context);
+        return function.apply(context);
     }
 
     public List<String> findAllTextData() {

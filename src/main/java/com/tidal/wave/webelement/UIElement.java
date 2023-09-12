@@ -1,6 +1,7 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.data.DataEnum;
+import com.tidal.wave.actions.Interactions;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.retry.RetryCondition;
@@ -147,4 +148,5 @@ public interface UIElement {
     UIElement pause(int seconds);
 
 
+    void performActions(Interactions interactions);
 }

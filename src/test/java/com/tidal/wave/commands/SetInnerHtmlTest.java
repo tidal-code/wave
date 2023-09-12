@@ -17,10 +17,10 @@ public class SetInnerHtmlTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
-        
+
         Browser.withOptions(options)
                 .withWaitTime(Duration.ofSeconds(7))
                 .open("file://" + Finder.findFilePath("components/textinput/textinput.html"));
@@ -33,7 +33,7 @@ public class SetInnerHtmlTest {
 
     @Test
     public void textInputText() {
-        String textInputLocator ="id:innerHtmlP";
+        String textInputLocator = "id:innerHtmlP";
         find(textInputLocator).setInnerHtml("Tidal-Wave");
         Assert.assertEquals(find(textInputLocator).getText(), "Tidal-Wave");
     }

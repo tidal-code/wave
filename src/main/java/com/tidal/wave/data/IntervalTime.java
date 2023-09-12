@@ -24,11 +24,11 @@ public enum IntervalTime {
 
     private final int intervalTime;
 
-    IntervalTime(int intervalTime){
+    IntervalTime(int intervalTime) {
         this.intervalTime = intervalTime;
     }
 
-    public int getIntervalTime(){
+    public int getIntervalTime() {
         return intervalTime;
     }
 }

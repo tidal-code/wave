@@ -13,7 +13,7 @@ import static com.tidal.wave.webelement.ElementFinder.findAll;
 public class ElementFinderTest {
 
     @Before
-    public void testInit(){
+    public void testInit() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
@@ -21,19 +21,19 @@ public class ElementFinderTest {
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
     }
 
-    @Test (expected = NullPointerException.class)
-    public void nullPointerCheckFind(){
+    @Test(expected = NullPointerException.class)
+    public void nullPointerCheckFind() {
         String locator = null;
         find(locator).click();
     }
 
-    @Test (expected = NullPointerException.class)
-    public void nullPointerCheckFindAll(){
+    @Test(expected = NullPointerException.class)
+    public void nullPointerCheckFindAll() {
         findAll(null).first().click();
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         Browser.close();
     }
 }

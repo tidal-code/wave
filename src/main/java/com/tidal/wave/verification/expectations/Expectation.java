@@ -1,8 +1,8 @@
 package com.tidal.wave.verification.expectations;
 
+import com.tidal.wave.command.Executor;
 import com.tidal.wave.exceptions.ExpectationFailure;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class Expectation {
@@ -231,7 +231,7 @@ public abstract class Expectation {
         return new MatchingTextExpectation(text);
     }
 
-    public abstract void assertion(boolean isVisible, boolean isMultiple, List<String> locators);
+    public abstract void assertion(Executor executor);
 
     public abstract void orElseFail();
 

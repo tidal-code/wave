@@ -16,7 +16,7 @@ public class ExpectationCollectionTest {
 
     @Before
     public void initialize() {
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
         Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
@@ -35,6 +35,11 @@ public class ExpectationCollectionTest {
     @Test
     public void findAllSizeTestShouldNotFail() {
         findAll(".test").expecting(size(3)).orElseFail();
+    }
+
+    @Test
+    public void findAllWaitForShouldGiveOnlyExpectations() {
+        findAll(".test").waitFor(3).expecting(size(3));
     }
 
     @Test(expected = ExpectationFailure.class)

@@ -1,12 +1,12 @@
 package com.tidal.wave.verification.conditions;
 
 
-
 public abstract class Condition implements Verification {
 
     /**
      * Checking the condition that the element should have a particular attribute with value specified.
-     * @param type type of attribute
+     *
+     * @param type  type of attribute
      * @param value value of the attribute
      * @return A self reference.
      */
@@ -16,6 +16,7 @@ public abstract class Condition implements Verification {
 
     /**
      * Checking the condition that the element should have a particular attribute.
+     *
      * @param attribute type of attribute
      * @return A self reference.
      */
@@ -37,6 +38,7 @@ public abstract class Condition implements Verification {
     /**
      * Condition to be satisfied that the element should have the text, ignoring case.<br>
      * Throws TestAssertionError if the condition is not satisfied.
+     *
      * @param value The string to be matched
      * @return A self reference.
      */

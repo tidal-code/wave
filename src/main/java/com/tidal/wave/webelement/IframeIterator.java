@@ -24,10 +24,10 @@ public class IframeIterator {
         return findElementsIframe(locator, visibility);
     }
 
-    private boolean findElementsIframe(By locator, boolean visibility) throws IterationStopper{
+    private boolean findElementsIframe(By locator, boolean visibility) throws IterationStopper {
         WebDriver driver = Driver.getDriver();
 
-        List<WebElement> iframes = driver.findElements(By.xpath("//iframe"));
+        List<WebElement> iframes = driver.findElements(By.xpath("//iframe | //frame"));
         for (WebElement iframe : iframes) {
             driver.switchTo().frame(iframe);
             List<WebElement> elements = driver.findElements(locator);
@@ -35,8 +35,7 @@ public class IframeIterator {
                 throw new IterationStopper("This exception is thrown to stop iteration after the element is found. " +
                         "Unless an exception is thrown, the iteration will continue the full cycle. " +
                         "So if this exception is thrown, it means the element is found");
-            }
-            else {
+            } else {
                 findElementsIframe(locator, visibility);
             }
         }
@@ -48,7 +47,7 @@ public class IframeIterator {
         if (visibility) {
             return findDisplayedElement(elements);
         } else {
-            if(!elements.isEmpty()) {
+            if (!elements.isEmpty()) {
                 contextElement = elements.get(0);
                 return true;
             }

@@ -53,7 +53,7 @@ public final class Zoom extends CommandAction implements Command<Void> {
     }
 
     public void zoomAction() {
-       function.apply(context);
+        function.apply(context);
     }
 
     public void zoom() {

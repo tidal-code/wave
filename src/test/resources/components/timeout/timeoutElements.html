@@ -19,6 +19,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -30,16 +31,20 @@
 </div>
 
 <div id="disappearingElm" style="display:block">
-    Name: <input id="textInput" type="text" value="QA"/><br>
+    Name: <input id="textInput" type="text" placeholder="This will disappear"/><br>
 </div>
 
 <div>
     <p style="color:red">An element will appear in six seconds</p>
     Name: <input id="textInput2" type="text" value="QA"/><br>
+    <div id="appearingElm">
+        <input class="test_button_class" id="buttonId" style="display:none" type="button" value="Invisible Button"/><br>
+    </div>
 </div>
 
-<div id="appearingElm">
-    <input class="test_button_class" id="buttonId" style="display:none" type="button" value="Invisible Button"/><br>
+
+<div id="removingElm">
+    <input class="test_button_class" id="buttonId2" type="button" value="Removing Button"/><br>
 </div>
 
 <script type="text/javascript">
@@ -48,10 +53,17 @@
         }
         window.setTimeout(closeDiv, 6000);
 
+        function removeDiv(){
+            document.getElementById("removingElm").remove();
+        }
+
+        window.setTimeout(removeDiv, 8000);
+
         function appearDiv(){
             document.getElementById("buttonId").style.display="block";
         }
         window.setTimeout(appearDiv, 6000);
+
 </script>
 </body>
 </html>

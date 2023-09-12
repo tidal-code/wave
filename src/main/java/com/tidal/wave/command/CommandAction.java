@@ -5,12 +5,10 @@ import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.MethodInvokerException;
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.wait.ThreadSleep;
-import org.openqa.selenium.By;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -19,7 +17,6 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public abstract class CommandAction {
 
-//    protected List<String> locators; //todo remove this after testing
     protected CommandContext context;
 
     protected abstract Map<Class<? extends Throwable>, Supplier<String>> ignoredEx();
@@ -63,7 +60,6 @@ public abstract class CommandAction {
         }
         return (T) value;
     }
-
 
 
 }

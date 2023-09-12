@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tidal-Wave Testing For Text Input</title>
+    <style>
+        <style>
+       .test_button_class {
+  background-color: #fc912d;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-family:arial, verdana, helvetica;
+  border-radius:8px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+<h2>Tidal-Wave Test Disappearing and Appearing Elements</h2>
+
+<div>
+    <p style="color:red">This text input will disappear in six seconds and retry will be stopped</p>
+</div>
+
+<div id="removingElm">
+    <label for="textInput">Name:</label><input id="textInput" type="text" placeholder="This will disappear"/><br>
+</div>
+
+<script type="text/javascript">
+
+        function removeDiv(){
+            document.getElementById("textInput").remove();
+        }
+
+        window.setTimeout(removeDiv, 6000);
+
+
+</script>
+</body>
+</html>

@@ -1,16 +1,20 @@
 package com.tidal.wave.waiter;
 
 import com.tidal.utils.counter.TimeCounter;
+import com.tidal.utils.propertieshandler.PropertiesFinder;
 import com.tidal.wave.browser.Browser;
+import com.tidal.wave.data.WaitTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.time.Duration;
+
 import static com.tidal.utils.data.GlobalData.getData;
 import static com.tidal.wave.browser.Browser.close;
 import static com.tidal.wave.data.WaitTime.DEFAULT_WAIT_TIME;
-import static com.tidal.wave.data.WaitTime.EXPLICIT_WAIT_TIME;
+import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
@@ -19,13 +23,16 @@ public class GlobalWaitTest {
 
     @Before
     public void testSetUp() {
-        System.setProperty("local.timeout", "20");
+        System.setProperty("local.timeout", "10");
 
-         ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
-        Browser.withOptions(options).open("http://www.google.com");
+        Browser
+                .withOptions(options)
+                .withWaitTime(Duration.ofSeconds(Integer.parseInt(PropertiesFinder.getProperty("local.timeout"))))
+                .open("http://www.google.com");
     }
 
     @After
@@ -59,9 +66,9 @@ public class GlobalWaitTest {
         } catch (RuntimeException e) {
             long timeElapsed = timeCounter.timeElapsed().getSeconds();
 
-            if (timeElapsed < 20) {
+            if (timeElapsed < 10) {
                 throw new RuntimeException(String.format("Explicit wait time is not working properly, " +
-                        "expected is %s seconds but got %d", getData(EXPLICIT_WAIT_TIME), timeElapsed));
+                        "expected is %s seconds but got %d", getWaitTime(WaitTime.EXPLICIT_WAIT_TIME), timeElapsed));
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.tidal.wave.exceptions;
 
 public class MethodInvokerException extends RuntimeException {
+    private static final long serialVersionUID = 567765423423L;
+
     public MethodInvokerException(String message) {
         super(message);
     }

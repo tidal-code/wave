@@ -41,7 +41,7 @@ public final class ScrollToView extends CommandAction implements Command<Void> {
 
         element = webElement.getElement(context);
 
-        if(!element.isDisplayed()){
+        if (!element.isDisplayed()) {
             throw new ElementNotInteractableException("Element is not in view, applying scroll-to-view again");
         }
         return Void.TYPE.cast(null);

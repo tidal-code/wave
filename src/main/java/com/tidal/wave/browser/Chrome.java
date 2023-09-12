@@ -1,6 +1,5 @@
 package com.tidal.wave.browser;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +14,7 @@ class Chrome {
     public WebDriver getDriver(ChromeOptions options) {
         logger.info("Test Starting with Chrome Browser");
 
-        if(options == null){
+        if (options == null) {
             return new ChromeDriver();
         }
         return new ChromeDriver(options);

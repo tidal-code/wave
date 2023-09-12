@@ -23,6 +23,8 @@ public final class GetSize extends CommandAction implements Command<Integer> {
     @Override
     public void contextSetter(CommandContext context) {
         this.context = context;
+        context.setVisibility(false);
+        context.setMultiple(true);
     }
 
     @Override

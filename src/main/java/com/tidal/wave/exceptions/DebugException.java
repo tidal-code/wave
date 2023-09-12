@@ -1,6 +1,8 @@
 package com.tidal.wave.exceptions;
 
 public class DebugException extends RuntimeException {
+    private static final long serialVersionUID = 98765334563L;
+
     public DebugException(String message) {
         super(message);
     }

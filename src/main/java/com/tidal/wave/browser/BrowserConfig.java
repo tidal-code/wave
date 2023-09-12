@@ -35,7 +35,7 @@ public final class BrowserConfig {
         return this;
     }
 
-    public BrowserConfig pageBackGroundActivity(Activity activity, boolean enable){
+    public BrowserConfig pageBackGroundActivity(Activity activity, boolean enable) {
         activityMap.put(activity, enable);
         return this;
     }
@@ -57,20 +57,20 @@ public final class BrowserConfig {
         }
     }
 
-    private void setOptionsAndCreateNewDriver(String url){
+    private void setOptionsAndCreateNewDriver(String url) {
         setExplicitWaitTime();
         storePageBackGroundControlOptions();
         driver.create(browserType, options).navigateTo(url);
     }
 
-    private void setExplicitWaitTime(){
-        if(explicitWait != null){
+    private void setExplicitWaitTime() {
+        if (explicitWait != null) {
             setWaitTime(WaitTime.DEFAULT_WAIT_TIME, String.valueOf(explicitWait.getSeconds()));
         }
     }
 
-    private void storePageBackGroundControlOptions(){
-        if(!activityMap.isEmpty()){
+    private void storePageBackGroundControlOptions() {
+        if (!activityMap.isEmpty()) {
             activityMap.forEach((k, v) -> addData(k.getActivityType(), String.valueOf(v)));
         }
     }

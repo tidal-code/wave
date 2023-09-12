@@ -37,7 +37,7 @@ public final class IsEnabled extends CommandAction implements Command<Boolean> {
     };
 
     @Override
-    public  Function<CommandContext, Boolean> getFunction() {
+    public Function<CommandContext, Boolean> getFunction() {
         return function;
     }
 

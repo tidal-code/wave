@@ -13,7 +13,7 @@ public enum BrowserTypes {
         this.browserName = browserName;
     }
 
-    public String getBrowserName(){
+    public String getBrowserName() {
         return browserName;
     }
 }

@@ -1,7 +1,8 @@
 package com.tidal.wave.verification.conditions;
 
-import java.util.List;
+import com.tidal.wave.command.Executor;
+
 
 public interface Verification {
-    void verify(boolean isVisible, boolean isMultiple, List<String> locators);
+    void verify(Executor executor);
 }

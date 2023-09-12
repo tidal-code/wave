@@ -3,20 +3,17 @@ package com.tidal.wave.verification.criteria;
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.IsVisible;
 import com.tidal.wave.data.WaitTime;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.FluentWait;
 
 import java.time.Duration;
-import java.util.List;
 
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 
 public class InvisibleCriteria extends Criteria {
-    private final Executor executor = (Executor) ObjectSupplier.instanceOf(Executor.class);
 
     @Override
-    public void verify(boolean isVisible, boolean isMultiple, List<String> locators) {
+    public void verify(Executor executor) {
         String duration = getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null
                 ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME)
                 : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME);
@@ -26,11 +23,7 @@ public class InvisibleCriteria extends Criteria {
         new FluentWait<>(executor)
                 .pollingEvery(Duration.ofMillis(500))
                 .forDuration(waitDuration)
-                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", locators.get(0)))
-                .until(e -> !(boolean) (e
-                        .withMultipleElements(false)
-                        .usingLocator(locators)
-                        .isVisible(isVisible)
-                        .invokeCommand(IsVisible.class, "isVisible")));
+                .withMessage(String.format("Element ' %s ' is visible or not disappeared as expected", executor.getContext().getLocators().get(executor.getContext().getLocators().size() - 1)))
+                .until(e -> !(boolean) (e.invokeCommand(IsVisible.class, "isVisible")));
     }
 }

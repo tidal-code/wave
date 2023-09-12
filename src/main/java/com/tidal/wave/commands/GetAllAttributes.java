@@ -26,7 +26,7 @@ public final class GetAllAttributes extends CommandAction implements Command<Map
 
     @Override
     public void contextSetter(CommandContext context) {
-       this.context = context;
+        this.context = context;
     }
 
     @Override

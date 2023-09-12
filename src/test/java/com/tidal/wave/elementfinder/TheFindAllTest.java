@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.tidal.wave.verification.conditions.Condition.exactText;
+import static com.tidal.wave.verification.conditions.Condition.matchingText;
 import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.size;
 import static com.tidal.wave.verification.criteria.Criteria.visible;
 import static com.tidal.wave.webelement.ElementFinder.find;
@@ -53,7 +54,7 @@ public class TheFindAllTest {
 
     @Test
     public void findAndFindAll() {
-        find("#testid1").thenFindAll("tagName:div").get(3).shouldBe(visible).click();
+        find("#testid1").thenFindAll("tagName:div").get(3).shouldBe(visible).shouldHave(matchingText("Automation"));
     }
 
     @Test
@@ -116,11 +117,11 @@ public class TheFindAllTest {
 
 
         int number2 = find("id:testid1").thenFind("id:testid2").thenFind("tagName:div").thenFindAll("tagName:p").size();
-        Assert.assertEquals(3, number);
+        Assert.assertEquals(3, number2);
 
         WebElement element2 = Driver.getDriver().findElement(By.id("testid1"));
         int number3 = element2.findElement(By.id("testid2")).findElement(By.tagName("div")).findElements(By.tagName("p")).size();
-        Assert.assertEquals(3, number2);
+        Assert.assertEquals(3, number3);
     }
 
     @Test
