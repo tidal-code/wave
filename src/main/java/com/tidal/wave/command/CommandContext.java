@@ -160,28 +160,32 @@ public class CommandContext {
         this.intervalTime = intervalTime;
     }
 
+    private final StringBuilder sb = new StringBuilder("CommandContext{");
+
     @Override
     public String toString() {
 
         int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
-        return "CommandContext{" +
-                "\n xyCordsArray: " + Arrays.toString(xyCordsArray) +
-                ", \n Finding Multiple Elements:" + isMultiple +
-                ", \n Looking for visible element:" + isVisible +
-                "  \n Wait duration: " + duration + " seconds" +
-                ", \n Text input:'" + textInput + '\'' +
-                ", \n Attribute Name:'" + attributeName + '\'' +
-                ", \n Select Index:" + selectIndex +
-                ", \n Tab Index:" + tabIndex +
-                ", \n Hover Wait Time:" + hoverWaitTime +
-                ", \n Zoom Level:" + zoomLevel +
-                ", \n Char Sequence Input:" + Arrays.toString(sequence) +
-                ", \n Locators:" + String.join(",", locators) +
-                ", \n Shadow DOM Check:" + shadowDomPresence +
-                ", \n Element Index:" + elementIndex +
-                ", \n Debug Mode:" + ((debugMode || Config.DEBUG) ? "true" : "false") +
-                '}';
+        sb.append("\n xyCordsArray: ").append(Arrays.toString(xyCordsArray))
+                .append(", \n Finding Multiple Elements:").append(isMultiple)
+                .append(", \n Finding Multiple Elements:").append(isMultiple)
+                .append(", \n Looking for visible element:").append(isVisible)
+                .append("  \n Wait duration: ").append(duration).append(" seconds")
+                .append(", \n Text input:'").append(textInput)
+                .append(", \n Attribute Name:'").append(attributeName)
+                .append(", \n Select Index:").append(selectIndex)
+                .append(", \n Tab Index:").append(tabIndex)
+                .append(", \n Hover Wait Time:").append(hoverWaitTime)
+                .append(", \n Zoom Level:").append(zoomLevel)
+                .append(", \n Char Sequence Input:").append(Arrays.toString(sequence))
+                .append(", \n Locators:").append(String.join(",", locators))
+                .append(", \n Shadow DOM Check:").append(shadowDomPresence)
+                .append(", \n Element Index:").append(elementIndex)
+                .append(", \n Debug Mode:").append((debugMode || Config.DEBUG) ? "true" : "false")
+                .append('}');
+
+        return sb.toString();
     }
 
 
