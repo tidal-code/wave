@@ -27,6 +27,7 @@ public class Config {
     };
 
     public static final String BROWSER_NAME = PROPERTY_FINDER.apply("browser.name") != null ? PROPERTY_FINDER.apply("browser.name") : "chrome";
+    public static final boolean DRIVER_MANAGER = PROPERTY_FINDER.apply("driver.manager") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("driver.manager"));
     public static final boolean INCOGNITO_MODE = PROPERTY_FINDER.apply("incognito.mode") != null && Boolean.parseBoolean(PROPERTY_FINDER.apply("incognito.mode"));
     public static final String BASE_URL = PROPERTY_FINDER.apply("base.url") != null ? PROPERTY_FINDER.apply("base.url") : "";
     public static final String EXECUTION_TYPE = PROPERTY_FINDER.apply("execution.type") != null ? PROPERTY_FINDER.apply("execution.type") : "local";

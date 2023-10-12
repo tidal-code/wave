@@ -29,7 +29,7 @@ public class BrowserWithOptions {
         }
 
         if (browserType.equalsIgnoreCase("edge")) {
-            return new EdgeBrowserOptions().getLocalOptions();
+            return new EdgeBrowserOptions().getRemoteOptions();
         }
 
         throw new RuntimeException("Other browsers are not configured in the project yet");
