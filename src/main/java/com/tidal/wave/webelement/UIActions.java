@@ -546,7 +546,7 @@ public class UIActions implements UIElement {
      */
     @Override
     public void dragAndDropByOffset(int xDirection, int yDirection) {
-        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDrop.class);
+        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDropByOffset.class);
     }
 
 
