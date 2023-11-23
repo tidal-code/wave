@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
+import static com.tidal.wave.verification.expectations.Expectation.toBePresent;
+import static com.tidal.wave.verification.expectations.Expectation.toBeVisible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class EcommerceAppTest {
@@ -23,7 +25,7 @@ public class EcommerceAppTest {
                 .withWaitTime(Duration.ofSeconds(10))
                 .open("https://magento.softwaretestingboard.com/");
 
-        find("//span[contains(@class, 'ui-menu-icon')]").waitFor(4).expecting(Expectation.toBePresent);
+        find("//span[contains(@class, 'ui-menu-icon')]").waitFor(4).expecting(toBePresent);
         find(String.format("//span[text()='%s']", "Men")).hover(1);
         find(String.format("//span[text()='%s']", "Men")).getAllAttributes();
         find(String.format("//span[text()='%s']", "Tops")).hover(1);
@@ -33,12 +35,12 @@ public class EcommerceAppTest {
         System.out.println(addToCart);
         find("Add to Cart").click();
 
-        find("//div[text()='You need to choose options for your item.']").expecting(Expectation.toBeVisible);
+        find("//div[text()='You need to choose options for your item.']").expecting(toBeVisible);
         find("XS").click();
         find("div with aria-label Orange").click();
         find("Add to Cart").click();
 
-        find("//span[text()='1']").expecting(Expectation.toBePresent);
+        find("//span[text()='1']").expecting(toBePresent);
         find("a contains class showcart").click();
         find("id:top-cart-btn-checkout").click();
 
