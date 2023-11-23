@@ -46,8 +46,7 @@ public final class ChromeBrowserOptions implements BrowserOptions {
         String downloadPath = System.getProperty("user.dir") + File.separator +
                 String.join(File.separator, TestData.readProperty(
                         "path.downloads").split(","));
-
-        System.out.println("Download path is " + downloadPath);
+        
         prefs.put("download.default_directory",
                 downloadPath);
 
