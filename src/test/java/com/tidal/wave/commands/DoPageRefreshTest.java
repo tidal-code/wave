@@ -39,7 +39,7 @@ public class DoPageRefreshTest {
         }
 
         try {
-            ElementFinder.find("id:test_button_idX").doPageRefresh(MaxTime._10_SECONDS, IntervalTime._4_SECONDS).click();
+            find("id:test_button_idX").doPageRefresh(MaxTime._10_SECONDS, IntervalTime._4_SECONDS).click();
         } catch (Exception e) {
             e.printStackTrace();
         }

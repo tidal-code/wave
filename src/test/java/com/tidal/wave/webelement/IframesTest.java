@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
+import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -33,77 +34,77 @@ public class IframesTest {
 
     @Test
     public void findingElementOutsideFrame() {
-        findAll("id:default_content_text_2").get(0).shouldHave(Condition.exactText("Text From Default Content 2"));
+        findAll("id:default_content_text_2").get(0).shouldHave(exactText("Text From Default Content 2"));
     }
 
     @Test
     public void findingOuterFrameElementTest() {
-        findAll("#fist_innerframe_text").get(0).shouldHave(Condition.exactText("Text from First Inner Frame"));
-        find("#fist_innerframe_text").shouldHave(Condition.exactText("Text from First Inner Frame"));
-        find("id:outerframetext").shouldHave(Condition.exactText("Text from OuterIframe"));
+        findAll("#fist_innerframe_text").get(0).shouldHave(exactText("Text from First Inner Frame"));
+        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("id:outerframetext").shouldHave(exactText("Text from OuterIframe"));
     }
 
 
     @Test
     public void canAutoSwitchToFrame() {
-        find("#fist_innerframe_text").waitFor(2).shouldHave(Condition.exactText("Text from First Inner Frame"));
+        find("#fist_innerframe_text").waitFor(2).shouldHave(exactText("Text from First Inner Frame"));
     }
 
     @Test
     public void testInnerParallelElement() {
-        find("id:inner_parallel").shouldHave(Condition.exactText("Inner Innerframe Parallel"));
+        find("id:inner_parallel").shouldHave(exactText("Inner Innerframe Parallel"));
     }
 
     @Test
     public void testNestedParallelInnerFrameElement() {
-        find("id:inner_parallel").shouldHave(Condition.exactText("Inner Innerframe Parallel"));
+        find("id:inner_parallel").shouldHave(exactText("Inner Innerframe Parallel"));
     }
 
     @Test
     public void testNestedParallelInnerFrameHiddenElement() {
         Assert.assertFalse("Element is displayed", find("id:inner_parallel_hidden").isDisplayed());
-        find("id:inner_parallel_hidden").invisibleElement().shouldHave(Condition.exactText("Inner Innerframe Parallel Hidden"));
+        find("id:inner_parallel_hidden").invisibleElement().shouldHave(exactText("Inner Innerframe Parallel Hidden"));
     }
 
     @Test
     public void sixthParallelInnerFrameTest() {
-        find("id:sixth_parallel_inner_frame_text_2").shouldHave(Condition.exactText("Sixth Parallel Inner Frame Text 2"));
+        find("id:sixth_parallel_inner_frame_text_2").shouldHave(exactText("Sixth Parallel Inner Frame Text 2"));
     }
 
 
     @Test
     public void findSixthIframeElement() {
-        find("id:sixth_inner_frame_text_2").shouldHave(Condition.exactText("Sixth Inner Frame Text 2"));
-        find("id:sixth_inner_frame_text_2").shouldHave(Condition.exactText("Sixth Inner Frame Text 2"));
-        find("#default_content_text").shouldHave(Condition.exactText("Text From Default Content"));
+        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
+        find("id:sixth_inner_frame_text_2").shouldHave(exactText("Sixth Inner Frame Text 2"));
+        find("#default_content_text").shouldHave(exactText("Text From Default Content"));
     }
 
     @Test
     public void findSeventhIframeElement() {
-        find("id:seventh_inner_frame_text_2").shouldHave(Condition.exactText("Seventh Inner Frame Text 2"));
-        find("id:seventh_inner_frame_text_2").shouldHave(Condition.exactText("Seventh Inner Frame Text 2"));
+        find("id:seventh_inner_frame_text_2").shouldHave(exactText("Seventh Inner Frame Text 2"));
+        find("id:seventh_inner_frame_text_2").shouldHave(exactText("Seventh Inner Frame Text 2"));
 
     }
 
     @Test
     public void canSwitchBackToDefault() {
-        find("#fist_innerframe_text").shouldHave(Condition.exactText("Text from First Inner Frame"));
-        find("#default_content_text").shouldHave(Condition.exactText("Text From Default Content"));
+        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("#default_content_text").shouldHave(exactText("Text From Default Content"));
     }
 
     @Test
     public void canSwitchBackToInnerAfterDefault() {
-        find("#fist_innerframe_text").shouldHave(Condition.exactText("Text from First Inner Frame"));
-        find("#default_content_text").shouldHave(Condition.exactText("Text From Default Content"));
-        find("#second_inner_frame_text").shouldHave(Condition.exactText("Second Inner Frame"));
+        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("#default_content_text").shouldHave(exactText("Text From Default Content"));
+        find("#second_inner_frame_text").shouldHave(exactText("Second Inner Frame"));
     }
 
     @Test
     public void secondInnerFrameSecondElementTest() {
-        find("#second_inner_frame_text").shouldHave(Condition.exactText("Second Inner Frame"));
-        find("#second_inner_frame_text_2").shouldHave(Condition.exactText("Second Inner Frame Text 2"));
-        find("#fist_innerframe_text").shouldHave(Condition.exactText("Text from First Inner Frame"));
-        find("#default_content_text").shouldHave(Condition.exactText("Text From Default Content"));
+        find("#second_inner_frame_text").shouldHave(exactText("Second Inner Frame"));
+        find("#second_inner_frame_text_2").shouldHave(exactText("Second Inner Frame Text 2"));
+        find("#fist_innerframe_text").shouldHave(exactText("Text from First Inner Frame"));
+        find("#default_content_text").shouldHave(exactText("Text From Default Content"));
     }
 
     @Test

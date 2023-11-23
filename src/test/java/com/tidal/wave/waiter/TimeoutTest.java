@@ -16,6 +16,7 @@ import static com.tidal.wave.browser.Browser.close;
 import static com.tidal.wave.browser.Browser.open;
 import static com.tidal.wave.data.WaitTime.DEFAULT_WAIT_TIME;
 import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.size;
+import static com.tidal.wave.verification.expectations.Expectation.toBeNotPresent;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -83,7 +84,7 @@ public class TimeoutTest {
     public void collectionExpectationsSize0TimeOut() {
         open("https://google.co.nz");
         TimeCounter timeCounter = new TimeCounter();
-        find("//inputXXX").expecting(Expectation.toBeNotPresent).orElseFail();
+        find("//inputXXX").expecting(toBeNotPresent).orElseFail();
 
         long timeElapsed = timeCounter.timeElapsed().getSeconds();
 

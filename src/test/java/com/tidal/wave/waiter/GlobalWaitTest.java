@@ -16,6 +16,7 @@ import static com.tidal.utils.data.GlobalData.getData;
 import static com.tidal.wave.browser.Browser.close;
 import static com.tidal.wave.data.WaitTime.DEFAULT_WAIT_TIME;
 import static com.tidal.wave.data.WaitTimeData.getWaitTime;
+import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -100,7 +101,7 @@ public class GlobalWaitTest {
         TimeCounter timeCounter = new TimeCounter();
 
         try {
-            find("name:q").waitFor(10).shouldHave(Condition.exactText("Cucumber"));
+            find("name:q").waitFor(10).shouldHave(exactText("Cucumber"));
         } catch (RuntimeException e) {
             long timeElapsed = timeCounter.timeElapsed().getSeconds();
 
