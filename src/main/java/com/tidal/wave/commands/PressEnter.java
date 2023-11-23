@@ -1,13 +1,13 @@
 package com.tidal.wave.commands;
 
 import com.tidal.utils.counter.TimeCounter;
+import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.browser.Driver;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
 import com.tidal.wave.exceptions.CommandExceptions;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.ActivityWaiter;
 import com.tidal.wave.wait.Wait;
 import com.tidal.wave.webelement.Element;

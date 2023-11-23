@@ -20,7 +20,7 @@ public class Windows {
     public static void openNewWindow(String url) {
         WebDriver driver = Driver.getDriver();
         driver.switchTo().newWindow(WindowType.WINDOW);
-        switchToTab(last);
+        Tabs.switchToTab(last);
         driver.navigate().to(url);
     }
 

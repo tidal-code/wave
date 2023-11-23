@@ -1,8 +1,8 @@
 package com.tidal.wave.verification.conditions.collections;
 
 import com.tidal.wave.command.Executor;
-import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.wait.FluentWait;
+import com.tidal.wave.commands.GetSize;
 
 import java.time.Duration;
 

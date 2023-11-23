@@ -4,6 +4,7 @@ import com.tidal.utils.exceptions.PropertyHandlerException;
 import com.tidal.utils.exceptions.RuntimeTestException;
 import com.tidal.utils.propertieshandler.PropertiesFinder;
 import okhttp3.*;
+import okhttp3.Request;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -27,6 +28,7 @@ public class FluentRequest {
     private HashMap<String, Object> DATA_MAP;
     private Map<String, Object> HEADER_MAP;
     private Headers REQUEST_HEADERS;
+    private HttpUrl.Builder builder;
 
     private final UnaryOperator<String> readTimeOut = s -> {
         try {
@@ -120,6 +122,11 @@ public class FluentRequest {
         return this;
     }
 
+    public FluentRequest setQueryParams2(String key, Object value) {
+        builder.addQueryParameter((String) DATA_MAP.get(QUERY_PARAM_ONE_KEY), (String) DATA_MAP.get("queryParamOneValue"));
+        return this;
+    }
+
     public FluentRequest setPayload(String payload) {
         DATA_MAP.put(PAYLOAD, payload);
         return this;
@@ -182,8 +189,7 @@ public class FluentRequest {
         applyHeaders();
 
         if (HTTP_REQUEST == null) {
-            okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
-                    .url(queryBuilder().build());
+            Request.Builder requestBuilder = new Request.Builder().url(queryBuilder().build());
 
             switch (reqType) {
                 case GET:

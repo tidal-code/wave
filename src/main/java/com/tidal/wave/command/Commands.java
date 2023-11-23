@@ -178,6 +178,21 @@ public class Commands {
         }
     }
 
+    public enum DataCommands {
+        TABLE_DATA_ACTION("tableDataAction");
+
+        private final String command;
+
+        DataCommands(String command){
+            this.command = command;
+        }
+
+        @Override
+        public String toString(){
+            return command;
+        }
+    }
+
 }
 
 

@@ -1,13 +1,14 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.data.DataEnum;
-import com.tidal.wave.actions.Interactions;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
+import com.tidal.wave.data.tabular.Table;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.verification.expectations.Expectation;
+import com.tidal.wave.actions.Interactions;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
@@ -75,23 +76,23 @@ public interface UIElement {
 
     UIElement moveToElement();
 
-    void doubleClick();
+    UIElement doubleClick();
 
-    void rightClick();
+    UIElement rightClick();
 
-    void contextClick();
+    UIElement contextClick();
 
-    void actionClick();
+    UIElement actionClick();
 
-    void forceClick();
+    UIElement forceClick();
 
     UIElement pressTab();
 
     UIElement pressTab(int times);
 
-    void pressEnter();
+    UIElement pressEnter();
 
-    void clickByJS();
+    UIElement clickByJS();
 
     UIElement hover(int secondsToHover);
 
@@ -101,11 +102,13 @@ public interface UIElement {
 
     UIElement moveByOffset(int xDirection, int yDirection);
 
-    void dragAndDrop();
+    UIElement dragAndDrop();
 
     UIElement doPageRefresh(MaxTime maxTime, IntervalTime intervalTime);
 
-    void dragAndDropByOffset(int xDirection, int yDirection);
+    UIElement dragAndDropByOffset(int xDirection, int yDirection);
+
+    UIElement inFrame(String locatorMatcher);
 
     UIElement thenFind(String locator);
 
@@ -139,14 +142,16 @@ public interface UIElement {
 
     void addData(String key, String value);
 
-    void uploadFile(String fileName);
+    UIElement uploadFile(String fileName);
 
-    void uploadFileWRC(String fileName);
+    UIElement uploadFileWRC(String fileName);
 
-    void uploadFileByDragAndDrop(String fileName);
+    UIElement uploadFileByDragAndDrop(String fileName);
 
     UIElement pause(int seconds);
 
+    @Deprecated(since = "Not ready for use")
+    Table tableData();
 
     void performActions(Interactions interactions);
 }

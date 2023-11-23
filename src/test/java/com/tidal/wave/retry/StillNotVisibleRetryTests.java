@@ -1,12 +1,14 @@
 package com.tidal.wave.retry;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.retry.RetryCondition.notVisible;
 import static com.tidal.wave.verification.criteria.Criteria.visible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
@@ -28,7 +30,7 @@ public class StillNotVisibleRetryTests {
 
     @Test
     public void retryTestIfVisible() {
-        find("#textInput2").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(RetryCondition.notVisible("#buttonId"), 3);
+        find("#textInput2").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(notVisible("#buttonId"), 3);
         find("#buttonId").shouldBe(visible);
     }
 

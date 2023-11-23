@@ -1,8 +1,11 @@
 package com.tidal.wave.elementfinder;
 
 import com.tidal.utils.filehandlers.Finder;
-import com.tidal.wave.browser.Browser;
 import com.tidal.wave.browser.Driver;
+import com.tidal.wave.verification.conditions.Condition;
+import com.tidal.wave.verification.conditions.collections.CollectionsCondition;
+import com.tidal.wave.verification.criteria.Criteria;
+import com.tidal.wave.browser.Browser;
 import com.tidal.wave.webelement.UIElement;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,6 +14,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.time.Duration;
 
 import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.verification.conditions.Condition.matchingText;
@@ -27,7 +32,10 @@ public class TheFindAllTest {
         options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
 
-        Browser.withOptions(options).open("file://" + Finder.findFilePath("components/elements/elements.html"));
+        Browser
+                .withOptions(options)
+                .withWaitTime(Duration.ofSeconds(10))
+                .open("file://" + Finder.findFilePath("components/elements/elements.html"));
     }
 
     @After

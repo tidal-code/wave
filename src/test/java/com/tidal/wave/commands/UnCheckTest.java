@@ -28,9 +28,23 @@ public class UnCheckTest {
         Browser.close();
     }
 
+    /*
+    Testing an unchecked checkbox.
+    The uncheck function should not check it again.
+     */
     @Test
     public void checkboxUncheckTest() {
         boolean result = find("id:test_checkbox_id").unCheck().isSelected();
         Assert.assertFalse("Radio button is not unchecked", result);
+    }
+
+    /*
+    Testing an unchecked checkbox.
+    The uncheck function should check it now.
+     */
+    @Test
+    public void checkboxAlreadyCheckedUncheckTest() {
+        boolean result = find("id:checked_checkbox").unCheck().isSelected();
+        Assert.assertFalse("Radio button is not checked", result);
     }
 }

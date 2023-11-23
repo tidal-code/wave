@@ -5,10 +5,11 @@ import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
-import com.tidal.wave.components.Table;
+import com.tidal.wave.data.tabular.Table;
 import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
+import org.openqa.selenium.WebElement;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -31,8 +32,9 @@ public class TableData extends CommandAction implements Command<Table> {
     }
 
     Function<CommandContext, Table> function = e -> {
-        return new Table();
-//        webElement.getElements(context).size();
+        WebElement element = webElement.getElement(context);
+        String table = element.getAttribute("innerHTML");
+        return new Table("<table>" + table + "</table>");
     };
 
     @Override
@@ -45,12 +47,12 @@ public class TableData extends CommandAction implements Command<Table> {
         return CommandExceptions.TypeOf.stale();
     }
 
-    public int getSizeAction() {
-        return webElement.getElements(context).size();
+    public Table tableDataAction() {
+        return function.apply(context);
     }
 
-    public int getSize() {
+    public Table tableData() {
         timeCounter.restart();
-        return super.execute(Commands.GetCommands.GET_SIZE.toString(), ignoredExceptions, timeCounter);
+        return super.execute(Commands.DataCommands.TABLE_DATA_ACTION.toString(), ignoredExceptions, timeCounter);
     }
 }

@@ -1,6 +1,7 @@
 package com.tidal.wave.expectations;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.verification.expectations.Expectation;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;

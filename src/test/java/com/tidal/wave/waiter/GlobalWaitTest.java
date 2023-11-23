@@ -2,6 +2,7 @@ package com.tidal.wave.waiter;
 
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.propertieshandler.PropertiesFinder;
+import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.data.WaitTime;
 import org.junit.After;
@@ -18,6 +19,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 import static com.tidal.wave.verification.conditions.Condition.exactText;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
+
 
 public class GlobalWaitTest {
 

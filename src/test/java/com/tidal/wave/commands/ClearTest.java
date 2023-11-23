@@ -1,6 +1,7 @@
 package com.tidal.wave.commands;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Assert;
@@ -31,8 +32,8 @@ public class ClearTest {
     @Test
     public void textInputText() {
         String textInputLocator = "id:myText1";
-        find(textInputLocator).setText("ProvaTest");
-        Assert.assertEquals("ProvaTest", find(textInputLocator).getText());
+        find(textInputLocator).setText("TidalTest");
+        Assert.assertEquals("TidalTest", find(textInputLocator).getText());
 
         find(textInputLocator).clear();
         Assert.assertEquals("", find(textInputLocator).getText());
@@ -40,14 +41,14 @@ public class ClearTest {
 
     @Test
     public void testLocatorStringBuilderContains() {
-        find("input.contains.data-id.dataid123").setText("ProvaTest");
-        find("input.contains.data-id.dataid123").shouldHave(exactText("ProvaTest"));
+        find("input.contains.data-id.dataid123").setText("TidalTest");
+        find("input.contains.data-id.dataid123").shouldHave(exactText("TidalTest"));
     }
 
     @Test
     public void testLocatorStringBuilderWith() {
-        find("input.with.id.myText1").setText("ProvaTest");
-        find("input.with.id.myText1").shouldHave(exactText("ProvaTest"));
+        find("input.with.id.myText1").setText("TidalTest");
+        find("input.with.id.myText1").shouldHave(exactText("TidalTest"));
     }
 
 }

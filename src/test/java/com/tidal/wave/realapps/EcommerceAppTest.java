@@ -1,5 +1,6 @@
 package com.tidal.wave.realapps;
 
+import com.tidal.wave.verification.expectations.Expectation;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class EcommerceAppTest {
     @Test
     public void completePurchaseProcess() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
+        options.addArguments("--headless=new");
         options.addArguments("window-size=1920,1080");
 
         Browser

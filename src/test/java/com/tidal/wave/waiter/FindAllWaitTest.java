@@ -2,8 +2,8 @@ package com.tidal.wave.waiter;
 
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.filehandlers.Finder;
-import com.tidal.wave.browser.Browser;
 import com.tidal.wave.verification.expectations.collections.Expectations;
+import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

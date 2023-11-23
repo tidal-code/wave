@@ -2,6 +2,7 @@ package com.tidal.wave.command;
 
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.data.WaitTimeData;
 import com.tidal.wave.exceptions.MethodInvokerException;
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.wait.ThreadSleep;
@@ -12,8 +13,6 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-
-import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public abstract class CommandAction {
 
@@ -27,7 +26,7 @@ public abstract class CommandAction {
 
     @SuppressWarnings("unchecked")
     protected final <T> T execute(String action, Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions, TimeCounter timeCounter) {
-        final int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+        final int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
         Object value = null;
         Class<?> klass = this.getClass();

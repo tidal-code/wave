@@ -2,8 +2,8 @@ package com.tidal.wave.verification.conditions;
 
 import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindTextData;
-import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.exceptions.TestAssertionError;
+import com.tidal.wave.data.WaitTime;
 import com.tidal.wave.wait.FluentWait;
 import org.openqa.selenium.StaleElementReferenceException;
 

@@ -9,9 +9,11 @@ import com.tidal.wave.commands.*;
 import com.tidal.wave.data.CommandStore;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
+import com.tidal.wave.data.tabular.Table;
 import com.tidal.wave.retry.Retry;
 import com.tidal.wave.retry.RetryCondition;
 import com.tidal.wave.supplier.ObjectSupplier;
+import com.tidal.wave.tabsandwindows.Frames;
 import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.verification.conditions.TestVerification;
 import com.tidal.wave.verification.criteria.Criteria;
@@ -30,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
+
+import static com.tidal.wave.tabsandwindows.Frames.switchToFrame;
 
 
 @SuppressWarnings("unchecked")
@@ -321,7 +325,6 @@ public class UIActions implements UIElement {
 
     @Override
     public UIActions inShadowDom() {
-        addData("SE", "true");
         executor.debugMode(debugMode).presenceOfShadowDom();
         return this;
     }
@@ -386,40 +389,45 @@ public class UIActions implements UIElement {
      * Simulates a double click by the user. Since double click normally takes the user to a different screen, the method is final
      */
     @Override
-    public void doubleClick() {
+    public UIElement doubleClick() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(DoubleClick.class);
+        return this;
     }
 
     /**
      * Simulates a right click or context click by the user. Since right click normally takes the user to a different screen the method is final
      */
     @Override
-    public void rightClick() {
+    public UIElement rightClick() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(RightClick.class);
+        return this;
     }
 
     /**
      * Simulates a right click or context click by the user. Since right click normally takes the user to a different screen the method is final
      */
     @Override
-    public void contextClick() {
+    public UIElement contextClick() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(RightClick.class);
+        return this;
     }
 
     /**
      * Similar to click by selenium actions. This action is final.
      */
     @Override
-    public void actionClick() {
+    public UIElement actionClick() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ClickByAction.class);
+        return this;
     }
 
     /**
      * Simulates a force click on an element by clicking and holding for a short time.
      */
     @Override
-    public void forceClick() {
+    public UIElement forceClick() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ForceClick.class);
+        return this;
     }
 
     /**
@@ -451,16 +459,18 @@ public class UIActions implements UIElement {
      * Similar to pressing enter key. The method is final
      */
     @Override
-    public void pressEnter() {
+    public UIElement pressEnter() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(PressEnter.class);
+        return this;
     }
 
     /**
      * Clicks on the element using Javascript. This is not a reliable method to click but can be useful when other clicks fails.
      */
     @Override
-    public void clickByJS() {
+    public UIElement clickByJS() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(ClickByJS.class);
+        return this;
     }
 
     /**
@@ -519,8 +529,9 @@ public class UIActions implements UIElement {
      * Example: find(locator).thenFind(locator2).dragAndDrop();
      */
     @Override
-    public void dragAndDrop() {
+    public UIElement dragAndDrop() {
         executor.debugMode(debugMode).usingLocator(locators).invokeCommand(DragAndDrop.class);
+        return this;
     }
 
     /**
@@ -545,8 +556,23 @@ public class UIActions implements UIElement {
      * @param yDirection The vertical offset to which the source element to be movied
      */
     @Override
-    public void dragAndDropByOffset(int xDirection, int yDirection) {
-        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDropByOffset.class);
+    public UIElement dragAndDropByOffset(int xDirection, int yDirection) {
+        executor.debugMode(debugMode).usingLocator(locators).withXYCords(xDirection, yDirection).invokeCommand(DragAndDrop.class);
+        return this;
+    }
+
+    /**
+     * Though the framework automatically switches to the iframe where element belongs, sometimes there would be identical
+     * elements in multiple frames and you might need to choose which element to be interacted with. This method can be used to switch to the iframe manually. If there are nested frames, there is no need to switch to
+     * them individually. The framework will switch to the right iframe if it can be uniquely identified using its properties.
+     *
+     * @param locatorMatcher The locator to be used to identify the iframe
+     * @return A self reference
+     */
+    @Override
+    public UIActions inFrame(String locatorMatcher) {
+        Frames.switchToFrame(locatorMatcher);
+        return this;
     }
 
 
@@ -755,8 +781,9 @@ public class UIActions implements UIElement {
      *
      * @param fileName of the file to be found
      */
-    public void uploadFile(@NotNull String fileName) {
+    public UIElement uploadFile(@NotNull String fileName) {
         executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUpload.class);
+        return this;
     }
 
 
@@ -767,8 +794,9 @@ public class UIActions implements UIElement {
      *
      * @param fileName of the file to be found - An absolute, relative path or file name can be provided.
      */
-    public void uploadFileWRC(@NotNull String fileName) {
+    public UIElement uploadFileWRC(@NotNull String fileName) {
         executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUploadWRC.class);
+        return this;
     }
 
     /**
@@ -780,8 +808,9 @@ public class UIActions implements UIElement {
      *
      * @param fileName of the file to be found - An absolute, relative path or file name can be provided.
      */
-    public void uploadFileByDragAndDrop(@NotNull String fileName) {
+    public UIElement uploadFileByDragAndDrop(@NotNull String fileName) {
         executor.debugMode(debugMode).usingLocator(locators).withText(fileName).invokeCommand(FileUploadByDragAndDrop.class);
+        return this;
     }
 
 
@@ -801,6 +830,15 @@ public class UIActions implements UIElement {
     public UIActions pause(int seconds) {
         ThreadSleep.forSeconds(seconds);
         return this;
+    }
+
+    /**
+     * This method will return the parsed tabular data
+     * @return instance of Table Object
+     */
+    @Override
+    public Table tableData() {
+        return executor.debugMode(debugMode).usingLocator(locators).invokeCommand(TableData.class);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.tidal.wave.command;
 
 import com.tidal.wave.config.Config;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.data.WaitTimeData;
 import com.tidal.wave.exceptions.MethodInvokerException;
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.stackbuilder.ErrorStack;
@@ -13,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.function.Function;
-
-import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public interface Command<T> {
 
@@ -64,7 +63,7 @@ public interface Command<T> {
     }
 
     default <Y> Y executeAction(Function<CommandContext, Y> function) {
-        final int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+        final int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
         try {
             return function.apply(getCommandContext());
         } catch (Exception e) {

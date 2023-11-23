@@ -1,6 +1,7 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.verification.conditions.Condition;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Assert;

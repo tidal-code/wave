@@ -1,8 +1,9 @@
 package com.tidal.wave.shadowdom;
 
 import com.tidal.utils.filehandlers.Finder;
-import com.tidal.wave.browser.Browser;
+import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.wait.ThreadSleep;
+import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

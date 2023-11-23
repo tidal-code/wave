@@ -4,6 +4,7 @@ import com.tidal.wave.command.Executor;
 import com.tidal.wave.commands.FindAllTextData;
 import com.tidal.wave.commands.GetSize;
 import com.tidal.wave.commands.IsPresent;
+import com.tidal.wave.tabsandwindows.Frames;
 import com.tidal.wave.verification.conditions.collections.CollectionsCondition;
 import com.tidal.wave.verification.expectations.CollectionsSoftAssertion;
 import com.tidal.wave.verification.expectations.collections.Expectations;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.tidal.wave.tabsandwindows.Frames.switchToFrame;
 import static com.tidal.wave.verification.conditions.TestVerification.verification;
 
 
@@ -96,16 +98,13 @@ public class UIElements extends AbstractCollection<UIElement> {
     }
 
     /**
-     * The waitFor method would explicitly wait for the specified time for the first action to complete.
-     * It will be active till the chain of actions completes with the find() method. The wait time will be defaulted to the
-     * value set by setOption(int waitTime) method after that. Therefore, there is no need to reset the wait.
-     *
-     * @param waitTime in seconds till the element is found or action is completed
+     * The waitFor method is applicable only for the expected conditions.
      * @return A self reference
      */
-    public $ waitFor(int waitTime) {
+    public UIElements waitFor(int waitTime) {
         Wait.setExplicitWait(waitTime);
-        return new $();
+        expecting(Expectations.sizeGreaterThan(0));
+        return this;
     }
 
     @Override
@@ -147,6 +146,19 @@ public class UIElements extends AbstractCollection<UIElement> {
     }
 
     /**
+     * Though the framework automatically switches to the iframe where element belongs, sometimes it won't work as expected as there would be identical
+     * elements in multiple frames. This method can be used to switch to the iframe manually. If there are nested frames, there is no need to switch to
+     * them individually. The framework will switch to the right iframe if it can be uniquely identified using its properties.
+     *
+     * @param locatorMatcher The locator to be used to identify the iframe
+     * @return A self reference
+     */
+    public UIElements inFrame(String locatorMatcher) {
+        Frames.switchToFrame(locatorMatcher);
+        return this;
+    }
+
+    /**
      * Method to check if the element is present in the DOM
      *
      * @return true or false depending on whether the element is displayed or not
@@ -184,7 +196,7 @@ public class UIElements extends AbstractCollection<UIElement> {
      * @return Instance of the Expected condition
      */
     public Expectations expecting(Expectations expectations) {
-        return new $().expecting(expectations);
+        return CollectionsSoftAssertion.softAssert(true, uiActions.getLocators(), expectations);
     }
 
     @Override
@@ -210,12 +222,6 @@ public class UIElements extends AbstractCollection<UIElement> {
             throw new UnsupportedOperationException();
         }
 
-    }
-
-    public class $ {
-        public Expectations expecting(Expectations expectations) {
-            return CollectionsSoftAssertion.softAssert(true, uiActions.getLocators(), expectations);
-        }
     }
 
 }

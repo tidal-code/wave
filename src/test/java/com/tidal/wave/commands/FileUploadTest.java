@@ -1,6 +1,7 @@
 package com.tidal.wave.commands;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.page.Page;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,8 +12,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.io.File;
 
 import static com.tidal.wave.browser.Browser.close;
-import static com.tidal.wave.page.Page.dismissAlert;
-import static com.tidal.wave.page.Page.getAlertText;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class FileUploadTest {
@@ -34,8 +33,8 @@ public class FileUploadTest {
     public void fileUploadDragAndDropTest() {
         String fileName = "TestCSVFile.csv";
         find("id:dropzone").uploadFileByDragAndDrop(fileName);
-        String alertText = getAlertText();
+        String alertText = Page.getAlertText();
         Assert.assertTrue("File upload failed, Alert do not contain the file name " + fileName + " alert text " + alertText, alertText.contains(fileName));
-        dismissAlert();
+        Page.dismissAlert();
     }
 }

@@ -1,14 +1,13 @@
 package com.tidal.wave.verifications;
 
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.verification.conditions.Condition;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.tidal.wave.browser.Browser.open;
+import static com.tidal.wave.verification.conditions.Condition.*;
 import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.*;
 import static com.tidal.wave.verification.criteria.Criteria.visible;
 import static com.tidal.wave.webelement.ElementFinder.find;
@@ -41,7 +40,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber")
-                .shouldHave(Condition.exactText("Cucumber"));
+                .shouldHave(exactText("Cucumber"));
     }
 
     @Test
@@ -55,7 +54,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber")
-                .shouldHave(Condition.matchingText("Cucumber"));
+                .shouldHave(matchingText("Cucumber"));
 
     }
 
@@ -70,7 +69,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber")
-                .shouldHave(Condition.ignoreCaseExactText("CUCUMBER"));
+                .shouldHave(ignoreCaseExactText("CUCUMBER"));
     }
 
     @Test(expected = AssertionError.class)
@@ -84,7 +83,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber").waitFor(10)
-                .shouldHave(Condition.exactText("CucumberX"));
+                .shouldHave(exactText("CucumberX"));
 
     }
 
@@ -99,7 +98,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber")
-                .shouldHave(Condition.matchingText("Selenium"));
+                .shouldHave(matchingText("Selenium"));
     }
 
     @Test(expected = AssertionError.class)
@@ -113,14 +112,7 @@ public class ConditionsTest {
                 .sendKeys("Junit")
                 .clear()
                 .sendKeys("Cucumber")
-                .shouldHave(Condition.ignoreCaseExactText("CCUMBER"));
-    }
-
-    @Test
-    @Ignore("This value is never a constant")
-    public void collectionSizeEqualsTest() {
-        open("https://google.co.nz");
-        findAll("//input").shouldHave(size(13));
+                .shouldHave(ignoreCaseExactText("CCUMBER"));
     }
 
     @Test

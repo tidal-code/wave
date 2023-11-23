@@ -2,6 +2,7 @@ package com.tidal.wave.browser;
 
 import com.tidal.wave.data.DataCleaner;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.data.WaitTimeData;
 import com.tidal.wave.wait.Activity;
 import org.openqa.selenium.remote.AbstractDriverOptions;
 
@@ -9,7 +10,6 @@ import java.time.Duration;
 import java.util.HashMap;
 
 import static com.tidal.utils.data.GlobalData.addData;
-import static com.tidal.wave.data.WaitTimeData.setWaitTime;
 
 public final class BrowserConfig {
 
@@ -65,7 +65,7 @@ public final class BrowserConfig {
 
     private void setExplicitWaitTime() {
         if (explicitWait != null) {
-            setWaitTime(WaitTime.DEFAULT_WAIT_TIME, String.valueOf(explicitWait.getSeconds()));
+            WaitTimeData.setWaitTime(WaitTime.DEFAULT_WAIT_TIME, String.valueOf(explicitWait.getSeconds()));
         }
     }
 

@@ -1,11 +1,13 @@
 package com.tidal.wave.actions;
 
 import com.tidal.wave.browser.Driver;
+import com.tidal.wave.locator.LocatorMatcher;
+import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
-import static com.tidal.wave.locator.LocatorMatcher.getMatchedLocator;
 import static com.tidal.wave.webelement.Element.element;
+
 
 public class Interactions {
 
@@ -26,12 +28,12 @@ public class Interactions {
     }
 
     public Interactions click(String locator) {
-        actions.click(element(getMatchedLocator(locator)));
+        actions.click(Element.element(LocatorMatcher.getMatchedLocator(locator)));
         return this;
     }
 
     public Interactions sendKeys(String locator, CharSequence... keys) {
-        actions.sendKeys(element(getMatchedLocator("locator")), keys);
+        actions.sendKeys(Element.element(LocatorMatcher.getMatchedLocator("locator")), keys);
         return this;
     }
 

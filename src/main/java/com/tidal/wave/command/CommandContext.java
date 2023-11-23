@@ -4,12 +4,11 @@ import com.tidal.wave.config.Config;
 import com.tidal.wave.data.IntervalTime;
 import com.tidal.wave.data.MaxTime;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.data.WaitTimeData;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 
 public class CommandContext {
 
@@ -165,7 +164,7 @@ public class CommandContext {
     @Override
     public String toString() {
 
-        int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+        int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
         sb.append("\n xyCordsArray: ").append(Arrays.toString(xyCordsArray))
                 .append(", \n Finding Multiple Elements:").append(isMultiple)

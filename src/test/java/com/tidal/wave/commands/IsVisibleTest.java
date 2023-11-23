@@ -1,8 +1,9 @@
 package com.tidal.wave.commands;
 
 import com.tidal.utils.filehandlers.Finder;
-import com.tidal.wave.browser.Browser;
 import com.tidal.wave.exceptions.ExpectationFailure;
+import com.tidal.wave.verification.expectations.Expectation;
+import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

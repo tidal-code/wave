@@ -1,9 +1,10 @@
 package com.tidal.wave.elementfinder;
 
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.verification.expectations.collections.Expectations;
+import com.tidal.wave.webelement.UIElements;
 import com.tidal.wave.browser.Browser;
 import com.tidal.wave.webelement.UIElement;
-import com.tidal.wave.webelement.UIElements;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

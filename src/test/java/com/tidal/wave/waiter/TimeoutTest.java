@@ -2,6 +2,7 @@ package com.tidal.wave.waiter;
 
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.propertieshandler.PropertiesFinder;
+import com.tidal.wave.verification.expectations.Expectation;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;

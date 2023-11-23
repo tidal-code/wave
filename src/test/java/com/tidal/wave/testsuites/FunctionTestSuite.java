@@ -5,8 +5,6 @@ import com.tidal.wave.browser.OpenTest;
 import com.tidal.wave.commands.*;
 import com.tidal.wave.config.ConfigPropertiesTest;
 import com.tidal.wave.config.PropertiesFinderTest;
-import com.tidal.wave.elementfinder.FindAllIterationTest;
-import com.tidal.wave.elementfinder.TheFindAllTest;
 import com.tidal.wave.elementfinder.ThenFindAndThenFindAllTests;
 import com.tidal.wave.expectations.*;
 import com.tidal.wave.retry.StillNotPresentRetryTests;
@@ -16,6 +14,8 @@ import com.tidal.wave.retry.StillVisibleRetryTests;
 import com.tidal.wave.waiter.*;
 import com.tidal.wave.webelement.ElementFinderTest;
 import com.tidal.wave.webelement.IframesTest;
+import com.tidal.wave.elementfinder.FindAllIterationTest;
+import com.tidal.wave.elementfinder.TheFindAllTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

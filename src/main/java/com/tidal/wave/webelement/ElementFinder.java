@@ -1,12 +1,11 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.wave.browser.Driver;
+import com.tidal.wave.wait.Wait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.locators.RelativeLocator;
 
 import java.util.Objects;
-
-import static com.tidal.wave.wait.Wait.setDefaultWait;
 
 public class ElementFinder<T> {
 
@@ -35,7 +34,7 @@ public class ElementFinder<T> {
      */
     public static WebElement find(RelativeLocator.RelativeBy relativeBy) {
         Objects.requireNonNull(relativeBy, "Locator needs to be set to find an element");
-        setDefaultWait();
+        Wait.setDefaultWait();
         return Driver.getDriver().findElement(relativeBy);
     }
 

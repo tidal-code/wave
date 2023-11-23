@@ -2,14 +2,14 @@ package com.tidal.wave.commands;
 
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.utils.filehandlers.Finder;
+import com.tidal.wave.exceptions.NoSuchFileException;
+import com.tidal.wave.javascript.Scripts;
+import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
 import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.command.Commands;
 import com.tidal.wave.exceptions.CommandExceptions;
-import com.tidal.wave.exceptions.NoSuchFileException;
-import com.tidal.wave.javascript.Scripts;
-import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.webelement.Element;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

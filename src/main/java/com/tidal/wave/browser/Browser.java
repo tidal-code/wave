@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.function.Supplier;
 
 public final class Browser {
+
     private static final Supplier<BrowserConfig> browserConfig = Browser::getBrowserConfig;
 
     private static BrowserConfig getBrowserConfig() {

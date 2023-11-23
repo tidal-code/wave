@@ -1,5 +1,6 @@
 package com.tidal.wave.webelement;
 
+import com.tidal.utils.data.GlobalData;
 import com.tidal.utils.loggers.LoggerUtil;
 import com.tidal.wave.browser.Driver;
 import com.tidal.wave.data.WaitTime;
@@ -174,7 +175,7 @@ public class FindWebElement extends IframeIterator {
     }
 
     protected boolean getBGCheck() {
-        if (getData(Activity.ALL_ACTIVITIES_CHECK.getActivityType()) == null) {
+        if (GlobalData.getData(Activity.ALL_ACTIVITIES_CHECK.getActivityType()) == null) {
             return true;
         }
         return Boolean.parseBoolean(getData(Activity.ALL_ACTIVITIES_CHECK.getActivityType()));

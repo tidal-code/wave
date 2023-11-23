@@ -1,23 +1,19 @@
 package com.tidal.wave.webelement;
 
 import com.tidal.utils.counter.TimeCounter;
-import com.tidal.wave.command.CommandContext;
 import com.tidal.wave.data.WaitTime;
+import com.tidal.wave.data.WaitTimeData;
 import com.tidal.wave.exceptions.ContextException;
+import com.tidal.wave.locator.LocatorMatcher;
 import com.tidal.wave.wait.ThreadSleep;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+import com.tidal.wave.command.CommandContext;
+import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.tidal.wave.data.WaitTimeData.getWaitTime;
-import static com.tidal.wave.locator.LocatorMatcher.getMatchedLocator;
 
 
 public class Element {
@@ -37,7 +33,7 @@ public class Element {
 
     public WebElement getElement(CommandContext context) {
 
-        final int duration = Integer.parseInt(getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
+        final int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
         if (timeCounter == null) {
             timeCounter = new TimeCounter();
@@ -48,7 +44,7 @@ public class Element {
             element = getWebElement(context);
 
             if (!timeCounter.timeElapsed(Duration.ofSeconds(duration))) {
-                if (movementDetected(element)) {
+                if (movementDetected(element) || resizeDetected(element)) {
                     logger.info("Element not stable, movement detected, retrying to find the element");
                     element = getElement(context);
                 }
@@ -57,7 +53,7 @@ public class Element {
             timeCounter = null;
         } catch (WebDriverException e) {
             logger.error(e.getMessage());
-            ThreadSleep.forMilliS(500);
+            ThreadSleep.forMilliS(100);
             if (timeCounter.timeElapsed(Duration.ofSeconds(duration))) {
                 throw e;
             }
@@ -78,6 +74,15 @@ public class Element {
         return xCordDiff != 0 || yCordDiff != 0;
     }
 
+    private boolean resizeDetected(WebElement element){
+        Rectangle stateOne = element.getRect();
+        ThreadSleep.forMilliS(100);
+        Rectangle stateTwo = element.getRect();
+
+        //Negative condition is being used to detect movement
+        return !stateOne.equals(stateTwo);
+    }
+
     private WebElement getWebElement(CommandContext context) {
         List<String> locators = context.getLocators();
         boolean visibility = context.getVisibility();
@@ -87,9 +92,9 @@ public class Element {
         if (locators.size() > 1) {
             element = getWebElementFromSet(context);
         } else if (isMultiple) {
-            element = new FindWebElement().webElements(getMatchedLocator(locators.get(0)), context.getElementIndex(), visibility);
+            element = new FindWebElement().webElements(LocatorMatcher.getMatchedLocator(locators.get(0)), context.getElementIndex(), visibility);
         } else if (locators.size() == 1) {
-            element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
+            element = new FindWebElement().webElement(LocatorMatcher.getMatchedLocator(locators.get(0)), visibility);
         } else {
             throw new ContextException("Locator(s) not set. Set locator context with appropriate function");
         }
@@ -110,15 +115,15 @@ public class Element {
         boolean visibility = context.getVisibility();
         boolean isMultiple = context.isMultiple();
 
-        WebElement element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
+        WebElement element = new FindWebElement().webElement(LocatorMatcher.getMatchedLocator(locators.get(0)), visibility);
 
         for (int i = 1; i < locators.size() - 1; i++) {
-            element = element.findElement(getMatchedLocator(locators.get(i)));
+            element = element.findElement(LocatorMatcher.getMatchedLocator(locators.get(i)));
         }
         if (isMultiple) {
-            element = element.findElements(getMatchedLocator(locators.get(locators.size() - 1))).get(context.getElementIndex());
+            element = element.findElements(LocatorMatcher.getMatchedLocator(locators.get(locators.size() - 1))).get(context.getElementIndex());
         } else {
-            element = element.findElement(getMatchedLocator(locators.get(locators.size() - 1)));
+            element = element.findElement(LocatorMatcher.getMatchedLocator(locators.get(locators.size() - 1)));
         }
         return element;
     }
@@ -129,7 +134,7 @@ public class Element {
         List<String> locatorSet = context.getLocators();
         boolean visibility = context.getVisibility();
 
-        int duration = Integer.parseInt(getWaitTime(WaitTime.DEFAULT_WAIT_TIME));
+        int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME));
 
         if (timeCounter == null) {
             timeCounter = new TimeCounter();
@@ -140,14 +145,14 @@ public class Element {
         try {
             if (locatorSet.size() > 1) {
                 List<String> locators = new ArrayList<>(locatorSet);
-                element = new FindWebElement().webElement(getMatchedLocator(locators.get(0)), visibility);
+                element = new FindWebElement().webElement(LocatorMatcher.getMatchedLocator(locators.get(0)), visibility);
 
                 for (int i = 1; i < locators.size() - 1; i++) {
-                    element = element.findElement(getMatchedLocator(locators.get(i)));
+                    element = element.findElement(LocatorMatcher.getMatchedLocator(locators.get(i)));
                 }
-                elements = element.findElements(getMatchedLocator(locators.get(locators.size() - 1)));
+                elements = element.findElements(LocatorMatcher.getMatchedLocator(locators.get(locators.size() - 1)));
             } else {
-                elements = new FindWebElement().webElements(getMatchedLocator(locatorSet.get(0)), visibility);
+                elements = new FindWebElement().webElements(LocatorMatcher.getMatchedLocator(locatorSet.get(0)), visibility);
             }
         } catch (WebDriverException e) {
             logger.error(e.getMessage());

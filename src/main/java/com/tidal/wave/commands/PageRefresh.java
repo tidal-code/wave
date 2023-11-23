@@ -3,15 +3,17 @@ package com.tidal.wave.commands;
 import com.tidal.utils.counter.TimeCounter;
 import com.tidal.wave.command.Command;
 import com.tidal.wave.command.CommandAction;
-import com.tidal.wave.command.CommandContext;
-import com.tidal.wave.command.Commands;
-import com.tidal.wave.exceptions.CommandExceptions;
 import com.tidal.wave.exceptions.RuntimeTestException;
 import com.tidal.wave.page.Page;
 import com.tidal.wave.supplier.ObjectSupplier;
 import com.tidal.wave.wait.ThreadSleep;
 import com.tidal.wave.webelement.Element;
+import com.tidal.wave.command.CommandContext;
+import com.tidal.wave.command.Commands;
+import com.tidal.wave.exceptions.CommandExceptions;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public final class PageRefresh extends CommandAction implements Command<Boolean> {
+
+    private static final Logger logger = LoggerFactory.getLogger(PageRefresh.class);
     private final Supplier<Map<Class<? extends Throwable>, Supplier<String>>> ignoredExceptions = this::ignoredEx;
     private final Element webElement = (Element) ObjectSupplier.instanceOf(Element.class);
     private final TimeCounter timeCounter = new TimeCounter();
@@ -54,6 +58,9 @@ public final class PageRefresh extends CommandAction implements Command<Boolean>
             ThreadSleep.forSeconds(intervalTime);
             elements = webElement.getElements(context);
         }
+
+        logger.info("Page Refresh Action found " + elements.size() + " elements with locator " + context.getLocators().get(0));
+
         pageRefreshTimeCounter.restart();
         return true;
     };

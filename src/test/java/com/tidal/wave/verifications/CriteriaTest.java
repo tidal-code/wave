@@ -1,7 +1,7 @@
 package com.tidal.wave.verifications;
 
-import com.tidal.wave.browser.Browser;
 import com.tidal.wave.exceptions.TimeoutException;
+import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
