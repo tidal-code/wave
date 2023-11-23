@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.Expectation.toBeVisible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -31,12 +32,12 @@ public class ExpectationTest {
 
     @Test(expected = ExpectationFailure.class)
     public void testSoftAssertionInvisibleElement() {
-        find("#invisibleElement").expecting(Expectation.toBeVisible).orElseFail();
+        find("#invisibleElement").expecting(toBeVisible).orElseFail();
     }
 
     @Test
     public void softAssertWillNotFailWithout_OrElseFail() {
-        find("#invisibleElement").expecting(Expectation.toBeVisible);
+        find("#invisibleElement").expecting(toBeVisible);
     }
 
     @Test

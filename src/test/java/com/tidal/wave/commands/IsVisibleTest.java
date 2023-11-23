@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.Expectation.toBeInteractable;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -36,7 +37,7 @@ public class IsVisibleTest {
 
     @Test(expected = ExpectationFailure.class)
     public void interactionExpectationShouldFail() {
-        find("title:hidden").invisibleElement().expecting(Expectation.toBeInteractable).orElseFail();
+        find("title:hidden").invisibleElement().expecting(toBeInteractable).orElseFail();
     }
 
     @Test(expected = AssertionError.class)

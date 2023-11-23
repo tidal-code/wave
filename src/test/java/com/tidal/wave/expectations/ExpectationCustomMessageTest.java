@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.Expectation.*;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 
@@ -31,7 +32,7 @@ public class ExpectationCustomMessageTest {
     @Test
     public void testSoftAssertionInvisibleElement() {
         try {
-            find("#invisibleElement").expecting(Expectation.toBeVisible).orElseFail("The element expected to be visible, but failed to fulfill the condition");
+            find("#invisibleElement").expecting(toBeVisible).orElseFail("The element expected to be visible, but failed to fulfill the condition");
         } catch (ExpectationFailure e) {
             Assert.assertEquals(e.getMessage(), "The element expected to be visible, but failed to fulfill the condition");
         }
@@ -40,7 +41,7 @@ public class ExpectationCustomMessageTest {
     @Test
     public void testSoftAssertionElementToBePresent() {
         try {
-            find("#invisibleElement").expecting(Expectation.toBePresent).orElseFail("The element expected to be present, but failed to fulfill the condition");
+            find("#invisibleElement").expecting(toBePresent).orElseFail("The element expected to be present, but failed to fulfill the condition");
         } catch (ExpectationFailure e) {
             Assert.assertEquals(e.getMessage(), "The element expected to be present, but failed to fulfill the condition");
         }
@@ -49,7 +50,7 @@ public class ExpectationCustomMessageTest {
     @Test
     public void testElementToBeInteractable() {
         try {
-            find("#invisibleElement").invisibleElement().expecting(Expectation.toBeInteractable).orElseFail("The element expected to be interactable, but failed to fulfill the condition");
+            find("#invisibleElement").invisibleElement().expecting(toBeInteractable).orElseFail("The element expected to be interactable, but failed to fulfill the condition");
         } catch (ExpectationFailure e) {
             Assert.assertEquals(e.getMessage(), "The element expected to be interactable, but failed to fulfill the condition");
         }

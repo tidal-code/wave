@@ -3,15 +3,15 @@ package com.tidal.wave.elementfinder;
 import com.tidal.utils.filehandlers.Finder;
 import com.tidal.wave.exceptions.TimeoutException;
 import com.tidal.wave.verification.conditions.Condition;
-import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.browser.Browser;
-import com.tidal.wave.verification.conditions.collections.CollectionsCondition;
 import org.junit.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.*;
+import static com.tidal.wave.verification.criteria.Criteria.*;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class ThenFindAndThenFindAllTests {
@@ -50,12 +50,12 @@ public class ThenFindAndThenFindAllTests {
 
     @Test
     public void findThenFindThenFindTestWithShouldBeVisible() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").shouldBe(Criteria.visible);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").shouldBe(visible);
     }
 
     @Test(expected = TimeoutException.class)
     public void findThenFindThenFindTestWithShouldBeNotVisible() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").shouldBe(Criteria.notVisible);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").shouldBe(notVisible);
     }
 
 
@@ -96,37 +96,37 @@ public class ThenFindAndThenFindAllTests {
 
     @Test
     public void findThenFindAllShouldHaveSize() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(CollectionsCondition.size(3));
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(size(3));
     }
 
     @Test
     public void findThenFindAllShouldHaveSizeGreater() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(CollectionsCondition.sizeGreaterThan(2));
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(sizeGreaterThan(2));
     }
 
     @Test
     public void findThenFindAllShouldHaveSizeLessThan() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(CollectionsCondition.sizeLessThan(4));
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").shouldHave(sizeLessThan(4));
     }
 
     @Test
     public void findThenFindAllShoulBeVisible() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(Criteria.visible);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(visible);
     }
 
     @Test(expected = TimeoutException.class)
     public void findThenFindAllShoulBeNotVisibleThrows() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(Criteria.notVisible);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(notVisible);
     }
 
     @Test
     public void findThenFindAllShoulBeEnabled() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(Criteria.enabled);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(enabled);
     }
 
     @Test(expected = TimeoutException.class)
     public void findThenFindAllShoulBeEnabledThrows() {
-        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(Criteria.notEnabled);
+        find("#testid1").thenFind("id:testid2").thenFind("id:testid3").thenFindAll("tagName:p").get(1).shouldBe(notEnabled);
     }
 
     @Test

@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.Expectation.toBeInvisible;
+import static com.tidal.wave.verification.expectations.Expectation.toBeVisible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class ExpectationTestForStaticTest {
@@ -27,7 +29,7 @@ public class ExpectationTestForStaticTest {
 
     @Test
     public void testVisibleExpectation() {
-        find("#visibleElement").expecting(Expectation.toBeVisible).orElseFail();
-        find("#invisibleElement").expecting(Expectation.toBeInvisible).orElseFail();
+        find("#visibleElement").expecting(toBeVisible).orElseFail();
+        find("#invisibleElement").expecting(toBeInvisible).orElseFail();
     }
 }

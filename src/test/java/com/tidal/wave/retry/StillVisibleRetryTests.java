@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.retry.RetryCondition.stillVisible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 
@@ -28,7 +29,7 @@ public class StillVisibleRetryTests {
 
     @Test
     public void retryTestIfVisible() {
-        find("#textInput").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(RetryCondition.stillVisible, 3);
+        find("#textInput").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(stillVisible, 3);
         find("#textInput").shouldBe(Criteria.notVisible);
     }
 

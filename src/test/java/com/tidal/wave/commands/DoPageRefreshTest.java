@@ -33,7 +33,7 @@ public class DoPageRefreshTest {
     @Test
     public void testDoPageRefresh() {
         try {
-            ElementFinder.find("id:test_button_idX").doPageRefresh(MaxTime._10_SECONDS, IntervalTime._4_SECONDS).click();
+            find("id:test_button_idX").doPageRefresh(MaxTime._10_SECONDS, IntervalTime._4_SECONDS).click();
         } catch (Exception e) {
             Assert.assertTrue(e.getMessage().contains("Element 'id:test_button_idX' not found within the maximum time of 10 seconds"));
         }

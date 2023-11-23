@@ -17,6 +17,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
+import static com.tidal.wave.verification.conditions.Condition.exactText;
+import static com.tidal.wave.verification.conditions.Condition.matchingText;
+import static com.tidal.wave.verification.conditions.collections.CollectionsCondition.size;
+import static com.tidal.wave.verification.criteria.Criteria.visible;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
@@ -42,12 +46,12 @@ public class TheFindAllTest {
 
     @Test
     public void findAllTest() {
-        findAll("tagName:div").get(3).shouldHave(Condition.exactText("QA"));
+        findAll("tagName:div").get(3).shouldHave(exactText("QA"));
     }
 
     @Test
     public void findAllShouldBeVisible() {
-        findAll("tagName:div").get(3).shouldBe(Criteria.visible);
+        findAll("tagName:div").get(3).shouldBe(visible);
     }
 
     @Test
@@ -58,12 +62,12 @@ public class TheFindAllTest {
 
     @Test
     public void findAndFindAll() {
-        find("#testid1").thenFindAll("tagName:div").get(3).shouldBe(Criteria.visible).shouldHave(Condition.matchingText("Automation"));
+        find("#testid1").thenFindAll("tagName:div").get(3).shouldBe(visible).shouldHave(matchingText("Automation"));
     }
 
     @Test
     public void findAllShouldBeVisibleToClick() {
-        findAll("tagName:div").get(3).shouldBe(Criteria.visible).click();
+        findAll("tagName:div").get(3).shouldBe(visible).click();
     }
 
     @Test
@@ -130,7 +134,7 @@ public class TheFindAllTest {
 
     @Test
     public void testGetSize() {
-        findAll("xxxxxxx").shouldHave(CollectionsCondition.size(0));
+        findAll("xxxxxxx").shouldHave(size(0));
     }
 
 

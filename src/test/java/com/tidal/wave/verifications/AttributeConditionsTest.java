@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.conditions.Condition.attribute;
+import static com.tidal.wave.verification.conditions.Condition.attributeAndValue;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 
@@ -30,31 +32,31 @@ public class AttributeConditionsTest {
 
     @Test
     public void testAttributeName() {
-        find("id:h2_title").shouldHave(Condition.attributeAndValue("name", "title"));
+        find("id:h2_title").shouldHave(attributeAndValue("name", "title"));
     }
 
     @Test(expected = TestAssertionError.class)
     public void testAttributeNameFail() {
-        find("id:h2_title").shouldHave(Condition.attributeAndValue("name", "x_y_z"));
+        find("id:h2_title").shouldHave(attributeAndValue("name", "x_y_z"));
     }
 
     @Test
     public void testAttributeWithoutValue() {
-        find("id:checked_checkbox").shouldHave(Condition.attribute("checked"));
+        find("id:checked_checkbox").shouldHave(attribute("checked"));
     }
 
     @Test
     public void testAttributeWithoutValueForDataModelTarget() {
-        find("id:checked_checkbox").shouldHave(Condition.attribute("data-modal-target"));
+        find("id:checked_checkbox").shouldHave(attribute("data-modal-target"));
     }
 
     @Test(expected = TestAssertionError.class)
     public void testAttributeWithoutValueFail() {
-        find("id:test_checkbox_id").shouldHave(Condition.attribute("checked"));
+        find("id:test_checkbox_id").shouldHave(attribute("checked"));
     }
 
     @Test(expected = TestAssertionError.class)
     public void testAttributeWithoutValueForDataModelTargetFail() {
-        find("id:test_checkbox_id").shouldHave(Condition.attribute("data-modal-target"));
+        find("id:test_checkbox_id").shouldHave(attribute("data-modal-target"));
     }
 }

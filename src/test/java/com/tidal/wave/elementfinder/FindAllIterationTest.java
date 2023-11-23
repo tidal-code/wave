@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.collections.Expectations.sizeGreaterThan;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
 public class FindAllIterationTest {
@@ -29,7 +30,7 @@ public class FindAllIterationTest {
 
     @Test
     public void thenFindAllIteratorTest() {
-        findAll("//table//tr").expecting(Expectations.sizeGreaterThan(0));
+        findAll("//table//tr").expecting(sizeGreaterThan(0));
         UIElements rows = findAll("//table//tr");
         rows.first();
         rows.last();

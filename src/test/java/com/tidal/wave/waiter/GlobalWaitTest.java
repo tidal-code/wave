@@ -19,6 +19,7 @@ import static com.tidal.wave.data.WaitTimeData.getWaitTime;
 import static com.tidal.wave.webelement.ElementFinder.find;
 import static com.tidal.wave.webelement.ElementFinder.findAll;
 
+
 public class GlobalWaitTest {
 
     @Before

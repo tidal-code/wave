@@ -1,13 +1,13 @@
 package com.tidal.wave.verifications;
 
 import com.tidal.wave.exceptions.TimeoutException;
-import com.tidal.wave.verification.criteria.Criteria;
 import com.tidal.wave.browser.Browser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.criteria.Criteria.*;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 
@@ -29,27 +29,27 @@ public class CriteriaTest {
 
     @Test
     public void shouldHaveVisibleComponent() {
-        find("name:q").shouldBe(Criteria.visible);
+        find("name:q").shouldBe(visible);
     }
 
     @Test(expected = TimeoutException.class)
     public void elementPresentConditionTest() {
-        find("id:gbwXXX").shouldBe(Criteria.present);
+        find("id:gbwXXX").shouldBe(present);
     }
 
     @Test
     public void elementNotPresentConditionTest() {
-        find("id:gbwXXX").waitFor(10).shouldBe(Criteria.notPresent);
+        find("id:gbwXXX").waitFor(10).shouldBe(notPresent);
     }
 
     @Test
     public void elementEnabledTest() {
-        find("name:btnK").shouldBe(Criteria.enabled);
+        find("name:btnK").shouldBe(enabled);
     }
 
     @Test(expected = TimeoutException.class)
     public void elementNotEnabledTest() {
-        find("name:btnK").shouldBe(Criteria.notEnabled);
+        find("name:btnK").shouldBe(notEnabled);
     }
 
 }

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.expectations.Expectation.*;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class ExpectationTestParallelTwoTest {
@@ -28,68 +29,68 @@ public class ExpectationTestParallelTwoTest {
 
     @Test(expected = ExpectationFailure.class)
     public void testSoftAssertionInvisibleElement() {
-        find("#invisibleElement").expecting(Expectation.toBeVisible).orElseFail();
+        find("#invisibleElement").expecting(toBeVisible).orElseFail();
     }
 
     @Test
     public void softAssertWillNotFailWithout_OrElseFail() {
-        find("#invisibleElement").expecting(Expectation.toBeVisible);
+        find("#invisibleElement").expecting(toBeVisible);
     }
 
 
     @Test
     public void testSoftAssertionElementToBePresent() {
-        find("#invisibleElement").expecting(Expectation.toBePresent).orElseFail();
+        find("#invisibleElement").expecting(toBePresent).orElseFail();
     }
 
     @Test
     public void testSATextNotEmpty() {
-        find("#headerid").expecting(Expectation.textNotEmpty);
+        find("#headerid").expecting(textNotEmpty);
     }
 
     @Test(expected = ExpectationFailure.class)
     public void testElementToBeInvisibleOrFail() {
-        find("name:test_button").expecting(Expectation.toBeInvisible).orElseFail();
+        find("name:test_button").expecting(toBeInvisible).orElseFail();
     }
 
     @Test
     public void testSATextEqualTo() {
-        find("#headerid").expecting(Expectation.exactText("Header"));
+        find("#headerid").expecting(exactText("Header"));
     }
 
     @Test
     public void testSATextMatching() {
-        find("#headerid").expecting(Expectation.exactText("Head"));
+        find("#headerid").expecting(exactText("Head"));
     }
 
     @Test(expected = ExpectationFailure.class)
     public void testElementToBeClickableSA() {
-        find("name:test_button").expecting(Expectation.toBeClickable).orElseFail();
+        find("name:test_button").expecting(toBeClickable).orElseFail();
     }
 
     @Test
     public void testElementToBeInvisible() {
-        find("#invisibleElement").expecting(Expectation.toBeInvisible).orElseFail();
+        find("#invisibleElement").expecting(toBeInvisible).orElseFail();
     }
 
     @Test(expected = ExpectationFailure.class)
     public void testElementToBeInteractable() {
-        find("#invisibleElement").invisibleElement().expecting(Expectation.toBeInteractable).orElseFail();
+        find("#invisibleElement").invisibleElement().expecting(toBeInteractable).orElseFail();
     }
 
     @Test
     public void testElementToBeStale() {
-        find("#test_button_id").expecting(Expectation.toBeStale).orElseFail();
+        find("#test_button_id").expecting(toBeStale).orElseFail();
     }
 
     @Test
     public void softAssertForElementToBePresent() {
-        find("#invisibleElementXX").expecting(Expectation.toBePresent);
+        find("#invisibleElementXX").expecting(toBePresent);
     }
 
     @Test
     public void stateChangeTest() {
-        find("#test_button_id").expecting(Expectation.aChangeOfState);
+        find("#test_button_id").expecting(aChangeOfState);
     }
 
 }
