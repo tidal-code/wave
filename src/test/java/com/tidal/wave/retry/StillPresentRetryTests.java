@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.tidal.wave.retry.RetryCondition.stillPresent;
+import static com.tidal.wave.verification.criteria.Criteria.notPresent;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 
@@ -30,7 +31,7 @@ public class StillPresentRetryTests {
     @Test
     public void retryTestIfVisible() {
         find("#textInput").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(stillPresent, 3);
-        find("#textInput").shouldBe(Criteria.notPresent);
+        find("#textInput").shouldBe(notPresent);
     }
 
 }

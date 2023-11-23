@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static com.tidal.wave.verification.criteria.Criteria.present;
 import static com.tidal.wave.webelement.ElementFinder.find;
 
 public class ShadowDomTest {
@@ -28,8 +29,8 @@ public class ShadowDomTest {
     @Test
     public void testShadowDom() {
         ThreadSleep.forSeconds(2);
-        find("id:non_host").shouldBe(Criteria.present);
+        find("id:non_host").shouldBe(present);
         find("id:nested_shadow_content")
-                .inShadowDom().shouldBe(Criteria.present);
+                .inShadowDom().shouldBe(present);
     }
 }
