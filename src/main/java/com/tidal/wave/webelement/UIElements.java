@@ -213,7 +213,6 @@ public class UIElements extends AbstractCollection<UIElement> {
         }
 
         public UIElement next() {
-            System.out.println("returning index : " + currentIndex);
             return dimensions.get(currentIndex++);
         }
 
