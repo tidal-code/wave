@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import static com.tidal.wave.webelement.Element.element;
 
 /**
- * Provide options to simulate Selenium Action class methods
+ * Provide options to simulate Selenium Action class methods.
  */
 public class Interactions {
 
