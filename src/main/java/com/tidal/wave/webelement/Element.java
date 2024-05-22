@@ -19,7 +19,6 @@ import java.util.List;
 public class Element {
 
     private static final Logger logger = LoggerFactory.getLogger(Element.class);
-
     private TimeCounter timeCounter;
 
     public static WebElement element(By byLocator) {
@@ -105,7 +104,7 @@ public class Element {
      * This method returns a single element depending on conditions.
      * The conditions are designed to mimic Selenium's driver.findElement("locator").findElement("locator").... functionality.
      * The very first element is found first. If the list contains information about more than one locator, it is an indication
-     * that there needs to be a chain elements to be found.
+     * that there needs to be a chain of elements to be found.
      *
      * @return WebElement
      */

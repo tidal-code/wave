@@ -37,7 +37,7 @@ public class CommandContextTest {
 
         CommandContext context = executor.getContext();
 
-        Soft.verify("Command Context X Coordinate", context.getXYCords()[0]).isEqualTo(100);
+        Soft.verify("Command Context X Coordinate", context.getXYCords()[0]).isEqualTo(1009);
         Soft.verify("Command Context Y Coordinate", context.getXYCords()[1]).isEqualTo(200);
         Soft.verify("Command Context WITH TEXT", context.getTextInput()).isEqualTo("with text");
         Soft.verify("Command Context multiple elements true", context.isMultiple()).isEqualTo(true);

@@ -24,7 +24,6 @@ public class CommandContext {
     private CharSequence[] sequence;
     private List<String> locators = new LinkedList<>();
     private boolean shadowDomPresence;
-
     private int elementIndex;
     private boolean debugMode;
     private MaxTime maxTime;
@@ -167,7 +166,6 @@ public class CommandContext {
         int duration = Integer.parseInt(WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME) == null ? WaitTimeData.getWaitTime(WaitTime.DEFAULT_WAIT_TIME) : WaitTimeData.getWaitTime(WaitTime.EXPLICIT_WAIT_TIME));
 
         sb.append("\n xyCordsArray: ").append(Arrays.toString(xyCordsArray))
-                .append(", \n Finding Multiple Elements:").append(isMultiple)
                 .append(", \n Finding Multiple Elements:").append(isMultiple)
                 .append(", \n Looking for visible element:").append(isVisible)
                 .append("  \n Wait duration: ").append(duration).append(" seconds")

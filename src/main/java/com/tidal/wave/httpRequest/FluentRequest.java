@@ -22,7 +22,7 @@ public class FluentRequest {
     private final String QUERY_PARAM_ONE_KEY = "queryParamOneKey";
     private final String QUERY_PARAM_TWO_KEY = "queryParamTwoKey";
 
-    private OkHttpClient CLIENT;
+    private final OkHttpClient CLIENT;
     private Response RESPONSE;
     private okhttp3.Request HTTP_REQUEST;
     private HashMap<String, Object> DATA_MAP;
