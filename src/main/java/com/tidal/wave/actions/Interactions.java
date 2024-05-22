@@ -8,7 +8,10 @@ import org.openqa.selenium.interactions.Actions;
 
 import static com.tidal.wave.webelement.Element.element;
 
-
+/**
+ * Provide options to simulate Selenium Action class methods.
+ * The generic methods in the base find() method is not sufficient to simulate these actions.
+ */
 public class Interactions {
 
     private Actions actions;
