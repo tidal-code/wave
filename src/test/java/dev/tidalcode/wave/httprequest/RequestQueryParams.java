@@ -1,6 +1,6 @@
 package dev.tidalcode.wave.httprequest;
 
-import com.tidal.flow.assertions.Assert;
+import dev.tidalcode.flow.assertions.Assert;
 import com.tidal.utils.filehandlers.FileReader;
 import com.tidal.utils.json.JsonReader;
 import dev.tidalcode.wave.httpRequest.ReqType;
@@ -8,7 +8,7 @@ import dev.tidalcode.wave.httpRequest.Request;
 import org.junit.After;
 import org.junit.Test;
 
-import static com.tidal.flow.assertions.Assert.verify;
+import static dev.tidalcode.flow.assertions.Assert.verify;
 
 public class RequestQueryParams {
 

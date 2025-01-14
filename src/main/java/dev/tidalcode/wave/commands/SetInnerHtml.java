@@ -38,7 +38,7 @@ public final class SetInnerHtml extends CommandAction implements Command<Void> {
     }
 
     Function<CommandContext, Void> function = e -> {
-        Function<WebElement, String> expectedValue = w -> w.getAttribute("innerHTML");
+        Function<WebElement, String> expectedValue = w -> w.getDomAttribute("innerHTML");
 
         WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("arguments[0].innerHTML='%s';", inputText), element);

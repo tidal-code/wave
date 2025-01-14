@@ -42,7 +42,7 @@ public class Executor implements ExecutorCommands {
         try {
             classInstance = inputClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            logger.error(String.format("Exception thrown with class initiation for %s", className));
+            logger.error("Exception thrown with class initiation for {}", className);
             logger.error(e.getMessage());
         }
         return classInstance;

@@ -35,7 +35,7 @@ public final class ClearAndType extends CommandAction implements Command<Void> {
     }
 
     Function<CommandContext, Void> function = e -> {
-        Function<WebElement, String> expectedValue = w -> w.getAttribute("value");
+        Function<WebElement, String> expectedValue = w -> w.getDomAttribute("value");
 
         WebElement element = webElement.getElement(context);
         int currentCharsCount = expectedValue.apply(element).length();
