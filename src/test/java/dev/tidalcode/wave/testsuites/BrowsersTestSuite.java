@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        //Browsers
+//        //Browsers
 //        BrowserTypesStringsTest.class,
 //        BrowserTypesTest.class,
 //        LocalFileOpenTest.class,

@@ -1,7 +1,5 @@
 package dev.tidalcode.wave.browser;
 
-import dev.tidalcode.wave.config.Config;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -14,11 +12,6 @@ class Firefox {
 
     public WebDriver getDriver(FirefoxOptions options) {
         logger.info("Test Starting with Firefox Browser");
-
-        if(Config.DRIVER_MANAGER){
-            logger.info("Browser (Firefox) setup completed by WebDriver Manager");
-            WebDriverManager.firefoxdriver().setup();
-        }
 
         if (options == null) {
             return new FirefoxDriver();

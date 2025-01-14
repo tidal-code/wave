@@ -29,10 +29,10 @@ public class SendKeysTest {
 
     @Test
     public void inputUsingSetText() {
-        find("id:myText1").click().clear().setText("Tidal-Wave");
+        find("id:myText1").clear().setText("Tidal Wave");
         find("id:text_submit_button").click();
         String textAfter = find("id:result").getText();
-        Assert.assertEquals("", "Tidal-Wave QA Team", textAfter);
+        Assert.assertEquals("", "Tidal Wave QA Team", textAfter);
     }
 
     @Test(expected = RuntimeException.class)

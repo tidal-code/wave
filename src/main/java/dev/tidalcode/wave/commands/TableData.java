@@ -33,7 +33,7 @@ public class TableData extends CommandAction implements Command<Table> {
 
     Function<CommandContext, Table> function = e -> {
         WebElement element = webElement.getElement(context);
-        String table = element.getAttribute("innerHTML");
+        String table = element.getDomAttribute("innerHTML");
         return new Table("<table>" + table + "</table>");
     };
 

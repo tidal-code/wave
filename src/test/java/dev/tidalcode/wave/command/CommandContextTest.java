@@ -1,7 +1,7 @@
 package dev.tidalcode.wave.command;
 
-import com.tidal.flow.assertions.Soft;
-import com.tidal.flow.assertions.stackbuilder.ErrorStack;
+import dev.tidalcode.flow.assertions.Soft;
+import dev.tidalcode.flow.assertions.stackbuilder.ErrorStack;
 import org.junit.Test;
 
 import java.util.LinkedList;

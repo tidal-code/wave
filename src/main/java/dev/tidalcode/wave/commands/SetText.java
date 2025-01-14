@@ -41,7 +41,7 @@ public final class SetText extends CommandAction implements Command<Void> {
             timeCounter = new TimeCounter();
         }
 
-        Function<WebElement, String> currentInputValue = w -> w.getAttribute("value");
+        Function<WebElement, String> currentInputValue = w -> w.getDomAttribute("value");
 
         WebElement element = webElement.getElement(context);
         if (!currentInputValue.apply(element).equals(inputText)) {

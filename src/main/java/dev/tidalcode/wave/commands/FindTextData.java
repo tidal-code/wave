@@ -44,12 +44,12 @@ public final class FindTextData extends CommandAction implements Command<String>
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }
-        textContent = element.getAttribute("value");
+        textContent = element.getDomAttribute("value");
 
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }
-        textContent = element.getAttribute("innerHTML");
+        textContent = element.getDomAttribute("innerHTML");
 
         if (!isNullOrEmpty(textContent)) {
             return textContent;

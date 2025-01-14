@@ -45,12 +45,12 @@ public final class FindAllTextData extends CommandAction implements Command<List
         if (contentCheck.test(textContent)) {
             return textContent;
         }
-        textContent = elements.stream().map(v -> v.getAttribute("value")).collect(Collectors.toList());
+        textContent = elements.stream().map(v -> v.getDomAttribute("value")).collect(Collectors.toList());
 
         if (contentCheck.test(textContent)) {
             return textContent;
         }
-        textContent = elements.stream().map(v -> v.getAttribute("innerHTML")).collect(Collectors.toList());
+        textContent = elements.stream().map(v -> v.getDomAttribute("innerHTML")).collect(Collectors.toList());
 
         return textContent;
     };
