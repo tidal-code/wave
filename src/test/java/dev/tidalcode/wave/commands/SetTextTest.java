@@ -42,6 +42,17 @@ public class SetTextTest {
         Assert.assertEquals("", "Tidal-Wave QA Team", textAfter);
     }
 
+    @Test
+    public void inputUsingSetTextWithoutValue() {
+        String textInputLocator = "id:myText4";
+        find(textInputLocator).click().clear().setText("Extra");
+        String buttonLocator = "id:text_submit_button";
+        find(buttonLocator).click();
+
+        String textAfter = find("id:result").getText();
+        Assert.assertEquals("", "Tidal Wave QA Team Extra", textAfter);
+    }
+
     @Test(expected = RuntimeException.class)
     public void inputUsingSetTextShouldFail() {
         find("id:myText1").waitFor(6).click().clear().setText("Tidal-Wave" + Keys.TAB);
