@@ -41,20 +41,20 @@ public final class SetText extends CommandAction implements Command<Void> {
             timeCounter = new TimeCounter();
         }
 
-        Function<WebElement, String> currentInputValue = w -> w.getDomAttribute("value");
+        Function<WebElement, String> currentPropertyValue = w -> w.getDomProperty("value");
 
         WebElement element = webElement.getElement(context);
-        if (!currentInputValue.apply(element).equals(inputText)) {
+        if (!currentPropertyValue.apply(element).equals(inputText)) {
             element.sendKeys(inputText);
         }
         if (timeCounter.timeElapsed(Duration.ofSeconds(2))) {
-            int existingCharsLength = currentInputValue.apply(element).length();
+            int existingCharsLength = currentPropertyValue.apply(element).length();
             for (int i = 0; i < existingCharsLength; i++) {
                 element.sendKeys(Keys.BACK_SPACE);
             }
             element.sendKeys(inputText);
         }
-        if (!currentInputValue.apply(element).equals(inputText)) {
+        if (!currentPropertyValue.apply(element).equals(inputText)) {
             element.clear();
             throw new SetTextException("Error when tried to input text using setText method");
         }
