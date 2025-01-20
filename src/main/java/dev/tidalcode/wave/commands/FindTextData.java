@@ -36,26 +36,34 @@ public final class FindTextData extends CommandAction implements Command<String>
     }
 
     Function<CommandContext, String> function = e -> {
-        String textContent;
-
         WebElement element = webElement.getElement(context);
-        textContent = element.getText();
 
+        String textContent = element.getText();
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }
+
+        textContent = element.getDomProperty("value");
+        if (!isNullOrEmpty(textContent)) {
+            return textContent;
+        }
+
         textContent = element.getDomAttribute("value");
-
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }
+
+        textContent = element.getDomProperty("innerHTML");
+        if (!isNullOrEmpty(textContent)) {
+            return textContent;
+        }
+
         textContent = element.getDomAttribute("innerHTML");
-
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }
-        textContent = (String) ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("return arguments[0].innerHTML;", element);
 
+        textContent = (String) ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript("return arguments[0].innerHTML;", element);
         if (!isNullOrEmpty(textContent)) {
             return textContent;
         }

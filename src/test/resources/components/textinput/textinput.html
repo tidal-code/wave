@@ -15,6 +15,7 @@
     First Name: <input data-id="dataid123XXXXX" id="myText1" type="text" value="Tidal Wave"/><br>
     Middle Name: <input id="myText2" type="text" value="QA"/><br>
     Last Name: <input id="myText3" type="text" value="Team"/><br>
+    Pet: <input id="myText4" type="text"/><br>
     <button id="text_submit_button" onclick="displayValue()" type="button">Submit</button>
 </form>
 
@@ -22,7 +23,7 @@
 
 <script>
         function displayValue() {
-            var x = document.getElementById("myText1").value + " " + document.getElementById("myText2").value + " " + document.getElementById("myText3").value;
+            var x = document.getElementById("myText1").value + " " + document.getElementById("myText2").value + " " + document.getElementById("myText3").value + " " + document.getElementById("myText4").value;
             document.getElementById("result").innerHTML = x;
         }
 

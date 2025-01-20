@@ -37,7 +37,7 @@ public final class SetValue extends CommandAction implements Command<Void> {
     }
 
     Function<CommandContext, Void> function = e -> {
-        Function<WebElement, String> expectedValue = v -> v.getDomAttribute("value");
+        Function<WebElement, String> expectedValue = v -> v.getDomProperty("value");
 
         WebElement element = webElement.getElement(context);
         ((JavascriptExecutor) ((RemoteWebElement) element).getWrappedDriver()).executeScript(String.format("arguments[0].value='%s';", inputText), element);

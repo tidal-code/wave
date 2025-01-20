@@ -36,7 +36,8 @@ public final class GetAttribute extends CommandAction implements Command<String>
 
     Function<CommandContext, String> function = e -> {
         WebElement element = webElement.getElement(context);
-        return element.getDomAttribute(attributeName);
+        String attribute = element.getDomAttribute(attributeName);
+        return attribute != null ? attribute : element.getDomProperty(attributeName);
     };
 
     @Override
