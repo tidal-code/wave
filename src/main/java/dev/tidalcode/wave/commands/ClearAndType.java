@@ -38,10 +38,16 @@ public final class ClearAndType extends CommandAction implements Command<Void> {
         Function<WebElement, String> expectedValue = w -> w.getDomAttribute("value");
 
         WebElement element = webElement.getElement(context);
-        int currentCharsCount = expectedValue.apply(element).length();
 
-        for (int i = 0; i < currentCharsCount; i++) {
-            element.sendKeys(Keys.BACK_SPACE);
+        //To handle input elements with no 'value' attribute.
+        //If there is no value attribute, calling length() would cause 'NullPointer' exception.
+        if(null != expectedValue.apply(element)) {
+            int currentCharsCount = expectedValue.apply(element).length();
+            for (int i = 0; i < currentCharsCount; i++) {
+                element.sendKeys(Keys.BACK_SPACE);
+            }
+        } else {
+            element.clear();
         }
 
         for (CharSequence c : charSequences) {
