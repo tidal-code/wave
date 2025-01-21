@@ -7,10 +7,9 @@ on:
     types: [created]
 
 jobs:
-  build:
+  deploy:
 
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
       packages: write
@@ -28,10 +27,11 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-    - name: Set version
+    - name: Set Release Version
       run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
 
     - name: Publish Packages to Apache Maven
+      if: github.ref == 'refs/heads/main'
       run: mvn -P release --batch-mode deploy -DskipTests
       env:
         MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
