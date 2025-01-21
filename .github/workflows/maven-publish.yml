@@ -31,7 +31,6 @@ jobs:
       run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
 
     - name: Publish Packages to Apache Maven
-      if: github.ref == 'refs/heads/main'
       run: mvn -P release --batch-mode deploy -DskipTests
       env:
         MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
