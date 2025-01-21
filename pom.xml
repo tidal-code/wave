@@ -161,11 +161,17 @@
             <version>1.16.1</version>
         </dependency>
     </dependencies>
-<profiles>
-    <profile>
-        <id>release</id>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin}</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -190,8 +196,8 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
                         <include>FunctionTestSuite.class</include>
-                                                <include>BrowsersTestSuite.class</include>
-                                                <include>CommandsTestSuite.class</include>
+                        <include>BrowsersTestSuite.class</include>
+                        <include>CommandsTestSuite.class</include>
                     </includes>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -221,15 +227,13 @@
                 <artifactId>depgraph-maven-plugin</artifactId>
                 <version>4.0.2</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin}</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
+        </plugins>
+    </build>
+<profiles>
+    <profile>
+        <id>release</id>
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
