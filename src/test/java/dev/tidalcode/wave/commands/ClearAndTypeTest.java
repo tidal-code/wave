@@ -28,10 +28,20 @@ public class ClearAndTypeTest {
     }
 
     @Test
-    public void clearAndTypeTest() {
+    public void clearAndTypeTestWithValueAttribute() {
         String textInputLocator = "id:myText1";
-        find(textInputLocator).setText("ProvaTest");
-        Assert.assertEquals("ProvaTest", find(textInputLocator).getText());
+        find(textInputLocator).setText("Test");
+        Assert.assertEquals("Test", find(textInputLocator).getText());
+
+        find(textInputLocator).clearAndType("Hello World");
+        Assert.assertEquals("Hello World", find(textInputLocator).getText());
+    }
+
+    @Test
+    public void clearAndTypeTestWithoutValueAttribute() {
+        String textInputLocator = "id:myText4";
+        find(textInputLocator).setText("Test");
+        Assert.assertEquals("Test", find(textInputLocator).getText());
 
         find(textInputLocator).clearAndType("Hello World");
         Assert.assertEquals("Hello World", find(textInputLocator).getText());
