@@ -62,7 +62,7 @@ public class ThenFindAndThenFindAllTests {
     @Test
     public void findThenFindThenFindAttribute() {
         String text = find("#testid1").thenFind("id:testid2").thenFind("id:testid3").getAttribute("style");
-        Assert.assertEquals("color: blue;", text);
+        Assert.assertEquals("color:blue", text);
     }
 
     @Test
