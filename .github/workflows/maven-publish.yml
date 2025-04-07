@@ -4,7 +4,8 @@ name: Deployment To Central Repo
 
 on:
   release:
-    types: [created]
+    types: 
+      - published
 
 jobs:
   deploy:
