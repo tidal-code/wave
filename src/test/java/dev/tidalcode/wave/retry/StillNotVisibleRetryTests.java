@@ -28,7 +28,7 @@ public class StillNotVisibleRetryTests {
     }
 
     @Test
-    public void retryTestIfVisible() {
+    public void retryTestIfNotVisible() {
         find("#textInput2").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(notVisible("#buttonId"), 3);
         find("#buttonId").shouldBe(visible);
     }

@@ -28,7 +28,7 @@ public class StillNotPresentRetryTests {
     }
 
     @Test
-    public void retryTestIfVisible() {
+    public void retryTestIfNotPresent() {
         find("#textInput").clear().sendKeys("Retry test").clear().sendKeys("QA").retryIf(notPresent("id:newElement"), 3);
         find("id:newElement").shouldBe(present);
     }
