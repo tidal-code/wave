@@ -16,9 +16,9 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up JDK 11
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '11'
         distribution: 'temurin'
@@ -29,11 +29,20 @@ jobs:
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
     - name: Set Release Version
-      run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
+      run: ./mvnw -B versions:set -DgenerateBackupPoms=false -DnewVersion=${{ github.event.release.tag_name }}
 
     - name: Publish Packages to Apache Maven
-      run: mvn -P release --batch-mode deploy -DskipTests
+      run: ./mvnw -B -P release deploy -DskipTests
       env:
         MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
+
+    - name: Upload Central bundle for debugging
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: central-bundle
+        path: target/**/central-bundle.zip
+        if-no-files-found: warn
+        retention-days: 7
