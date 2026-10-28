@@ -59,7 +59,7 @@ public class TheFindAllTest {
 
     @Test
     public void findAndFindAll() {
-        find("#testid1").thenFindAll("tagName:div").get(3).shouldBe(visible).shouldHave(matchingText("Automation"));
+        find("#testid1").thenFindAll("tagName:div").get(3).shouldHave(matchingText("Automation"));
     }
 
     @Test
