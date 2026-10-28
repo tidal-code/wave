@@ -39,7 +39,7 @@
         <java.version>11</java.version>
 
         <maven-surefire-plugin>3.5.4</maven-surefire-plugin>
-        <maven-compiler-plugin>3.14.1</maven-compiler-plugin>
+        <maven-compiler-plugin>3.16.0</maven-compiler-plugin>
         <cucumber-version>7.33.0</cucumber-version>
         <allure-version>2.32.0</allure-version>
         <allure.maven.version>2.17.0</allure.maven.version>
